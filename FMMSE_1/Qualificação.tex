@@ -1,0 +1,1947 @@
+\documentclass[
+	% -- opções da classe memoir --
+  article,
+	12pt,				% tamanho da fonte
+	%openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,			% para impressão em um só lado. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	brazil,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+%   english,			% o último idioma é o principal do documento
+	portuguese				% o último idioma é o principal do documento
+	]{abntex2}
+
+
+
+
+% ---
+% PACOTES
+% ---
+
+
+
+% ---
+% Pacotes fundamentais para o abnTeX (não mexer)
+% ---
+\usepackage{lmodern}			                      % Usa a fonte Latin Modern
+% \usepackage{mathptmx}                                 % Fonte times new romam no texto
+\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries} % Fonte times new romam em negrito nos itens
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage{csquotes}
+\usepackage{bm}
+
+% ---
+
+% ---
+% Pacotes do usuário (pode mexer)
+% ---
+\usepackage{setspace}
+\usepackage{grffile}            % para não mostrar o endereço local da figura na legenda
+
+% Pacotes de equações e símbolos matemáticos
+\usepackage{bm}
+\usepackage{isomath}
+\usepackage{amsmath}
+\DeclareMathOperator{\Tr}{Tr}
+\usepackage{bbm}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{enumitem}
+\usepackage{mathtools}
+% Add after your other packages in the preamble section
+\usepackage{fancyhdr}
+\title{\Large\bfseries Fundamentos da Mecânica dos Sólidos e Estruturas}
+
+
+% Configure headers and footers with section name and page number
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\renewcommand{\headrulewidth}{0.5pt} % Line at the top
+\fancyhead[L]{\thepage} % Page number in left header
+\fancyhead[R]{\small\itshape\rightmark} % Section name in right header
+% Remove footer page number: \fancyfoot[C]{\thepage}
+
+% Make plain pages consistent
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{\thepage}% Page number in left header
+  \fancyhead[R]{\small\itshape\rightmark}%
+  % Remove footer page number: \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0.5pt}%
+}
+
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+
+
+
+% ---
+% Pacotes de citações (se for trabalho para o Brasil, não mexer)
+% ---
+%\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+%\usepackage[alf]{abntex2cite}			         % Citações padrão ABNT
+
+\usepackage[style=abnt, language=portuguese]{biblatex}
+% Define document metadata
+\autor{Diego Dias Veloso}
+\titulo{Fundamentos da Mecânica dos Sólidos e Estruturas}
+\data{\today}  % or specify a date like {2023}
+
+% Optional but commonly used in ABNTeX2 documents
+\orientador{PhD. Sérgio Persional Baronchinni Proença}
+\instituicao{Universidade de São Paulo}
+\tipotrabalho{Fundamentos da Mecânica dos Sólidos e Estruturas}  % e.g., Dissertação, Tese, etc.
+
+%\bibliography{projeto}
+\addbibresource{Qualificação.bib}
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% Para iniciar capítulos na mesma página, pulando apenas uma linha
+\setlength\afterchapskip{\lineskip}
+
+%% ---
+%% Configurações do pacote backref
+%% Usado sem a opção hyperpageref de backref
+%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+%% Texto padrão antes do número das páginas
+%\renewcommand{\backref}{}
+%% Define os textos da citação
+%\renewcommand*{\backrefalt}[4]{
+%	\ifcase #1 %
+%		Nenhuma citação no texto.%
+%	\or
+%		Citado na página #2.%
+%	\else
+%		Citado #1 vezes nas páginas #2.%
+%	\fi}%
+%% ---
+
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+    pdfsubject={\imprimirpreambulo},
+	pdfcreator={LaTeX with abnTeX2},
+		%pdfkeywords={abnt}{latex}{abntex}{abntex2}{projeto de pesquisa}, 
+		colorlinks=true,       		    % false: boxed links; true: colored links
+    	linkcolor=blue,          		% color of internal links
+    	citecolor=blue,        			% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+% ---
+
+% ---
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+%
+\newcommand{\quadroname}{Table}
+\newcommand{\listofquadrosname}{Lista de quadros}
+
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space} 
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+
+\setfloatlocations{quadro}{hbtp} % Ver https://github.com/abntex/abntex2/issues/176
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.30cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+
+
+
+%% ---
+%% Símbolos matemáticos (pode mexer)
+%% ---
+%\newcommand{\matr}[1]{\bm{#1}}
+%\newcommand{\sig}{\matr{\sigma}}
+%\newcommand{\pd}[2]{\dfrac{\partial{#1}}{\partial{#2}}}
+%\newcommand{\EE}{\matr{\dot{E}}}
+%\newcommand{\EEp}{\matr{\dot{E}}^{\prime}}
+%\newcommand{\EEm}{\dot{E}_m}
+%\newcommand{\EEq}{\dot{E}_{eq}}
+%\newcommand{\epsG}{\matr{\dot{\epsilon}}_G}
+%\newcommand{\eps}[1]{\matr{\dot{\epsilon}}^{#1}}
+%\newcommand{\Sig}{\matr{\Sigma}}
+
+
+
+
+
+% ----
+% INÍCIO DO DOCUMENTO
+% ----
+\begin{document}
+% Generate simple title
+\imprimircapa
+\imprimirfolhaderosto
+\clearpage
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+% \selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+\DoubleSpacing
+
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+\pretextual % este comando pode ser comentado caso haja algum erro no compilador
+
+% ---
+% Sumário (OBRIGATÓRIO)
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+
+
+% ----------------------------------------------------------
+% Caso não queira numerar a Introdução
+% ----------------------------------------------------------
+%\chapter*[Introdução]{Introdução}
+%\addcontentsline{toc}{chapter}{Introdução}
+
+\section{Introdução}
+A Mecânica dos Sólidos é um ramo da física a qual estuda o comportamento de sólidos deformáveis
+sob a ação diversa de forças externas. No contexto da Engenharia de Estruturas e da Mecânica Computacional,
+a Mecânica dos Sólidos é o campo que fornece todo o ferramental teórico necessário para o entendimento do comportamento das estruturas e
+dos materiais. Além disso, essa base permite que ao pesquisador propor novos modelos e teorias que discrevam diferentes problemas.
+
+No campo da Mecânica dos Sólidos, em sua grande parte seus fundamentos teóricos são descritos a partir de conceitos da algebra linear,
+como por exemplo, espaços vetoriais e operações entre tensores. Nesse sentido, o presente trabalho tem como objetivo apresentar
+os conceitos fundamentais da algebra linear, com foco em operações entre tensores, de modo a permitir ao pesquisador um entendimento mais profundo
+dos conceitos fundamentais da Mecânica dos Sólidos e da Mecânica Computacional e, consequentemente, a possibilidade de propor novos modelos e teorias.
+\subsection{Aspectos teóricos}
+No presente tópico, serão apresentados conceitos fundamentais que serão utilizados ao longo do texto. Objetivando uma apresentação 
+mais clara e objetiva ao longo do texto, provas e demonstrações de teoremas e propriedades não serão apresentadas. Portando, tais demonstrações
+mais relevantes serão aqui apresentadas. 
+
+\subsubsection{Sistema de coordenadas Cartesiano}
+Um sistema de coordenadas Cartesiano para o espaço Euclidiano \(\mathbb{R}^3\) é definido por três vetores unitários ortogonais, tais que
+obedeçam as seguintes relações \cite{anand_continuum_2020}:
+
+\begin{equation}
+    \mathbf{e}_i \cdot \mathbf{e}_j = \delta_{ij} \quad \text{com } i,j = 1,2,3,
+    \quad \text{e} \quad \mathbf{e}_i \cdot \left(\mathbf{e}_j\times\mathbf{e}_k\right) = \epsilon_{ijk}
+\end{equation}
+onde \(\delta_{ij}\) é o delta de Kronecker e \(\epsilon_{ijk}\) é o símbolo de Levi-Civita, definidos por:
+\begin{equation}
+    \delta_{ij} = 
+    \begin{cases}
+        1, & \text{se } i = j, \\
+        0, & \text{se } i \neq j,
+    \end{cases}
+\end{equation}
+e
+\begin{equation}
+    \epsilon_{ijk} = 
+    \begin{cases}
+        1, & \text{se } (i,j,k) = (1,2,3), (2,3,1) \text{ou} (3,1,2) \\
+        -1, & \text{se } (i,j,k) = (2,1,3),(1,3,2) \text{ou} (3,2,1), \\
+        0, & \text{se um índice se repete}.
+    \end{cases}
+\end{equation}
+
+\subsubsection{Convenção de Einstein}
+A convenção de Einstein é uma notação utilizada para simplificar a escrita de expressões matemáticas envolvendo somas.
+Essa convenção estabelece que, quando um índice aparece duas vezes em uma expressão, deve-se realizar a soma sobre esse índice. 
+Por exemplo, a expressão \(A_{ij}B_{jk}\) implica que deve-se somar sobre o índice \(j\), resultando em 
+\(A_{ij}B_{jk} = \sum_{j=1}^{n} A_{ij}B_{jk}\).
+
+\subsubsection{Tensores}
+Um tensor é uma operação matemática que mapeia linearmente um vetor em outro vetor, ou seja:
+\begin{equation}
+    \mathbf{T} : \mathbb{R}^n \to \mathbb{R}^m
+\end{equation}
+onde, para que o tensor respeite a condição de linearidade, deve-se ter que:
+\begin{equation}
+    \mathbf{T}(\alpha \mathbf{u} + \beta \mathbf{v}) = \alpha \mathbf{T}(\mathbf{u}) + \beta \mathbf{T}(\mathbf{v})
+\end{equation}
+
+\subsubsection{Produto tensorial}
+Um tensor pode ser obtido  a partir do produto tensorial de dois vetores, ou seja:
+\begin{equation}
+    \mathbf{a}\otimes\mathbf{b} = a_i \, b_j \, \mathbf{e}_i \otimes \mathbf{e}_j.
+\end{equation}
+Nesse sentido, ainda é interessante notar a seguinte propriedade do produto tensorial:
+
+\begin{equation}
+    \left(\mathbf{a}\otimes\mathbf{b}\right)\mathbf{c} = \left(\mathbf{b}\cdot\mathbf{c}\right)\mathbf{a}\quad ,
+\end{equation}
+ou seja, o tensor \(\mathbf{a}\otimes\mathbf{b}\) mapeia o vetor \(\mathbf{c}\) em um multiplo do vetor \(\mathbf{a}\),
+onde o multiplo é dado pela projeção do vetor \(\mathbf{c}\) sobre o vetor \(\mathbf{b}\).
+
+\subsubsection{Produto interno}
+O produto interno entre dois vetores é o resultado escalar da projeção de um vetor \(\mathbf{a}\) sobre um vetor \(\mathbf{b}\), sendo dado por:
+\begin{equation}
+    \mathbf{a}\cdot\mathbf{b} = a_i \, b_i \quad \text{ou} \quad \mathbf{a}\cdot\mathbf{b} = \sum_{i=1}^{n} a_i \, b_i.
+\end{equation}
+
+\subsubsection{Transposição de tensores}
+O transposto de um tensor é um tensor tal que a seguinte propriedade seja satisfeita:
+\begin{equation}
+    \mathbf{u}\cdot\mathbf{T}\mathbf{v} = \mathbf{v} \cdot \mathbf{T}^T\mathbf{u}
+\end{equation}
+
+As componentes de \(\mathbf{S}^T\) são dadas por:
+\begin{equation}
+    \mathbf{S}^T = \left(S_{ij}\,\mathbf{e}_i\otimes\mathbf{e}_j \right)^T
+    = S_{ji}\,\mathbf{e}_i\otimes\mathbf{e}_j
+\end{equation}
+
+\subsubsection{Componentes de tensores}
+As componentes de um tensor são dadas por:
+\begin{equation}
+    T_{ij} \coloneq \mathbf{e}_i \cdot \mathbf{T} \, \mathbf{e}_j.
+\end{equation}
+
+Já o tensor \(\mathbf{T}\) pode ser escrito em termos de suas componentes como:
+\begin{equation}
+    \mathbf{T} = T_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j.
+\end{equation}
+
+\subsubsection{Operador Traço}
+Operador traço é definido como uma operação linear, tal que satisfaça:
+\begin{equation}
+    \operatorname{tr}\left(\mathbf{u}\,\otimes\mathbf{v}\right) = \mathbf{u}\cdot\mathbf{v}.
+\end{equation} 
+
+o qual, para satisfazer a propriedade de linearidade, este deve ser tal que:
+\begin{equation}
+    \operatorname{tr}\left(\alpha\mathbf{A} + \beta\mathbf{B}\right) 
+    = \alpha\operatorname{tr}\left(\mathbf{A}\right) + \beta\operatorname{tr}\left(\mathbf{B}\right).
+\end{equation}
+
+\subsubsection{Algumas Propriedades}
+A seguir são apresentadas algumas propriedades de tensores que serão utilizadas ao longo do texto e que são mais
+desenvolvidas em \cite{proenca_2020} e \cite{anand_continuum_2020}:
+
+\begin{itemize}
+    \item \textbf{Propriedade 1:}  
+    \begin{equation}
+        \left(\mathbf{u}\otimes\mathbf{v}\right)^T = \mathbf{v} \otimes \mathbf{u}
+    \end{equation}
+    \item \textbf{Propriedade 2 :}  
+    \begin{equation}
+        \left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w}\cdot\mathbf{d} = \mathbf{w}\cdot\left(\mathbf{v}\otimes\mathbf{u}\right)\mathbf{d} 
+    \end{equation}
+    \item \textbf{Propriedade 3 :}  
+    \begin{equation}
+        \left(\mathbf{u}\otimes\mathbf{v}\right)\left(\mathbf{c}\otimes\mathbf{d}\right) = \left(\mathbf{v}\cdot\mathbf{c}\right)\left(\mathbf{u}\otimes\mathbf{d}\right) 
+    \end{equation}
+\end{itemize}
+
+
+\section{Resoluções}
+A seguir são apresentadas as resoluções dos problemas propostos na primeira lista de exercícios da disciplina de Fundamentos da Mecânica dos Sólidos e Estruturas,
+\subsection{Exercício 1}
+Mostre que:
+
+\begin{enumerate}[label=\alph*)]
+    \item \quad $(\mathbf{S\,T})_{ij} = S_{ik}\,T_{kj}$
+    \item \quad $\delta_{ij}\,\delta_{ij} = \delta_{ii}$.
+    \item \quad $(\mathbf{a}\otimes \mathbf{b})_{ij} = a_i\,b_j$.
+    \item \quad $\mathbf{S}\cdot \mathbf{T} = S_{ij}\,T_{ij}$ \quad (Obs.: $\mathbf{S}\cdot \mathbf{T} = \operatorname{tr}(\mathbf{S}^T\,\mathbf{T})$).
+\end{enumerate}
+
+
+\begin{itemize}
+    \item \textbf{a)} $(\mathbf{S\,T})_{ij} = S_{ik}\,T_{kj}$:
+\end{itemize}
+
+Dado um tensor \(\mathbf{A}\), suas componentes \(A_{ij}\) são dadas por:
+\begin{equation}
+    A_{ij} \coloneq \mathbf{e}_i \cdot \mathbf{A} \, \mathbf{e}_j.
+\end{equation}
+
+O tensor \(\mathbf{A}\) pode ser escrito como o produto de outros dois tensores, \(\mathbf{S}\) e \(\mathbf{T}\), de modo que:
+\begin{equation}
+    \mathbf{A}_{ij} = \mathbf{e}_i \cdot \left(\mathbf{S\,T}\right)\mathbf{e}_j.
+\end{equation}
+
+Agora, escrevendo os tensores \(\mathbf{S}\) e \(\mathbf{T}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \mathbf{S} = S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l \quad \text{e} \quad \mathbf{T} = T_{mn} \, \mathbf{e}_m \otimes \mathbf{e}_n \quad ,
+\end{equation}
+de modo que a equação \(\mathbf{e}_i \cdot \left(\mathbf{S\,\mathbf{T}}\right)\,\mathbf{e}_j\) pode ser reescrita como:
+\begin{equation}
+    \mathbf{e}_i \cdot \left(S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l\,T_{mn} \, \mathbf{e}_m \otimes \mathbf{e}_n\right) \,\mathbf{e}_j.
+\end{equation}
+
+Pela propriedade do produto de dois tensores, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\left(\mathbf{c}\otimes\mathbf{d}\right) = \left(\mathbf{v}\cdot\mathbf{c}\right)\left(\mathbf{u}\otimes\mathbf{d}\right)\),   
+a equação acima pode ser reescrita como:
+\begin{equation}
+    \mathbf{e}_i \cdot \left(S_{kl} \,T_{mn}\,\left(\mathbf{e}_l\cdot\mathbf{e}_m\right) \left(\mathbf{e}_k \otimes \mathbf{e}_n\right)\right) \,\mathbf{e}_j.
+\end{equation}
+
+Pela propriedade de ortogonalidade dos vetores base, \(\mathbf{e}_l\cdot\mathbf{e}_m = \delta_{lm}\), a equação acima pode ser reescrita como:
+\begin{equation}
+    \mathbf{e}_i \cdot \left(S_{kl} \,T_{mn}\,\delta_{lm} \left(\mathbf{e}_k \otimes \mathbf{e}_n\right)\right) \,\mathbf{e}_j.
+\end{equation}
+
+Pela propriedade de permutação dos indices do delta de Kronecker, \(\delta_{ij} \, S_{jk} = S_{ik}\) e também já 
+aplicando a propriedade \(\left(\mathbf{u}\otimes\mathbf{v}\right)\,\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\,\mathbf{u}\) , 
+a equação é reescrita da seguinte forma:
+\begin{equation}
+    \mathbf{e}_i \cdot \left(S_{kl} \,T_{ln}\,\left(\mathbf{e}_n \cdot \mathbf{e}_j\right)\right) \,\mathbf{e}_k.
+\end{equation}
+
+Aplicando novamente a propriedade \(\mathbf{e}_i\cdot\mathbf{e}_j = \delta_{ij}\) e permutando os índices, se tem :
+\begin{equation}
+    \mathbf{e}_i \cdot \left(S_{kl} \,T_{lj} \right) \,\mathbf{e}_k.
+\end{equation}
+
+Mais uma vez aplicando a propriedade \(\mathbf{e}_i\cdot\mathbf{e}_j = \delta_{ij}\) e já permutando os índices, 
+se tem :
+\begin{equation}
+    S_{il} \,T_{lj}
+\end{equation}
+
+Podendo-se livremente cambiar o índice \(l\) por \(k\), conclui-se que 
+\(\left(\mathbf{S\,T}\right)_{ij} = S_{ik}\,T_{kj}\)
+\begin{itemize}
+    \item \textbf{b)} $\delta_{ij}\,\delta_{ij} = \delta_{ii}$:
+\end{itemize}
+
+O tensor \(\delta_{ij}\), denominado por delta de Kronecker, é definido por:
+\begin{equation}
+    \delta_{ij} = 
+    \begin{cases}
+        1, & \text{se } i = j, \\
+        0, & \text{se } i \neq j.
+    \end{cases}
+\end{equation}
+
+Como os indices \(i\) e \(j\) são mudos, ou seja, estão repetidos, há uma soma implícita sobre eles. Assim, 
+a expressão \(\delta_{ij}\,\delta_{ij}\) é equivalente a 
+\begin{equation}
+    \delta_{ij}\,\delta_{ij} =  \sum_{i=1}^{n} \sum_{j=1}^{n} \delta_{ij}\,\delta_{ij} = \sum_{i=1}^{n} \sum_{j=1}^{n} \delta_{ii} = \sum_{i=1}^{n} \delta_{ii} = \delta_{11} + \delta_{22} + \delta_{33} + \ldots + \delta_{nn} = n. 
+\end{equation}
+
+A equação acima, em notação de Einstein, pode ser resumida em \(\delta_{ii}\), ou seja, 
+\(\delta_{ij}\,\delta_{ij} = \delta_{ii}\).
+\begin{itemize}
+    \item \textbf{c)} $(\mathbf{a}\otimes \mathbf{b})_{ij} = a_i\,b_j$.
+\end{itemize}
+
+Pode-se escrever o produto tensorial \(\mathbf{a}\otimes \mathbf{b}\) como sendo equivalente a um tensor \(\mathbf{T}\) de componentes \(T_{ij}\) dadas por:
+\begin{equation}
+    T_{ij} \coloneq \mathbf{e}_i \cdot \mathbf{T} \, \mathbf{e}_j = \mathbf{e}_i \cdot \left(\mathbf{a}\otimes \mathbf{b}\right) \, \mathbf{e}_j 
+    = \mathbf{e}_i \cdot \left(a_k \,b_l \, \mathbf{e}_k \otimes \mathbf{e}_l \right) \, \mathbf{e}_j.
+\end{equation}
+
+Portanto, se tem que:
+\begin{equation}
+    \left(\mathbf{a}\otimes \mathbf{b}\right)_{ij} = \mathbf{e}_i \cdot \left(a_k \,b_l \, \mathbf{e}_k \otimes \mathbf{e}_l \right) \, \mathbf{e}_j 
+    \label{eq:1}
+\end{equation}
+
+Pela definição de produto tensorial, tem-se que:
+\begin{equation}
+    \left(\mathbf{a}\otimes \mathbf{b}\right)\mathbf{c} = \left(\mathbf{b}\cdot \mathbf{c}\right)\mathbf{a}.
+\end{equation}
+
+Desse modo, a equação \eqref{eq:1} pode ser reescrita como:
+\begin{equation}
+    a_k \,b_l \, \mathbf{e}_i \cdot \left(\mathbf{e}_l \, \cdot \mathbf{e}_j\right)\, \mathbf{e}_k
+    \label{eq:2}
+\end{equation}
+
+Pela propriedade de ortogonalidade dos vetores base, tem-se que:
+\begin{equation}
+    \mathbf{e}_i \cdot \mathbf{e}_j = \delta_{ij}.
+\end{equation}
+
+Portanto, a equação \eqref{eq:2} pode ser reescrita, ja rearranjando os termos, como:
+\begin{equation}
+    a_k \,b_l \delta_{lj} \, \mathbf{e}_i \cdot \mathbf{e}_k = a_k \,b_l \, \delta_{lj} \, \delta_{ik}  
+    \label{eq:3}
+\end{equation}
+
+Pela propriedade de permutação dos indices do delta de Kronecker, tem-se que:
+\begin{equation}
+    \delta_{ik} \, S_{kj} = S_{ij}.
+\end{equation}
+
+Portanto, a equação \eqref{eq:3} pode ser reescrita como:
+\begin{equation}
+    a_i \,b_j.
+\end{equation}
+
+Assim, conclui-se que \((\mathbf{a}\otimes \mathbf{b})_{ij} = a_i\,b_j\).
+\begin{itemize}
+    \item \textbf{d)} $\mathbf{S}\cdot \mathbf{T} = S_{ij}\,T_{ij}$:    
+\end{itemize}
+
+O produto interno entre dois tensores \(\mathbf{S}\) e \(\mathbf{T}\) é dado por:
+\begin{equation}
+    \mathbf{S}\cdot \mathbf{T} = \operatorname{tr}(\mathbf{S}^T\,\mathbf{T})
+    \label{eq:4}
+\end{equation}
+
+Escreevendo os tensores  \(\mathbf{S}\) e \(\mathbf{T}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \mathbf{S} = S_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j \quad \text{e} \quad \mathbf{T} = T_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l.
+\end{equation}
+
+Substituindo as expressões acima na equação \eqref{eq:4}, tem-se que:
+\begin{equation}
+    (\mathbf{S}\cdot \mathbf{T}) 
+    = \operatorname{tr}\left(\left(S_{ij}\right)^T\,\mathbf{e}_i\otimes \mathbf{e}_jT_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l\right).
+    \label{eq:5}
+\end{equation}
+
+Pela propriedade de transposição de tensores, tem-se que:
+\begin{equation}
+    \left(S_{ij}\,\mathbf{e}_i\otimes\mathbf{e}_j\right)^T = S_{ji}\,\mathbf{e}_i\otimes\mathbf{e}_j.
+\end{equation}
+
+Portanto, a equação \eqref{eq:5} pode ser reescrita como:
+\begin{equation}
+    \operatorname{tr}\left(S_{ji}\,\mathbf{e}_i\otimes\mathbf{e}_j\,T_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l\right).
+    \label{eq:6}
+\end{equation}
+
+Pela propriedade do produto de dois tensores, tem-se que:
+\begin{equation}
+    \left(\mathbf{u}\otimes\mathbf{v}\right)\left(\mathbf{c}\otimes\mathbf{d}\right) 
+    = \left(\mathbf{v}\cdot\mathbf{c}\right)\left(\mathbf{u}\otimes\mathbf{d}\right).
+\end{equation}
+
+Portanto, a equação \eqref{eq:6} pode ser reescrita como:
+\begin{equation}
+    \operatorname{tr}\left(S_{ji}\,T_{kl}\,\underbrace{\left(\mathbf{e}_j\cdot\mathbf{e}_k\right)}_{\delta_{jk}}\, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right)\right)
+    \label{eq:7}
+\end{equation}
+na qual foi usada a propriedade de ortogonalidade dos vetores base,, ou seja, \(\mathbf{e}_j\cdot\mathbf{e}_k = \delta_{jk}\). 
+Todos os valores escalares presentes dentro do operador traço podem ser retirados, de modo que a equação \eqref{eq:7} pode ser reescrita como:
+\begin{equation}
+    S_{ji}\,T_{kl}\,\delta_{jk}\, \operatorname{tr}\left(\mathbf{e}_i \otimes \mathbf{e}_l\right)
+    \label{eq:8}
+\end{equation}
+operador traço é definido como uma operação linear, tal que satisfaça:
+\begin{equation}
+    \operatorname{tr}\left(\mathbf{u}\,\otimes\mathbf{v}\right) = \mathbf{u}\cdot\mathbf{v}.
+\end{equation} 
+
+Para satisfazer a propriedade de linearidade, este deve ser tal que:
+\begin{equation}
+    \operatorname{tr}\left(\alpha\mathbf{A} + \beta\mathbf{B}\right) 
+    = \alpha\operatorname{tr}\left(\mathbf{A}\right) + \beta\operatorname{tr}\left(\mathbf{B}\right).
+\end{equation}
+
+Portanto, a equação \eqref{eq:8} pode ser reescrita como:
+\begin{equation}
+    S_{ji}\,T_{kl}\,\delta_{jk}\, \delta_{il} .
+\end{equation}
+
+A partir dos operadores \(\delta_{jk}\) e \(\delta_{il}\), se tem que o indice \(k\) e \(l\) podem ser substituidos por, respectivamente, 
+\(j\) e \(i\), de modo que:
+\begin{equation}
+    \operatorname{tr}(\mathbf{S}^T\,\mathbf{T}) = S_{ji}\,T_{ji}.
+\end{equation}
+
+Assim, como os indices \(i\) e \(j\) são mudos, ou seja, estão repetidos, há uma soma implícita sobre eles. Portanto, estes podem ser
+livremente permutados sem que a soma sobre eles seja alterada. Assim, a equação acima pode ser reescrita como:
+\begin{equation}
+    \operatorname{tr}(\mathbf{S}^T\,\mathbf{T}) = S_{ij}\,T_{ij}.
+\end{equation}
+Portanto, conclui-se que \(\mathbf{S}\cdot \mathbf{T} = S_{ij}\,T_{ij}\).
+
+
+
+\subsection{Exercício 2}
+Desenvolva indicialmente as seguintes relações:
+
+\begin{enumerate}[label=\alph*)]
+    \item \quad $(\mathbf{S\,a})\otimes \mathbf{b}$
+    \item \quad $(\mathbf{a}\otimes \mathbf{b})\mathbf{S}$.
+    \item \quad $\mathbf{a}\otimes (\mathbf{S}^T \mathbf{b})$.
+    \item \quad $\mathbf{v} = \mathbf{S\,u}$.
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{a)} $(\mathbf{S\,a})\otimes \mathbf{b}$:
+\end{itemize}
+
+Inicialmente, pode-se realizar uma análise dimensional do problema. Inicialmente, verifica-se que a transformação aplicada
+por \(\mathbf{S}\) ao vetor \(\mathbf{a}\) resulta em um vetor, que por sua ver é realizado o produto tensorial com o vetor \(\mathbf{b}\).
+Portanto, a relação \((\mathbf{S\,a})\otimes \mathbf{b}\) resulta em um tensor.
+
+Escrevendo os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \mathbf{S} = S_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j, \quad \mathbf{a} = a_k \, \mathbf{e}_k \quad \text{e} \quad \mathbf{b} = b_l \, \mathbf{e}_l,
+\end{equation}
+de modo que, a relação \((\mathbf{S\,a})\otimes \mathbf{b}\) pode ser escrita como:
+\begin{equation}
+    \left[S_{ij} \, \left(\mathbf{e}_i \otimes \mathbf{e}_j\right) \, a_k \, \mathbf{e}_k\right] \otimes b_l \, \mathbf{e}_l.
+\end{equation}
+
+Rearranjando os escalares da relação e utilizando a definição de produto tensorial, a saber, 
+\(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\), tem-se que:
+\begin{equation}
+    S_{ij} \, a_k \, b_l \,\left[\left(\mathbf{e}_j \cdot \mathbf{e}_k\right) \mathbf{e}_i\right] \otimes \mathbf{e}_l.
+\end{equation}
+
+Pela propriedade de ortogonalidade dos vetores base, tem-se que \(\mathbf{e}_j \cdot \mathbf{e}_k = \delta_{jk}\), 
+de modo que a relação acima pode ser reescrita como:
+\begin{equation}
+    S_{ij} \, a_k \, b_l \,\delta_{jk} \, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+Pela propriedade do tensor de Kronecker, tem-se que o índice \(k\) pode ser substituído por \(j\), de modo que:
+\begin{equation}
+    S_{ij} \, a_j \, b_l \, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+Portanto, conclui-se que \((\mathbf{S\,a})\otimes \mathbf{b} = S_{ij} \, a_j \, b_l \, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right)\).
+\begin{itemize}
+    \item \textbf{b)} $(\mathbf{a}\otimes \mathbf{b})\mathbf{S}$:
+\end{itemize}
+
+Similarmente ao problema anterior, pode-se iniciar a resolução do problema a partir de uma análise dimensional,
+de modo a ser verificada a consistencia dimensional ao final. Inicialmente, verifica-se que o produto tensorial entre
+os vetores \(\mathbf{a}\) e \(\mathbf{b}\) resulta em um tensor, que por sua vez é multiplicado pelo tensor \(\mathbf{S}\).
+Portanto, a relação \((\mathbf{a}\otimes \mathbf{b})\mathbf{S}\) resulta em um tensor.
+
+Escrevendo os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \quad \mathbf{a} = a_i \, \mathbf{e}_i \quad , \quad \mathbf{b} = b_j \, \mathbf{e}_j \quad \text{e} \quad \mathbf{S} = S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l, 
+\end{equation}
+de modo que, a relação \((\mathbf{a}\otimes \mathbf{b})\mathbf{S}\) pode ser escrita como:
+\begin{equation}
+    \left[a_i \, \mathbf{e}_i \otimes b_j \, \mathbf{e}_j\right] \, S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l.
+\end{equation}
+
+Reaaranjando os termos da equação e já utilizando a relação 
+\(\left(\mathbf{u}\otimes\mathbf{v}\right)\left(\mathbf{c}\otimes\mathbf{d}\right) = \left(\mathbf{v}\cdot\mathbf{c}\right)\left(\mathbf{u}\otimes\mathbf{d}\right) \),
+tem-se que:
+\begin{equation}
+    a_i \, b_j \, S_{kl} \, \left[\left(\mathbf{e}_j \cdot \mathbf{e}_k\right) \, \mathbf{e}_i \otimes \mathbf{e}_l\right].
+\end{equation}
+
+Aplicando a relação \(\mathbf{e}_j\cdot\mathbf{e}_k = \delta_{jk}\) e já substituindo o índice \(k\) por \(j\), tem-se que:
+\begin{equation}
+    \left(\mathbf{a}\otimes \mathbf{b}\right)\mathbf{S} = a_i \, b_j \, S_{jl} \, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{c)} $\mathbf{a}\otimes (\mathbf{S}^T \mathbf{b})$:
+\end{itemize}
+Novamente, se parte de uma análise dimensional do problema. Inicialmente, verifica-se que a transformação aplicada
+por \(\mathbf{S}^T\) ao vetor \(\mathbf{b}\) resulta em um vetor, que por sua vez é realizado o produto tensorial com o vetor \(\mathbf{a}\).
+Portanto, a relação \(\mathbf{a}\otimes (\mathbf{S}^T \mathbf{b})\) resulta em um tensor.
+
+Escrevendo os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \quad \mathbf{a} = a_i \, \mathbf{e}_i \quad , \quad \mathbf{S} = S_{jk} \, \mathbf{e}_j \otimes \mathbf{e}_k \quad \text{e} \quad \mathbf{b} = b_l \, \mathbf{e}_l,
+\end{equation}
+de modo que, a relação \(\mathbf{a}\otimes (\mathbf{S}^T \mathbf{b})\) pode ser escrita como:
+\begin{equation}
+    a_i \, \mathbf{e}_i \otimes \left[\left(S_{jk}\, \mathbf{e}_j \otimes \mathbf{e}_k\right)^T  \, b_l \, \mathbf{e}_l\right].
+\end{equation}
+
+Da propriedade de transposição de tensores, tem-se que \(\left(S_{jk}\, \mathbf{e}_j \otimes \mathbf{e}_k\right)^T = S_{kj}\, \mathbf{e}_j \otimes \mathbf{e}_k\).
+Além disso, já aplicando a propriedade de produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot \mathbf{w}\right)\mathbf{u}\), 
+tem-se que:
+\begin{equation}
+    a_i \, \mathbf{e}_i \otimes \left[S_{kj}\,b_l \left(\mathbf{e}_k \cdot \mathbf{e}_l\right) \, \mathbf{e}_j\right].
+\end{equation}
+
+Notando que \(\mathbf{e}_k \cdot \mathbf{e}_l = \delta_{kl}\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    a_i \, S_{kj}\,b_l \, \delta_{kl} \, \left(\mathbf{e}_i \otimes \mathbf{e}_j\right).
+\end{equation}
+
+Pela propriedade do delta de Kronecker, tem-se que o índice \(l\) pode ser substituído por \(k\), de modo que:
+\begin{equation}
+    \mathbf{a}\otimes (\mathbf{S}^T \mathbf{b}) = a_i \, S_{kj}\,b_k \, \left(\mathbf{e}_i \otimes \mathbf{e}_j\right).
+\end{equation}
+
+
+\begin{itemize}
+    \item \textbf{d)} $\mathbf{v} = \mathbf{S\,u}$:
+\end{itemize}
+
+Desenvolvendo o lado direito da equação, inicia-se escrevendo os tensores \(\mathbf{S}\) e \(\mathbf{u}\) em termos de suas componentes, de modo que:
+\begin{equation}
+    \mathbf{S} = S_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j \quad \text{e} \quad \mathbf{u} = u_k \, \mathbf{e}_k.
+\end{equation}
+
+Portanto, a relação \(\mathbf{v} = \mathbf{S\,u}\) pode ser escrita como:
+\begin{equation}
+    \mathbf{v} = S_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j \, u_k \, \mathbf{e}_k.
+\end{equation}
+
+Reaaranjando os termos da equação e já utilizando a relação \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot \mathbf{w}\right)\mathbf{u}\), 
+tem-se que:
+\begin{equation}
+    \mathbf{v} = S_{ij} \, u_k \, \left[\left(\mathbf{e}_j \cdot \mathbf{e}_k\right) \, \mathbf{e}_i\right].
+\end{equation}
+
+Aplicando a relação \(\mathbf{e}_j\cdot\mathbf{e}_k = \delta_{jk}\) e já substituindo o índice \(k\) por \(j\), tem-se que:
+\begin{equation}
+    \mathbf{v} = S_{ij} \, u_j \, \mathbf{e}_i.
+\end{equation}
+
+\subsection{Exercício 3}
+Para \(i,j=1,2,3\) desenvolva as seguintes relações indiciais:
+
+
+\begin{enumerate}[label=\alph*)]
+    \item \quad $v_i = T_{ij}\,u_j$.
+    \item \quad $u_i\,v_j\,\delta_{ij}$.
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{a)} $v_i = T_{ij}\,u_j$:
+\end{itemize}
+Seguindo a notação de Einstein, a relação \(v_i = T_{ij}\,u_j\) indica que os indices \(i\) e \(j\) estão sendo somados, de modo que:
+\begin{equation}
+    v_i = \sum_{i=1}^{m} \sum_{j=1}^{n} T_{ij}\,u_j.
+\end{equation}
+
+Desenvolvendo as somas acima, tem-se que:
+\begin{equation}
+    \begin{aligned}
+    v_1 &= T_{11}\,u_1 + T_{12}\,u_2 + T_{13}\,u_3 + \ldots + T_{1n}\,u_n,\\[6pt]
+    v_2 &= T_{21}\,u_1 + T_{22}\,u_2 + T_{23}\,u_3 + \ldots + T_{2n}\,u_n,\\[6pt]
+    v_3 &= T_{31}\,u_1 + T_{32}\,u_2 + T_{33}\,u_3 + \ldots + T_{3n}\,u_n,\\[6pt]
+    \vdots\quad &\\[6pt]
+    v_m &= T_{m1}\,u_1 + T_{m2}\,u_2 + T_{m3}\,u_3 + \ldots + T_{mn}\,u_n.
+    \end{aligned}
+\end{equation}
+
+Adotando os indices \(i\) e \(j\) como variando de 1 a 3, tem-se que a relação \(v_i = T_{ij}\,u_j\) pode ser escrita como:
+\begin{equation}
+    \begin{aligned}
+    v_1 &= T_{11}\,u_1 + T_{12}\,u_2 + T_{13}\,u_3,\\[6pt]
+    v_2 &= T_{21}\,u_1 + T_{22}\,u_2 + T_{23}\,u_3,\\[6pt]
+    v_3 &= T_{31}\,u_1 + T_{32}\,u_2 + T_{33}\,u_3.
+    \end{aligned}
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{b)} $u_i\,v_j\,\delta_{ij}$:
+\end{itemize}
+Seguindo a notação de Einstein, a relação \(u_i\,v_j\,\delta_{ij}\) indica que os indices \(i\) e \(j\) estão sendo somados, de modo que:
+\begin{equation}
+    u_i\,v_j\,\delta_{ij} = \sum_{i=1}^{m} \sum_{j=1}^{n} u_i\,v_j\,\delta_{ij}.
+\end{equation}
+
+Desenvolvendo as somas acima, tem-se que:
+\begin{equation}
+    \begin{aligned}
+    u_1\,v_1\,\delta_{11} + u_1\,v_2\,\delta_{12} + u_1\,v_3\,\delta_{13} + \ldots + u_1\,v_n\,\delta_{1n}\\[6pt]
+    + \, u_2\,v_1\,\delta_{21} + u_2\,v_2\,\delta_{22} + u_2\,v_3\,\delta_{23} + \ldots + u_2\,v_n\,\delta_{2n}\\[6pt]
+    + \, u_3\,v_1\,\delta_{31} + u_3\,v_2\,\delta_{32} + u_3\,v_3\,\delta_{33} + \ldots + u_3\,v_n\,\delta_{3n}\\[6pt]
+    \vdots\quad \\[6pt]
+    + \, u_m\,v_1\,\delta_{m1} + u_m\,v_2\,\delta_{m2} + u_m\,v_3\,\delta_{m3} + \ldots + u_m\,v_n\,\delta_{mn}.
+    \end{aligned}
+\end{equation}
+
+Adotando os indices \(i\) e \(j\) como variando de 1 a 3, tem-se que a relação \(u_i\,v_j\,\delta_{ij}\) pode ser escrita como:
+\begin{equation}
+    \begin{aligned}
+    u_1\,v_1\,\delta_{11} + u_1\,v_2\,\delta_{12} + u_1\,v_3\,\delta_{13}\\[6pt]
+    + \, u_2\,v_1\,\delta_{21} + u_2\,v_2\,\delta_{22} + u_2\,v_3\,\delta_{23}\\[6pt]
+    + \, u_3\,v_1\,\delta_{31} + u_3\,v_2\,\delta_{32} + u_3\,v_3\,\delta_{33}.
+    \end{aligned}
+\end{equation}
+
+Percebendo que, pela propriedade do delta de Kronecker, \(\delta_{ij} = 1\) para \(i=j\) e \(\delta_{ij} = 0\) para \(i\neq j\), tem-se que:    
+\begin{equation}
+    u_1\,v_1 + u_2\,v_2 + u_3\,v_3,
+\end{equation}
+percebendo-se que, o mesmo resultado teria sido obtido se, utilizando a propriedade de subtituição indicial do tensor \(\delta\), 
+a relação fosse escrita como \(u_i\,v_i\). Nesta situação, a relação \(u_i\,v_j\) resulta na soma:
+\begin{equation}
+    u_i\,v_i = \sum_{i=1}^{m} u_i\,v_i.
+\end{equation}
+
+
+
+\subsection{Exercício 4}
+Verifique as seguintes igualdades explorando notações matricial e indicial para as grandezas envolvidas:
+
+\begin{enumerate}[label=\alph*)]
+    \item \quad $\mathbf{S}(\mathbf{a}\otimes \mathbf{b}) = \mathbf{S\,a}\otimes \mathbf{b}$.
+    \item \quad $(\mathbf{a}\otimes \mathbf{b})\mathbf{S} = \mathbf{a}\otimes \mathbf{S}^T \mathbf{b}$.
+    \item \quad $\mathbf{S}\,\mathbf{a}\cdot \mathbf{b} = \mathbf{a}\cdot \mathbf{S}^T \mathbf{b}$.
+    \item \quad $(\mathbf{a}\otimes \mathbf{b})\cdot(\mathbf{c}\otimes \mathbf{d}) = (\mathbf{a}\cdot \mathbf{c})(\mathbf{b}\cdot \mathbf{d})$.
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{a)} $\mathbf{S}(\mathbf{a}\otimes \mathbf{b}) = \mathbf{S\,a}\otimes \mathbf{b}$:
+\end{itemize}
+Inicialmente, pode-se realizar uma análise dimensional do problema. Inicialmente, do lado esquerdo da equação, 
+verifica-se que o tensor \(\mathbf{S}\) é multiplicado pelo tensor \(\mathbf{a}\otimes \mathbf{b}\), resultando em um tensor.
+Por outro lado, do lado direito da equação, verifica-se que a transformação aplicada por \(\mathbf{S}\) ao vetor \(\mathbf{a}\) 
+resulta em um vetor, que por sua vez é realizado o produto tensorial com o vetor \(\mathbf{b}\), resultando em um tensor.
+
+Escrevendo os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \mathbf{S} = S_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j, \quad \mathbf{a} = a_k \, \mathbf{e}_k \quad \text{e} \quad \mathbf{b} = b_l \, \mathbf{e}_l,
+\end{equation}
+
+Assim, primeiro desenvolvendo o lado esquerdo da equação, tem-se que:
+\begin{equation}
+    \mathbf{S}(\mathbf{a}\otimes \mathbf{b}) = S_{ij} \, \left(\mathbf{e}_i \otimes \mathbf{e}_j\right) \, \left(a_k \, \mathbf{e}_k \otimes b_l \, \mathbf{e}_l\right).
+\end{equation}
+
+Usando a relação da multiplicação de tensores, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\left(\mathbf{c}\otimes\mathbf{d}\right) = \left(\mathbf{v}\cdot\mathbf{c}\right)\left(\mathbf{u}\otimes\mathbf{d}\right)\) e
+rearranjando os termos, se tem que:
+\begin{equation}
+    S_{ij} \, a_k \, b_l \, \left(\mathbf{e}_j\cdot\mathbf{e}_k\right)\left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_j\cdot \mathbf{e}_k = \delta_{jk}\), substituindo o índice \(k\) por \(j\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    S_{ij} \, a_j \, b_l\, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+Agora, desenvolvendo o lado direito da equação, tem-se que:
+\begin{equation}
+    \mathbf{S\,a}\otimes \mathbf{b} = \left(S_{ij} \,\mathbf{e}_i \otimes \mathbf{e}_j a_k \, \mathbf{e}_k \right)\, \otimes b_l \,\mathbf{e}_l.
+\end{equation}
+
+Usando a definição do produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\),
+\begin{equation}
+    S_{ij} \, a_k \, b_l \, \left(\mathbf{e}_j\cdot\mathbf{e}_k\right)\left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_j\cdot \mathbf{e}_k = \delta_{jk}\), substituindo o índice \(k\) por \(j\) e rearranjando os termos da equação, tem-se que:
+
+\begin{equation}
+    S_{ij} \, a_j \, b_l\, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+Portanto, operando indicialmente, conclui-se que \(\mathbf{S}(\mathbf{a}\otimes \mathbf{b}) = \mathbf{S\,a}\otimes \mathbf{b}\). Agora, 
+realizando a operação matricialmente, intenta-se verificar a igualdade obtida indicialmente de forma matricial. Para tal, por conveniência,
+os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) serão representados por suas respectivas matrizes, de modo que:
+\begin{equation}
+    \left[\begin{matrix}S_{11} & S_{12} & S_{13}\\S_{21} & S_{22} & S_{23}\\S_{31} & S_{32} & S_{33}\end{matrix}\right] , \quad
+    \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right] \quad \text{e} \quad
+    \left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right]
+\end{equation}
+
+Desenvolvendo o lado esquerdo da equação, tem-se que:
+\begin{equation}
+    \mathbf{a}\otimes\mathbf{b} = \left[\mathbf{a}\right]\left[\mathbf{b}\right]^T
+    = \left[\begin{matrix}a_{1} b_{1} & a_{1} b_{2} & a_{1} b_{3}\\a_{2} b_{1} & a_{2} b_{2} & a_{2} b_{3}\\a_{3} b_{1} & a_{3} b_{2} & a_{3} b_{3}\end{matrix}\right]
+\end{equation}
+
+Operando agora a multiplicação \(\mathbf{S}(\mathbf{a}\otimes \mathbf{b})\), tem-se que:
+\begin{equation}
+    \scalebox{0.9}{$
+    \left[\begin{matrix}
+        b_{1}\left(S_{11} a_{1}  + S_{12} a_{2}  + S_{13} a_{3} \right) & b_{2}\left(S_{11} a_{1}  + S_{12} a_{2}  + S_{13} a_{3} \right) & b_{3}\left(S_{11} a_{1}  + S_{12} a_{2}  + S_{13} a_{3} \right)\\
+        b_{1}\left(S_{21} a_{1}  + S_{22} a_{2}  + S_{23} a_{3} \right) & b_{2}\left(S_{21} a_{1}  + S_{22} a_{2}  + S_{23} a_{3} \right) & b_{3}\left(S_{21} a_{1}  + S_{22} a_{2}  + S_{23} a_{3} \right)\\
+        b_{1}\left(S_{31} a_{1}  + S_{32} a_{2}  + S_{33} a_{3} \right) & b_{2}\left(S_{31} a_{1}  + S_{32} a_{2}  + S_{33} a_{3} \right) & b_{3}\left(S_{31} a_{1}  + S_{32} a_{2}  + S_{33} a_{3} \right)
+    \end{matrix}\right]
+    $}
+\end{equation}
+
+Desenvolvendo o lado direito da equação, tem-se que:
+\begin{equation}
+    = \left[\begin{matrix}S_{11} a_{1} + S_{12} a_{2} + S_{13} a_{3}\\S_{21} a_{1} + S_{22} a_{2} + S_{23} a_{3}\\S_{31} a_{1} + S_{32} a_{2} + S_{33} a_{3}\end{matrix}\right]
+\end{equation}
+
+Operando agora o produto tensorial \(\mathbf{S\,a}\otimes \mathbf{b}\), tem-se que:
+\begin{equation}
+    \scalebox{0.9}{$
+    \left[\begin{matrix}
+        b_{1} \left(S_{11} a_{1} + S_{12} a_{2} + S_{13} a_{3}\right) & b_{2} \left(S_{11} a_{1} + S_{12} a_{2} + S_{13} a_{3}\right) & b_{3} \left(S_{11} a_{1} + S_{12} a_{2} + S_{13} a_{3}\right)\\
+        b_{1} \left(S_{21} a_{1} + S_{22} a_{2} + S_{23} a_{3}\right) & b_{2} \left(S_{21} a_{1} + S_{22} a_{2} + S_{23} a_{3}\right) & b_{3} \left(S_{21} a_{1} + S_{22} a_{2} + S_{23} a_{3}\right)\\
+        b_{1} \left(S_{31} a_{1} + S_{32} a_{2} + S_{33} a_{3}\right) & b_{2} \left(S_{31} a_{1} + S_{32} a_{2} + S_{33} a_{3}\right) & b_{3} \left(S_{31} a_{1} + S_{32} a_{2} + S_{33} a_{3}\right)
+    \end{matrix}\right]
+    $}
+\end{equation}
+
+Portanto, conclui-se que \(\mathbf{S}(\mathbf{a}\otimes \mathbf{b}) = \mathbf{S\,a}\otimes \mathbf{b}\).
+\begin{itemize}
+    \item \textbf{b)} $(\mathbf{a}\otimes \mathbf{b})\mathbf{S} = \mathbf{a}\otimes \mathbf{S}^T \mathbf{b}$:
+\end{itemize}
+Inicialmente, pode-se realizar uma análise dimensional do problema. Inicialmente, do lado esquerdo da equação,
+verifica-se que o produto tensorial entre os vetores \(\mathbf{a}\) e \(\mathbf{b}\) resulta em um tensor, que
+por sua vez é multiplicado pelo tensor \(\mathbf{S\,a}\), resultando em um tensor. Por outro lado, do lado direito
+da equação, verifica-se que o vetor \(\mathbf{b}\) é transformado pelo tensor \(\mathbf{S}^T\), resultando em um vetor,
+que por sua vez é realizado o produto tensorial com o vetor \(\mathbf{a}\), resultando em um tensor.
+
+Com o intuito de se demonstrar a igualdade, inicialmente se desenvolve esta de forma indicial e, a seguir, de forma matrícial.
+Então, compara-se os resultados para se observar a equivalencia entre ambos. Assim, inicialmente se escreve os tensores em função
+de suas componentes, de modo que:
+\begin{equation}
+    \quad \mathbf{a} = a_i \, \mathbf{e}_i \quad , \quad \mathbf{b} = b_j \, \mathbf{e}_j \quad \text{e} \quad \mathbf{S} = S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l,
+\end{equation}
+de modo que, a relação \((\mathbf{a}\otimes \mathbf{b})\mathbf{S}\) pode ser escrita como:
+\begin{equation}
+    \left[a_i \, \mathbf{e}_i \otimes b_j \, \mathbf{e}_j\right] \, S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l.
+\end{equation}
+
+Reaaranjando os termos da equação e já utilizando a relação \(\left(\mathbf{u}\otimes\mathbf{v}\right)\left(\mathbf{c}\otimes\mathbf{d}\right) = \left(\mathbf{v}\cdot\mathbf{c}\right)\left(\mathbf{u}\otimes\mathbf{d}\right)\),
+tem-se que:
+\begin{equation}
+    a_i \, b_j \, S_{kl} \, \left[\left(\mathbf{e}_j \cdot \mathbf{e}_k\right) \, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right)\right].
+\end{equation}
+
+Aplicando a relação \(\mathbf{e}_j\cdot\mathbf{e}_k = \delta_{jk}\) e já substituindo o índice \(k\) por \(j\), tem-se que:
+\begin{equation}
+    a_i \, b_j \, S_{jl} \, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+Desenvolvendo o lado direito da equação, tem-se que:
+\begin{equation}
+    \mathbf{a}\otimes \mathbf{S}^T \mathbf{b} = a_i \, \mathbf{e}_i \otimes \left[\left(S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l\right)^T  \, b_j \, \mathbf{e}_j\right].    
+\end{equation}
+
+Da propriedade de transposição de tensores, 
+tem-se que \(\left(S_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l\right)^T = S_{lk} \, \mathbf{e}_k \otimes \mathbf{e}_l\). Também se aproveita para fazer uso
+da propriedade de produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\),
+de modo que:
+\begin{equation}
+    a_i \, \mathbf{e}_i \otimes \left[S_{lk} \, b_j \, \left(\mathbf{e}_l \cdot \mathbf{e}_j\right) \, \mathbf{e}_k\right].
+\end{equation}
+
+Notando que \(\mathbf{e}_l \cdot \mathbf{e}_j = \delta_{lj}\), substituindo o índice \(j\) por \(l\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    a_i \,  b_l \,S_{lk} \, \left(\mathbf{e}_i \otimes \mathbf{e}_k\right).
+\end{equation}
+
+Finalmente, percebe-se que, podendo-se livremente substituir os índices \(l\) e \(k\) por \(j\) e \(l\), respectivamente, tem-se que:
+\begin{equation}
+    a_i \,  b_j \,S_{jl} \, \left(\mathbf{e}_i \otimes \mathbf{e}_l\right).
+\end{equation}
+
+De forma que a igualdade \((\mathbf{a}\otimes \mathbf{b})\mathbf{S} = \mathbf{a}\otimes \mathbf{S}^T \mathbf{b}\) é verificada.
+
+Agora, realizando os mesmos desenvolvimentos anteriores, porém de forma matricial, 
+inicia-se escrevendo os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) em termos de suas componentes, de modo que:
+\begin{equation}
+    \left[\begin{matrix}S_{11} & S_{12} & S_{13}\\S_{21} & S_{22} & S_{23}\\S_{31} & S_{32} & S_{33}\end{matrix}\right] , \quad
+    \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right] \quad \text{e} \quad
+    \left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right]
+\end{equation}
+
+Desenvolvendo o lado esquerdo da equação, tem-se que:
+\begin{equation}
+    \left(\mathbf{a}\,\otimes\,\mathbf{b}\right) = \left[\mathbf{a}\right]\left[\mathbf{b}\right]^T
+    \left[\begin{matrix}a_{1} b_{1} & a_{1} b_{2} & a_{1} b_{3}\\a_{2} b_{1} & a_{2} b_{2} & a_{2} b_{3}\\a_{3} b_{1} & a_{3} b_{2} & a_{3} b_{3}\end{matrix}\right]
+\end{equation}
+
+Operando agora a multiplicação \((\mathbf{a}\otimes \mathbf{b})\mathbf{S}\), tem-se que:
+\begin{equation}
+    \left\{\left[\mathbf{a}\right]\left[\mathbf{b}\right]^T\right\}\,\mathbf{S} 
+    = \left[\begin{matrix}a_{1} b_{1} & a_{1} b_{2} & a_{1} b_{3}\\a_{2} b_{1} & a_{2} b_{2} & a_{2} b_{3}\\a_{3} b_{1} & a_{3} b_{2} & a_{3} b_{3}\end{matrix}\right]
+    \left[\begin{matrix}S_{11} & S_{12} & S_{13}\\S_{21} & S_{22} & S_{23}\\S_{31} & S_{32} & S_{33}\end{matrix}\right]
+\end{equation}
+
+\begin{equation}
+    \scalebox{0.85}{$
+    \left\{\left[\mathbf{a}\right]\left[\mathbf{b}\right]^T\right\}\,\mathbf{S} = 
+    \left[\begin{matrix}a_{1} \left(S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\right) & a_{1} \left(S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\right) & a_{1} \left(S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\right)\\a_{2} \left(S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\right) & a_{2} \left(S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\right) & a_{2} \left(S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\right)\\a_{3} \left(S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\right) & a_{3} \left(S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\right) & a_{3} \left(S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\right)\end{matrix}\right]
+    $}
+\end{equation}
+
+Operando agora sobre o lado direito da equação, tem-se que:
+\begin{equation}
+    \mathbf{a}\otimes \mathbf{S}^T \mathbf{b} = \left[\mathbf{a}\right]\left\{\left[\mathbf{S}\right]^T\left[\mathbf{b}\right]\right\}^T
+    = \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right]
+    \left[\begin{matrix}S_{11} & S_{21} & S_{31}\\S_{12} & S_{22} & S_{32}\\S_{13} & S_{23} & S_{33}\end{matrix}\right]
+    \left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right]
+\end{equation}
+
+\begin{equation}
+    \left[\mathbf{S}\right]^T\left[\mathbf{b}\right] = 
+    \left[\begin{matrix}S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\\S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\\S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\end{matrix}\right]
+\end{equation}
+
+Finalmente, operando o produto tensorial \(\mathbf{a}\otimes \mathbf{S}^T \mathbf{b}\), tem-se que:
+\begin{equation}
+    \scalebox{0.8}{$
+    \left[\mathbf{a}\right]\left\{\left[\mathbf{S}\right]^T\left[\mathbf{b}\right]\right\}^T = 
+    \left[\begin{matrix}a_{1} \left(S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\right) & a_{1} \left(S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\right) & a_{1} \left(S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\right)\\a_{2} \left(S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\right) & a_{2} \left(S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\right) & a_{2} \left(S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\right)\\a_{3} \left(S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\right) & a_{3} \left(S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\right) & a_{3} \left(S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\right)\end{matrix}\right]
+    $}
+\end{equation}
+
+Assim, a igualdade \((\mathbf{a}\otimes \mathbf{b})\mathbf{S} = \mathbf{a}\otimes \mathbf{S}^T \mathbf{b}\) é verificada de ambas as formas, 
+indicial e matricialmente.
+\begin{itemize}
+    \item \textbf{c)} $\mathbf{S}\,\mathbf{a}\cdot \mathbf{b} = \mathbf{a}\cdot \mathbf{S}^T \mathbf{b}$:
+\end{itemize}
+
+Inicialmente, de modo a verificar a consistência dimensional da solução a ser obtida, realiza-se uma análise dimensional do
+problema. Do lado esquerdo da equação pode ser verificada que a transformação do tensor \(\mathbf{S}\) sobre \(\mathbf{a}\) resulta 
+em um vetor ou um tensor de ordem 1, que por sua vez é operado seu produto interno com o vetor \(\mathbf{b}\), resultando em um escalar.
+Por outro lado, do lado direito da equação, verifica-se que o vetor \(\mathbf{b}\) é transformado pelo tensor \(\mathbf{S}^T\), resultando em um vetor,
+que por sua vez é operado seu produto interno com o vetor \(\mathbf{a}\), resultando em um escalar.
+
+Desenvolvendo a equação a ser verificada, inicialmente de forma indicial, escreve-se os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) em termos de suas componentes, de modo que:
+\begin{equation}
+    \mathbf{S} = S_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j, \quad \mathbf{a} = a_k \, \mathbf{e}_k \quad \text{e} \quad \mathbf{b} = b_l \, \mathbf{e}_l,
+\end{equation}
+de modo que, a relação \(\mathbf{S}\,\mathbf{a}\cdot \mathbf{b}\) pode ser escrita como:
+\begin{equation}
+    \mathbf{S}\,\mathbf{a}\cdot \mathbf{b} = S_{ij} \, \left(\mathbf{e}_i \otimes \mathbf{e}_j\right) \, a_k \, \mathbf{e}_k\cdot b_l \, \mathbf{e}_l.
+\end{equation}
+
+Utilizando a definição do produto tensorial, 
+\(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\), se tem:
+\begin{equation}
+    \left[S_{ij} \, a_k \, b_l \, \left(\mathbf{e}_j\cdot\mathbf{e}_k\right)\mathbf{e}_i\right] b_l \mathbf{e}_l,
+\end{equation}
+onde, utilizando a relação \(\mathbf{e}_j\cdot \mathbf{e}_k = \delta_{jk}\), substituindo o índice \(k\) por \(j\) 
+e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    S_{ij} \, a_j \, b_l \, \left(\mathbf{e}_i \cdot \mathbf{e}_l\right).
+\end{equation}
+
+Fazendo uso da novamente da propriedade \(\mathbf{e}_i \cdot \mathbf{e}_l = \delta_{il}\), substituindo o índice \(l\) por \(i\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    S_{il} \, a_l \, b_i.
+\end{equation} 
+
+Desenvolvendo agora o lado direito da equação, tem-se que:
+\begin{equation}
+    \mathbf{a}\cdot \mathbf{S}^T \mathbf{b} = a_k \, \mathbf{e}_k \cdot \left[\left(S_{ij}\,\mathbf{e}_i\otimes\mathbf{e}_j\right)^T \, b_l \, \mathbf{e}_l\right],
+\end{equation}
+na qual, se utiliza da propriedade de transposição de tensores,
+\(\left(S_{ij}\,\mathbf{e}_i\otimes\mathbf{e}_j\right)^T = S_{ji} \, \mathbf{e}_i \otimes \mathbf{e}_j\). Também se aproveita para fazer uso
+da propriedade de produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\),
+de modo que:
+\begin{equation}
+    a_k \, \mathbf{e}_k \cdot \left[S_{ji} \, b_l \, \left(\mathbf{e}_j \cdot \mathbf{e}_l\right) \, \mathbf{e}_i\right].
+\end{equation}
+
+Notando que \(\mathbf{e}_j \cdot \mathbf{e}_l = \delta_{jl}\), substituindo o índice \(l\) por \(j\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    a_k \, b_j \, S_{ji} \, \left(\mathbf{e}_k \cdot \mathbf{e}_i\right).
+\end{equation}
+
+Fazendo uso da propriedade \(\mathbf{e}_k \cdot \mathbf{e}_i = \delta_{ki}\), substituindo o índice \(i\) por \(k\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    S_{ik} \, a_k \, b_i \, .
+\end{equation}
+
+Observando que, podendo-se livremente substituir o índice \(k\) por \(j\), tem-se que:
+\begin{equation}
+    S_{ij} \, a_j \, b_i \, .
+\end{equation}
+Portanto, a igualdade \(\mathbf{S}\,\mathbf{a}\cdot \mathbf{b} = \mathbf{a}\cdot \mathbf{S}^T \mathbf{b}\) é verificada.
+
+Agora, realizando os mesmos desenvolvimentos anteriores, porém de forma matricial,
+inicia-se escrevendo os tensores \(\mathbf{S}\), \(\mathbf{a}\) e \(\mathbf{b}\) em termos de suas componentes, de modo que:
+\begin{equation}
+    \left[\begin{matrix}S_{11} & S_{12} & S_{13}\\S_{21} & S_{22} & S_{23}\\S_{31} & S_{32} & S_{33}\end{matrix}\right] , \quad
+    \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right] \quad \text{e} \quad
+    \left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right] \quad .
+\end{equation}
+
+Desenvolvendo o lado esquerdo da equação, tem-se que:
+\begin{equation}
+    \mathbf{S}\,\mathbf{a}\cdot \mathbf{b} = \left\{\left[\mathbf{S}\right]\left[\mathbf{a}\right]\right\}\cdot\left[\mathbf{b}\right]
+    = \left[\begin{matrix}S_{11} & S_{12} & S_{13}\\S_{21} & S_{22} & S_{23}\\S_{31} & S_{32} & S_{33}\end{matrix}\right]
+    \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right]
+    \cdot
+    \left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right]
+\end{equation}
+
+Operando a transformação do tensor \(\mathbf{T}\) sobre o vetor \(\mathbf{a}\), tem-se que:
+\begin{equation}
+    \left[\mathbf{T}\right]\left[\mathbf{a}\right] = 
+    \left[\begin{matrix}S_{11} a_{1} + S_{12} a_{2} + S_{13} a_{3}\\S_{21} a_{1} + S_{22} a_{2} + S_{23} a_{3}\\S_{31} a_{1} + S_{32} a_{2} + S_{33} a_{3}\end{matrix}\right] \quad ,
+\end{equation}
+que, operando seu produto interno com o vetor \(\mathbf{b}\), tem-se que:
+\begin{equation}
+    b_{1} \left(S_{11} a_{1} + S_{12} a_{2} + S_{13} a_{3}\right) + b_{2} \left(S_{21} a_{1} + S_{22} a_{2} + S_{23} a_{3}\right) + b_{3} \left(S_{31} a_{1} + S_{32} a_{2} + S_{33} a_{3}\right)
+\end{equation}
+
+Agora, desenvolvendo o lado direito da equação, tem-se que:
+\begin{equation}
+    \mathbf{a}\cdot \mathbf{S}^T \mathbf{b} = \left[\mathbf{a}\right]\cdot\left\{\left[\mathbf{S}\right]^T\left[\mathbf{b}\right]\right\}
+    = \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right]
+    \cdot
+    \left[\begin{matrix}S_{11} & S_{21} & S_{31}\\S_{12} & S_{22} & S_{32}\\S_{13} & S_{23} & S_{33}\end{matrix}\right]
+    \left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right]
+\end{equation}
+
+Operando a transformação do tensor \(\mathbf{S}^T\) sobre o vetor \(\mathbf{b}\), tem-se que:
+\begin{equation}
+    \left[\mathbf{S}\right]^T\left[\mathbf{b}\right] = 
+    \left[\begin{matrix}S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\\S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\\S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\end{matrix}\right]\quad ,
+\end{equation}
+e operando seu produto interno com o vetor \(\mathbf{a}\), tem-se que:
+\begin{equation}
+    a_{1} \left(S_{11} b_{1} + S_{21} b_{2} + S_{31} b_{3}\right) + a_{2} \left(S_{12} b_{1} + S_{22} b_{2} + S_{32} b_{3}\right) + a_{3} \left(S_{13} b_{1} + S_{23} b_{2} + S_{33} b_{3}\right)
+\end{equation}
+
+Portando, conclui-se que \(\mathbf{T}\,\mathbf{a}\cdot \mathbf{b} = \mathbf{a}\cdot \mathbf{T}^T \mathbf{b}\).
+\begin{itemize}
+    \item \textbf{d)} $(\mathbf{a}\otimes \mathbf{b})\cdot(\mathbf{c}\otimes \mathbf{d}) = (\mathbf{a}\cdot \mathbf{c})(\mathbf{b}\cdot \mathbf{d})$:
+\end{itemize}
+
+Inicialmente, de modo a verificar a consistência dimensional da solução a ser obtida, realiza-se uma análise dimensional do
+problema. Do lado esquerdo da equação pode ser verificado que o produto tensorial entre os vetores \(\mathbf{a}\) e \(\mathbf{b}\) resulta
+em um tensor, que por sua vez é operado seu produto interno com o tensor resultante do produto tensorial entre os vetores \(\mathbf{c}\) e \(\mathbf{d}\), resultando em um escalar.
+Por outro lado, do lado direito da equação, verifica-se que o vetor \(\mathbf{c}\) é operado seu produto interno com o vetor \(\mathbf{a}\), resultando em um escalar,
+que por sua vez é multiplicado pelo resultado do produto interno entre os vetores \(\mathbf{b}\) e \(\mathbf{d}\), resultando em um escalar.
+
+Desenvolvendo a equação a ser verificada, inicialmente de forma indicial, escreve-se os tensores \(\mathbf{a}\), \(\mathbf{b}\), \(\mathbf{c}\) e \(\mathbf{d}\) 
+em termos de suas componentes, de modo que:
+\begin{equation}
+    \mathbf{a} = a_i \, \mathbf{e}_i \quad , \quad \mathbf{b} = b_j \, \mathbf{e}_j \quad , \quad \mathbf{c} = c_k \, \mathbf{e}_k \quad , \quad \text{e} \quad \mathbf{d} = d_l \, \mathbf{e}_l,
+\end{equation}
+
+Operando inicialmente o lado esquerdo da equação, tem-se que:
+\begin{equation}
+    \left(\mathbf{a}\otimes \mathbf{b}\right)\cdot\left(\mathbf{c}\otimes \mathbf{d}\right) =
+    \left[a_i \, b_j \,c_k\,d_l \left(\mathbf{e}_i\otimes\mathbf{e}_j\right)\cdot\left(\mathbf{e}_k\otimes\mathbf{e}_l\right)\right]
+\end{equation}
+
+Utilizando a propriedade \(\mathbf{S}\cdot\mathbf{T} = \operatorname{tr}\left(\mathbf{S}^T\mathbf{T}\right)\), se tem:
+\begin{equation}
+    a_i \, b_j \,c_k\,d_l \operatorname{tr}\left(\left(\mathbf{e}_i\otimes\mathbf{e}_j\right)^T\left(\mathbf{e}_k\otimes\mathbf{e}_l\right)\right)\quad ,
+\end{equation}
+onde, utilizando a relação \(\left(\mathbf{e}_i\otimes\mathbf{e}_j\right)^T = \mathbf{e}_i\otimes\mathbf{e}_j\) juntamente 
+com a relação \(\left(\mathbf{u}\otimes\mathbf{v}\right)\left(\mathbf{c}\otimes\mathbf{d}\right) = \left(\mathbf{v}\cdot\mathbf{c}\right)\left(\mathbf{u}\otimes\mathbf{d}\right)\),
+tem-se que:
+\begin{equation}
+    a_i \, b_j \,c_k\,d_l \operatorname{tr}\left(\left(\mathbf{e}_j\cdot\mathbf{e}_k\right)\left(\mathbf{e}_i\otimes\mathbf{e}_l\right)\right)\quad ,
+\end{equation}
+onde, utilizando a relação \(\mathbf{e}_j\cdot\mathbf{e}_k = \delta_{jk}\), percebendo que este pode sair do operador traço e 
+substituindo o índice \(k\) por \(j\), tem-se que:
+\begin{equation}
+    a_i \, b_j \,c_j\,d_l \operatorname{tr}\left(\left(\mathbf{e}_i\otimes\mathbf{e}_l\right)\right)\quad ,
+\end{equation}
+onde, notando que \(\operatorname{tr}\left(\left(\mathbf{e}_i\otimes\mathbf{e}_l\right)\right) = \delta_{il}\),
+substituindo o índice \(l\) por \(i\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    a_i \, b_j \,c_j\,d_i \quad .
+\end{equation}
+
+Desenvolvendo agora o lado direito da equação, tem-se que:
+\begin{equation}
+    \left(\mathbf{a}\cdot \mathbf{c}\right)\left(\mathbf{b}\cdot \mathbf{d}\right) = \left[a_i \, c_k \, \left(\mathbf{e}_i\cdot\mathbf{e}_k\right)\right]\left[b_j \, d_l \, \left(\mathbf{e}_j\cdot\mathbf{e}_l\right)\right]
+\end{equation}
+onde, utilizando a relação \(\mathbf{e}_i\cdot\mathbf{e}_j = \delta_{ij}\), se tem:
+\begin{equation}
+    a_i \, c_k \, b_j \, d_l \, \left(\delta_{ik}\delta_{jl}\right)\quad ,
+\end{equation}
+onde, substituindo o índice \(k\) por \(i\) e o índice \(l\) por \(j\), tem-se que:
+\begin{equation}
+    a_i \, c_i \, b_j \, d_j \quad .
+\end{equation}
+
+Assim, a igualdade \((\mathbf{a}\otimes \mathbf{b})\cdot(\mathbf{c}\otimes \mathbf{d}) = (\mathbf{a}\cdot \mathbf{c})(\mathbf{b}\cdot \mathbf{d})\) é verificada.
+
+Agora, realizando os mesmos desenvolvimentos anteriores, porém de forma matricial,
+inicia-se escrevendo os tensores \(\mathbf{a}\), \(\mathbf{b}\), \(\mathbf{c}\) e \(\mathbf{d}\) em termos de suas componentes, de modo que:
+\begin{equation}
+    \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right]
+    \quad , \quad
+    \left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right]
+    \quad , \quad
+    \left[\begin{matrix}c_{1}\\c_{2}\\c_{3}\end{matrix}\right]
+    \quad \text{e} \quad
+    \left[\begin{matrix}d_{1}\\d_{2}\\d_{3}\end{matrix}\right]
+\end{equation}
+
+Inicialmente trabalhando sobre lado esquedo da equação, se tem:
+\begin{equation}
+    \left(\mathbf{a}\otimes \mathbf{b}\right) = \left[\mathbf{a}\right]\left[\mathbf{b}\right]^T
+    \quad \text{e} \quad 
+    \left(\mathbf{c}\otimes \mathbf{d}\right) = \left[\mathbf{c}\right]\left[\mathbf{d}\right]^T
+    \quad ,
+\end{equation}
+portanto:
+\begin{equation}
+    \left[\mathbf{a}\right]\left[\mathbf{b}\right]^T =
+    \left[\begin{matrix}a_{1} b_{1} & a_{1} b_{2} & a_{1} b_{3}\\a_{2} b_{1} & a_{2} b_{2} & a_{2} b_{3}\\a_{3} b_{1} & a_{3} b_{2} & a_{3} b_{3}\end{matrix}\right]
+    \quad \text{e} \quad 
+    \left[\mathbf{c}\right]\left[\mathbf{d}\right]^T =
+    \left[\begin{matrix}c_{1} d_{1} & c_{1} d_{2} & c_{1} d_{3}\\c_{2} d_{1} & c_{2} d_{2} & c_{2} d_{3}\\c_{3} d_{1} & c_{3} d_{2} & c_{3} d_{3}\end{matrix}\right] 
+    \quad ,
+\end{equation}
+ e realizando o produto interno entre ambos tensores, se tem o escalar:
+\begin{equation}
+    \left(a_{1} c_{1} + a_{2} c_{2} + a_{3} c_{3}\right) \left(b_{1} d_{1} + b_{2} d_{2} + b_{3} d_{3}\right)
+\end{equation}
+
+Agora, operando sobre o lado direito da equação, tem-se que:
+\begin{equation}
+    \left[\mathbf{a}\right]\cdot\left[\mathbf{c}\right] =  
+    \left[\begin{matrix}a_{1}\\a_{2}\\a_{3}\end{matrix}\right]
+    \cdot
+    \left[\begin{matrix}c_{1}\\c_{2}\\c_{3}\end{matrix}\right]
+    = a_{1} c_{1} + a_{2} c_{2} + a_{3} c_{3}
+    \quad \text{e} \quad
+    \left[\mathbf{b}\right]\cdot\left[\mathbf{d}\right]
+    =\left[\begin{matrix}b_{1}\\b_{2}\\b_{3}\end{matrix}\right]
+    \cdot
+    \left[\begin{matrix}d_{1}\\d_{2}\\d_{3}\end{matrix}\right]
+    = b_{1} d_{1} + b_{2} d_{2} + b_{3} d_{3}
+\end{equation}
+resultando no escalar:
+\begin{equation}
+    \left(a_{1} c_{1} + a_{2} c_{2} + a_{3} c_{3}\right) \left(b_{1} d_{1} + b_{2} d_{2} + b_{3} d_{3}\right)\quad ,
+\end{equation}
+de modo que a igualdade \((\mathbf{a}\otimes \mathbf{b})\cdot(\mathbf{c}\otimes \mathbf{d}) = (\mathbf{a}\cdot \mathbf{c})(\mathbf{b}\cdot \mathbf{d})\) é verificada.
+
+
+\subsection{Exercício 5}
+Sendo \(\mathbf{R} = \mathbf{I} - 2\,\mathbf{n}\otimes \mathbf{n} \) e operando com as representações 
+indiciais dos vetores envolvidos, mostre que \(\mathbf{R}\) realiza uma reflexão de um vetor \(\mathbf{v}\) 
+em relação a um plano, conforme indica a figura seguinte. Observe que \(\mathbf{I}\) é o tensor identidade 
+e o versor \(\mathbf{n}\) está alinhado com o versor \(\mathbf{e_3}\).
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{figs/image.png}
+    \caption{Reflexão de um vetor em relação a um plano.}
+    \label{fig:reflexao}
+\end{figure}
+
+Inicialmente, escreve-se os tensores \(\mathbf{R}\) e \(\mathbf{n}\) em termos de suas componentes, de modo que:
+\begin{equation}
+    \mathbf{R} = R_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j, \quad , \quad
+    \mathbf{n} = n_i \, \mathbf{e}_i \quad , \quad
+    \mathbf{n} = n_j \, \mathbf{e}_j \quad \text{e} \quad
+    \mathbf{v} = v_k \, \mathbf{e}_k
+\end{equation}
+
+Assim, o tensor \(\mathbf{R}\) pode ser escrito como:
+\begin{equation}
+    \mathbf{R} = \left(I_{ij} - 2\,n_i n_j\right) \, \mathbf{e}_i \otimes \mathbf{e}_j.
+\end{equation}
+
+Realizando a transformação do vetor \(\mathbf{v}\) pelo tensor \(\mathbf{R}\), tem-se que:
+\begin{equation}
+    \mathbf{R}\,\mathbf{v} = \left(I_{ij} - 2\,n_i n_j\right) \, \mathbf{e}_i \otimes \mathbf{e}_j \, v_k \, \mathbf{e}_k.
+\end{equation}
+
+Usando a definição do produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\),
+rearranjando os termos, se tem que:
+\begin{equation}
+    \left(I_{ij} - 2\,n_i n_j\right) \, v_k \, \left(\mathbf{e}_j\cdot\mathbf{e}_k\right)\left(\mathbf{e}_i\right).
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_j\cdot \mathbf{e}_k = \delta_{jk}\), substituindo o índice \(k\) por \(j\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    \left(I_{ij} - 2\,n_i n_j\right) \, v_j \, \left(\mathbf{e}_i\right).
+\end{equation}
+
+Expandindo a equação, tem-se que:
+\begin{equation}
+    \mathbf{R}\,\mathbf{v} =  \sum_{j=1}^{3}\left(I_{ij} - 2\,n_i n_j\right) \, v_j \, \left(\mathbf{e}_i\right).
+\end{equation}
+
+Assim, as componentes o vetor \(\mathbf{R}\,\mathbf{v}\) pode ser escrito como:
+\begin{equation}
+    \begin{aligned}
+        \left(\mathbf{R}\mathbf{v}\right)_1 &= v_1 - 2\,n_1\,(n_1\,v_1 + n_2\,v_2 + n_3\,v_3),\\[1ex]
+        \left(\mathbf{R}\mathbf{v}\right)_2 &= v_2 - 2\,n_2\,(n_1\,v_1 + n_2\,v_2 + n_3\,v_3),\\[1ex]
+        \left(\mathbf{R}\mathbf{v}\right)_3 &= v_3 - 2\,n_3\,(n_1\,v_1 + n_2\,v_2 + n_3\,v_3).
+    \end{aligned}
+\end{equation}
+
+Como o vetor \(\mathbf{n}\) está alinhado com o versor \(\mathbf{e_3}\), tem-se que \(n_1 = n_2 = 0\) e \(n_3 = 1\).
+Assim, as componentes do vetor \(\mathbf{R}\,\mathbf{v}\) podem ser escritas como:
+\begin{equation}
+    \begin{aligned}
+        \left(\mathbf{R}\mathbf{v}\right)_1 &= v_1 - 2\times 0\,(0\,v_1 + 0\,v_2 + 1\,v_3) = v_1,\\[1ex]
+        \left(\mathbf{R}\mathbf{v}\right)_2 &= v_2 - 2\times 0\,(0\,v_1 + 0\,v_2 + 1\,v_3) = v_2,\\[1ex]
+        \left(\mathbf{R}\mathbf{v}\right)_3 &= v_3 - 2\times 1\,(0\,v_1 + 0\,v_2 + 1\,v_3) = -v_3.
+    \end{aligned}
+\end{equation}
+
+Ou seja, nota-se que a transformação do vetor \(\mathbf{v}\) pelo tensor \(\mathbf{R}\) resulta em um vetor \(\mathbf{R}\,\mathbf{v}\) que
+possui as mesmas componentes \(x\) e \(y\) do vetor \(\mathbf{v}\), enquanto a componente \(z\) do vetor \(\mathbf{R}\,\mathbf{v}\) é o 
+oposto da componente \(z\) do vetor \(\mathbf{v}\). Tal comportamento é resultado da reflexão do vetor \(\mathbf{v}\) em relação ao plano 
+ortogonal ao vetor \(\mathbf{n}\), conforme indicado na figura \ref{fig:reflexao}.
+
+Cabe também apresentar o mesmo desenvolvimento anterior, mas agora utilizando a notação dyadica. Assim, o tensor \(\mathbf{R}\) pode ser escrito como:
+\begin{equation}
+    \mathbf{R} = \mathbf{I} - 2\,\mathbf{n}\otimes \mathbf{n}.
+\end{equation}
+
+Realizando a transformação do vetor \(\mathbf{v}\) pelo tensor \(\mathbf{R}\), tem-se que:
+\begin{equation}
+    \mathbf{R}\,\mathbf{v} = \left(\mathbf{I} - 2\,\mathbf{n}\otimes \mathbf{n}\right) \, \mathbf{v}.
+\end{equation}
+
+Usando a definição do produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\),
+rearranjando os termos, se tem que:
+\begin{equation}
+    \mathbf{I}\,\mathbf{v} - 2\,\left(\mathbf{n}\cdot \mathbf{v}\right) \, \mathbf{n}.
+\end{equation}
+
+Interpretando o resultado anterior, observa-se que a transformação do vetor \(\mathbf{v}\) pelo tensor \(\mathbf{R}\) resulta
+em um vetor \(\mathbf{R}\,\mathbf{v}\) igual ao vetor \(\mathbf{v}\) menos o dobro da projeção do vetor \(\mathbf{v}\)
+sobre o vetor \(\mathbf{n}\). Tal operação culmina na reflexão do vetor \(\mathbf{v}\) em relação ao plano ortogonal ao vetor \(\mathbf{n}\), 
+conforme indicado na figura \ref{fig:reflexao}.
+
+Também é pertinente apontar que, similarmente ao tensor \(\mathbf{R}\), existe o tensor \(\mathbf{P}\),
+que é conhecido como tensor de projeção, visto que ele realiza a projeção de um vetor \(\mathbf{v}\) 
+sobre o plano ortogonal ao vetor \(\mathbf{n}\). O tensor \(\mathbf{P}\) é dado por:
+\begin{equation}
+    \mathbf{P} = \mathbf{I} - \mathbf{n}\otimes \mathbf{n}.
+    \label{eq:projecao}
+\end{equation}
+
+\subsection{Exercício 6}
+Considere o tensor de tensão $\mathbf{T}$ num ponto no interior de um corpo definido pelas seguintes componentes:
+
+\[
+    \begin{array}{ll@{\hspace{2cm}}ll}
+        \sigma_{x} = 2.0           & & \tau_{xy} = \tau_{yx} = \sqrt{3} \\
+        \sigma_{y} = 2\sqrt{3}     & & \tau_{xz} = \tau_{zx} = 0.0 \\
+        \sigma_{z} = -2.0          & & \tau_{yz} = \tau_{zy} = 0.0
+    \end{array}
+\]
+
+A partir deste estado de tensão e considerando que o vetor de tensão associado a um plano 
+caracterizado pelo seu versor normal $\mathbf{n}$ pode ser obtido por
+\[
+    \mathbf{t(n)}=\mathbf{T\,n},
+\]
+determine:
+\begin{enumerate}[label=\alph*)]
+    \item O valor da tensão normal ao plano caracterizado por um versor normal contido no plano $xy$ e que faz trinta graus com o eixo $x$.
+    \item O valor da tensão de cisalhamento no mesmo plano.
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{a)}:
+\end{itemize}
+Escrevendo os tensores \(\mathbf{T}\) e \(\mathbf{n}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \mathbf{T} = T_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j, \quad \text{e} \quad
+    \mathbf{n} = n_k \, \mathbf{e}_k
+\end{equation}
+
+Desse modo, o vetor de tensão \(\mathbf{t(n)}\) pode ser escrito como:
+\begin{equation}
+    \mathbf{t(n)} = T_{ij} \, \left(\mathbf{e}_i \otimes \mathbf{e}_j\right) \, \left(n_k \, \mathbf{e}_k\right).
+\end{equation}
+
+Usando a definição do produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\), 
+rearranjando os termos, se tem que:
+\begin{equation}
+    T_{ij} \, n_k \, \left(\mathbf{e}_j\cdot\mathbf{e}_k\right)\left(\mathbf{e}_i\right).
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_j\cdot \mathbf{e}_k = \delta_{jk}\), substituindo o índice \(k\) por \(j\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    \mathbf{t} = T_{ij} \, n_j \, \left(\mathbf{e}_i\right).
+\end{equation}
+
+Para a determinação do valor da tensão normal ao plano no qual o vetor \(\mathbf{t}\) atua, realiza-se o produto escalar entre os vetores 
+\(\mathbf{t}\) e \(\mathbf{n}\):
+\begin{equation}
+    \sigma_{xx} = \mathbf{t}\cdot\mathbf{n} = T_{ij} \, n_j \, \mathbf{e}_i \cdot n_k \, \mathbf{e}_k
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_i\cdot \mathbf{e}_k = \delta_{ik}\), substituindo o índice \(k\) por \(i\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    \sigma_{xx} = T_{ij} \, n_j \, n_i.
+\end{equation}
+
+Expandindo a equação, tem-se que:
+\begin{equation}
+    \sigma_{xx} = \sum_{i=1}^{3} \sum_{j=1}^{3} T_{ij} \, n_j \, n_i.
+\end{equation}
+
+Restando, para a definição numérica da tensão normal, a determinação do vetor \(\mathbf{n}\), visto que 
+o tensor de tensão \(\mathbf{T}\) já é conhecido. De acordo com o enunciado da questão, o vetor normal
+pode ser escrito da seguinte forma:
+\begin{equation}
+    \mathbf{n} = \left[\begin{matrix}n_{1}\\n_{2}\\n_{3}\end{matrix}\right] = \left[\begin{matrix}\cos(30)\\\sin(30)\\0\end{matrix}\right] = \left[\begin{matrix}\frac{\sqrt{3}}{2}\\\frac{1}{2}\\0\end{matrix}\right]
+\end{equation}
+
+Substituindo os valores do tensor de tensão \(\mathbf{T}\) e do vetor normal \(\mathbf{n}\), tem-se que:
+\begin{equation}
+    \sigma_{xx} = 3.87
+\end{equation}
+
+O mesmo pode ser feito de forma matricial:
+\begin{equation}
+    \mathbf{t} = \mathbf{T}\,\mathbf{n} =  \left[\begin{matrix}\sigma_{xx} n_{1} + \tau_{xy} n_{2} + \tau_{xz} n_{3}\\\sigma_{yy} n_{2} + \tau_{xy} n_{1} + \tau_{yz} n_{3}\\\sigma_{zz} n_{3} + \tau_{xz} n_{1} + \tau_{yz} n_{2}\end{matrix}\right]
+\end{equation}
+
+Realizando a projeção do vetor \(\mathbf{t}\) no vetor \(\mathbf{n}\), tem-se que:
+\begin{equation}
+    \sigma_{xx} = \mathbf{t}\cdot\mathbf{n} = 
+    \left[\begin{matrix}\sigma_{xx} n_{1} + \tau_{xy} n_{2} + \tau_{xz} n_{3}\\\sigma_{yy} n_{2} + \tau_{xy} n_{1} + \tau_{yz} n_{3}\\\sigma_{zz} n_{3} + \tau_{xz} n_{1} + \tau_{yz} n_{2}\end{matrix}\right]
+    \cdot
+    \left[\begin{matrix}n_{1}\\n_{2}\\n_{3}\end{matrix}\right]
+\end{equation}
+
+Resultando em:
+\begin{equation}
+    \scalebox{0.9}{$
+    \sigma_{xx} = 
+    n_{1} \left(\sigma_{xx} n_{1} + \tau_{xy} n_{2} + \tau_{xz} n_{3}\right) + n_{2} \left(\sigma_{yy} n_{2} + \tau_{xy} n_{1} + \tau_{yz} n_{3}\right) + n_{3} \left(\sigma_{zz} n_{3} + \tau_{xz} n_{1} + \tau_{yz} n_{2}\right)
+    $}
+\end{equation}
+
+Que, substituindo os valores do vetor normal \(\mathbf{n}\) e do tensor de tensão \(\mathbf{T}\), resulta em:
+\begin{equation}
+    \sigma_{xx} = 3.87
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{b)}:
+\end{itemize}
+Para a determinação do valor da tensão de cisalhamento ao plano no qual o vetor \(\mathbf{t}\) atua, utiliza-se o tensor de projeção, 
+apresentado na \eqref{eq:projecao} e aqui reproduzido:
+\begin{equation}
+    \mathbf{P} = \mathbf{I} - \mathbf{n}\otimes\mathbf{n}
+\end{equation}
+
+Escrevendo os tensores \(\mathbf{I}\) e \(\mathbf{n}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \mathbf{I} = I_{kl} \, \mathbf{e}_k \otimes \mathbf{e}_l, \quad \text{e} \quad
+    \mathbf{n} = n_k \, \mathbf{e}_k \quad \text{e} \quad \mathbf{n} = n_l \, \mathbf{e}_l
+\end{equation}
+
+Assim, o tensor de projeção \(\mathbf{P}\) pode ser escrito como:
+\begin{equation}
+    \mathbf{P} = I_{kl} \, \left(\mathbf{e}_k \otimes \mathbf{e}_l\right) - n_k \, n_l \,\mathbf{e}_k \otimes  \mathbf{e}_l
+\end{equation}
+
+Utilizando esse tensor para operar o vetor de tensão \(\mathbf{t}\), tem-se que:
+\begin{equation}
+    \tau = \mathbf{P}\,\mathbf{t} = \left(I_{kl} \, - n_k \, n_l \right)\left(\mathbf{e}_k \otimes \mathbf{e}_l\right)\,\left(T_{ij} \, n_j \, \left(\mathbf{e}_i\right)\right)
+\end{equation}
+
+Usando a definição do produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\),
+rearranjando os termos, se tem que:
+\begin{equation}
+    \tau = T_{ij} \, n_j \, \left(I_{kl} - n_k \, n_l\right)\,\left(\mathbf{e}_l \cdot \mathbf{e}_i\right)\,\mathbf{e}_k
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_l\cdot \mathbf{e}_i = \delta_{li}\), substituindo o índice \(l\) por \(i\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    \tau = T_{ij} \, n_j \, \left(I_{ki} - n_k \, n_i\right)\,\mathbf{e}_k
+\end{equation}
+
+Expandindo a equação, tem-se que:
+\begin{equation}
+    \tau = \sum_{i=1}^{3} \sum_{j=1}^{3} T_{ij} \, n_j \, \left(I_{ki} - n_k \, n_i\right)\,\mathbf{e}_k
+\end{equation}
+
+Realizando as somas, tem-se que:
+\begin{equation}
+    \tau = \left[\begin{matrix}-0.75\\1.30\\0\end{matrix}\right]
+\end{equation}
+
+O mesmo pode ser feito de forma matricial:
+\begin{equation}
+    \mathbf{P} = \left[\begin{matrix}- \frac{n_{1}^{2}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}} + 1 & - \frac{n_{1} n_{2}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}} & - \frac{n_{1} n_{3}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}}\\- \frac{n_{1} n_{2}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}} & - \frac{n_{2}^{2}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}} + 1 & - \frac{n_{2} n_{3}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}}\\- \frac{n_{1} n_{3}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}} & - \frac{n_{2} n_{3}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}} & - \frac{n_{3}^{2}}{\left|{n_{1}}\right|^{2} + \left|{n_{2}}\right|^{2} + \left|{n_{3}}\right|^{2}} + 1\end{matrix}\right],
+\end{equation}
+que, substituindo os valores do vetor normal \(\mathbf{n}\), resulta em:
+\begin{equation}
+    \mathbf{P} = \left[\begin{matrix}0.250 & -0.433 & 0\\-0.433 & 0.749 & 0\\0 & 0 & 1\end{matrix}\right]
+\end{equation}
+
+O qual, operando sobre o vetor de tensão \(\mathbf{t}\), resulta em:
+\begin{equation}
+    \tau = \mathbf{P}\,\mathbf{t} = \left[\begin{matrix}-0.75\\1.30\\0\end{matrix}\right]
+\end{equation}
+
+O valor da tensão de cisalhamento é dado pela norma do vetor \(\tau\):
+\begin{equation}
+    \left\lVert \tau \right\rVert = \sqrt{\left(-0.75\right)^{2} + \left(1.30\right)^{2} + 0^{2}} = 1.50
+\end{equation}
+
+
+\subsection{Exercício 7}
+Considere a seguinte representação matricial do tensor de tensão:
+\[
+    \mathbf{T} =
+        \begin{pmatrix}
+            4 & 0 & -2 \\[5pt]
+            0 & 5 & 0 \\[5pt]
+            -2 & 0 & 7
+        \end{pmatrix}.
+\]
+\begin{enumerate}[label=\alph*)]
+    \item \quad Determine o vetor de tensão $\mathbf{t(n)}$ segundo um plano cuja normal é caracterizada pelo vetor
+    \[
+        \mathbf{v} = 3\mathbf{e_1} + 4\mathbf{e_2} + 5\mathbf{e_3}.
+    \]
+    \item \quad Determine o valor da componente de $t(n)$ normal ao plano.
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{a)}:
+\end{itemize}
+
+Escrevendo os tensores \(\mathbf{T}\) e \(\mathbf{n}\) em termos de suas componentes, tem-se que:
+\begin{equation}
+    \mathbf{T} = T_{ij} \, \mathbf{e}_i \otimes \mathbf{e}_j, \quad \text{e} \quad
+    \mathbf{n} = n_k \, \mathbf{e}_k
+\end{equation}
+
+Desse modo, o vetor de tensão \(\mathbf{t(n)}\) pode ser escrito como:
+\begin{equation}
+    \mathbf{t(n)} = T_{ij} \, \left(\mathbf{e}_i \otimes \mathbf{e}_j\right) \, \left(n_k \, \mathbf{e}_k\right).
+\end{equation}
+
+Usando a definição do produto tensorial, \(\left(\mathbf{u}\otimes\mathbf{v}\right)\mathbf{w} = \left(\mathbf{v}\cdot\mathbf{w}\right)\mathbf{u}\),
+rearranjando os termos, se tem que:
+\begin{equation}
+    T_{ij} \, n_k \, \left(\mathbf{e}_j\cdot\mathbf{e}_k\right)\left(\mathbf{e}_i\right).
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_j\cdot \mathbf{e}_k = \delta_{jk}\), substituindo o índice \(k\) por \(j\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    \mathbf{t} = T_{ij} \, n_j \, \left(\mathbf{e}_i\right).
+\end{equation}
+
+Expandindo a equação, tem-se que:
+\begin{equation}
+    t_i =  \sum_{j=1}^{3} T_{ij} \, n_j = \left[\begin{matrix}\sigma_{xx} n_{1} + \tau_{xy} n_{2} + \tau_{xz} n_{3}\\\sigma_{yy} n_{2} + \tau_{xy} n_{1} + \tau_{yz} n_{3}\\\sigma_{zz} n_{3} + \tau_{xz} n_{1} + \tau_{yz} n_{2}\end{matrix}\right]
+\end{equation}
+
+Normalizando o vetor \(\mathbf{v}\), para se obter o versor \(\mathbf{n}\), tem-se que:
+\begin{equation}
+    \mathbf{n} = \frac{\mathbf{v}}{\left\lVert \mathbf{v} \right\rVert} = \frac{1}{\sqrt{3^{2} + 4^{2} + 5^{2}}}\left[\begin{matrix}3\\4\\5\end{matrix}\right] = \frac{1}{\sqrt{50}}\left[\begin{matrix}3\\4\\5\end{matrix}\right]
+\end{equation}
+
+Substituindo os valores do vetor normal \(\mathbf{n}\) e do tensor de tensão \(\mathbf{T}\), tem-se que:
+\begin{equation}
+    \mathbf{t} = 
+    \left[
+        \begin{matrix}
+            4 & 0 & -2 \\
+            0 & 5 & 0 \\
+            -2 & 0 & 7
+        \end{matrix}
+    \right]
+    \left[
+        \begin{matrix}
+            \frac{3}{\sqrt{50}}
+            \\\frac{4}{\sqrt{50}}
+            \\\frac{5}{\sqrt{50}}
+        \end{matrix}
+    \right] 
+    = \left[
+        \begin{matrix}
+            \frac{2}{5\sqrt{2}}
+            \\\frac{20}{5\sqrt{2}}
+            \\\frac{29}{5\sqrt{2}}
+        \end{matrix}
+    \right]
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{b)}:
+\end{itemize}
+Para a determinação do valor da tensão normal ao plano no qual o vetor \(\mathbf{t}\) atua, realiza-se o produto escalar entre os vetores
+\(\mathbf{t}\) e \(\mathbf{n}\):
+\begin{equation}
+    \sigma_{xx} = \mathbf{t}\cdot\mathbf{n} = T_{ij} \, n_j \, \mathbf{e}_i \cdot n_k \, \mathbf{e}_k
+\end{equation}
+
+Utilizando a relação \(\mathbf{e}_i\cdot \mathbf{e}_k = \delta_{ik}\), substituindo o índice \(k\) por \(i\) e rearranjando os termos da equação, tem-se que:
+\begin{equation}
+    \sigma_{xx} = T_{ij} \, n_j \, n_i.
+\end{equation}
+
+Expandindo a equação, tem-se que:
+\begin{equation}
+    \sigma_{xx} = \sum_{i=1}^{3} \sum_{j=1}^{3} T_{ij} \, n_j \, n_i.
+\end{equation}
+
+Que, expandindo, resulta em:
+\begin{equation}
+    \scalebox{0.9}{$
+    n_1\left(T_{11}\,n_1 + T_{12}\,n_2 + T_{13}\,n_3\right) + n_2\left(T_{21}\,n_1 + T_{22}\,n_2 + T_{23}\,n_3\right) + n_3\left(T_{31}\,n_1 + T_{32}\,n_2 + T_{33}\,n_3\right)
+    $}
+\end{equation}
+
+Que, substituindo os valores do vetor normal \(\mathbf{n}\) e do tensor de tensão \(\mathbf{T}\), resulta em:
+\begin{equation}
+    \sigma_{xx} = 4.62
+\end{equation}
+
+O mesmo pode ser obtido matricialmente. Substituindo os valores do vetor normal \(\mathbf{n}\) e do tensor de tensão \(\mathbf{T}\), tem-se que:
+\begin{equation}
+    \sigma_{xx} = \left[\begin{matrix}4 & 0 & -2\\0 & 5 & 0\\-2 & 0 & 7\end{matrix}\right] \left[\begin{matrix}\frac{3}{\sqrt{50}}\\\frac{4}{\sqrt{50}}\\\frac{5}{\sqrt{50}}\end{matrix}\right] \cdot \left[\begin{matrix}\frac{3}{\sqrt{50}}\\\frac{4}{\sqrt{50}}\\\frac{5}{\sqrt{50}}\end{matrix}\right]
+\end{equation}
+
+Resultando em:
+\begin{equation}
+    \sigma_{xx} = 4.62 
+\end{equation}
+
+
+\section{Aplicações}
+Na presente seção almeja-se apresentar algumas aplicações dos fundamentos matemáticos trablhados ao longo do presente relatório.
+\subsection{Decomposição Volumétrica-Desviadora do tensor constitutivo}
+Um tensor isotrópico de quarta ordem qualquer \(\mathbb{G}\), pode ser decomposto da seguinte forma\cite{anand_continuum_2020}:
+\begin{equation}
+    \mathbb{G}\,\mathbf{A} = 2\mu\,\mathbf{A} + \lambda\,\left(\operatorname{tr}\mathbf{A}\right)\mathbf{I}.
+\end{equation}
+
+Portanto, se um material é isotrópico, a transformação que mapeia o tensor de deformação \(\bm{\epsilon}\) ao
+tensor de tensão \(\bm{\sigma}\) é dada por:
+\begin{equation}
+    \bm{\sigma} = \mathbb{C}\,\bm{\epsilon} = 2\mu\,\bm{\epsilon} + \lambda\,\left(\operatorname{tr}\bm{\epsilon}\right)\mathbf{I} \quad.
+\end{equation}
+
+Pode ser mostrado que o tensor de tensões \(\bm{\sigma}\) pode ser reescrito em função da deformação 
+volumétrica \(\bm{\epsilon}^v\), da deformação desviadora \(\bm{\epsilon}^d\) e do parametro \(\kappa = \lambda + \frac{2}{3}\mu\) 
+como :
+\begin{equation}
+    \bm{\sigma} = 2\mu\,\bm{\epsilon^d} + \kappa\,\left(\operatorname{tr}\bm{\epsilon}^v\right)\mathbf{I}
+    \label{eq:deformacao}
+\end{equation}
+
+Agora, almeja-se obter os tensores que extraem a parte volumétrica e a parte desviadora do tensor de deformação, de modo que a equação \eqref{eq:deformacao} 
+possa ser escrita em função apenas de \(\bm{\epsilon}\). Para tanto, definem-se os tensores de quarta ordem \(\mathbb{I}^{vol}\) e \(\mathbb{I}^{symdev}\) como:
+\begin{equation}
+    \mathbb{I}^{vol} \coloneq \frac{1}{3}\,\mathbf{I}\otimes\mathbf{I} \quad \text{/} \quad \mathbb{I}^{vol}\,\mathbf{A} = \mathbf{A} \quad \forall\, \mathbf{A} \quad \text{com} \quad \mathbf{A}' = 0
+\end{equation}
+e
+\begin{equation}
+    \mathbb{I}^{symdev} \coloneq \mathbb{I}^{sym} - \mathbb{I}^{vol} \quad \text{/} \quad \mathbb{I}^{symdev}\,\mathbf{B} = \mathbf{B} \quad \forall \, \mathbf{B} \quad \text{com} \quad \operatorname{tr}\mathbf{B} = 0
+\end{equation}
+
+Desse modo, pode-se escrever o tensor constitutivo \(\mathbb{C}\) como:
+\begin{equation}
+    \mathbb{C} = 2\,\mu\mathbb{I}^{symdev} + 3\,\kappa\,\mathbb{I}^{vol}
+\end{equation}
+
+Visando agora explicitar a forma matricial dos tensores \(\mathbb{I}^{vol}\) e \(\mathbb{I}^{symdev}\), tem-se que, para um tensor de quarta ordem \(\mathbb{A}\):
+qualquer, sua forma de Voigt é dada por:
+\begin{equation}
+\mathbb{D}_{\text{Voigt}} = \left[
+\begin{matrix}
+D_{1111} & D_{1122} & D_{1133} & \sqrt{2}\,D_{1123} & \sqrt{2}\,D_{1113} & \sqrt{2}\,D_{1112}\\[3mm]
+D_{1122} & D_{2222} & D_{2233} & \sqrt{2}\,D_{2223} & \sqrt{2}\,D_{2213} & \sqrt{2}\,D_{2212}\\[3mm]
+D_{1133} & D_{2233} & D_{3333} & \sqrt{2}\,D_{3323} & \sqrt{2}\,D_{3313} & \sqrt{2}\,D_{3312}\\[3mm]
+\sqrt{2}\,D_{1123} & \sqrt{2}\,D_{2223} & \sqrt{2}\,D_{3323} & 2\,D_{2323} & 2\,D_{2313} & 2\,D_{2312}\\[3mm]
+\sqrt{2}\,D_{1113} & \sqrt{2}\,D_{2213} & \sqrt{2}\,D_{3313} & 2\,D_{2313} & 2\,D_{1313} & 2\,D_{1312}\\[3mm]
+\sqrt{2}\,D_{1112} & \sqrt{2}\,D_{2212} & \sqrt{2}\,D_{3312} & 2\,D_{2312} & 2\,D_{1312} & 2\,D_{1212}
+\end{matrix}\right]
+\end{equation}
+
+Agora, almejando escrever \(\mathbb{I}\) em termos de sua forma de Voigt, inicialmente percebe-se que este pode ser escrito em termos de 
+suas componentes como \(\mathbb{I} = \delta_{ij}\,\delta_{kl}\,\mathbf{e}_i\otimes\mathbf{e}_j\otimes\mathbf{e}_k\otimes\mathbf{e}_l\). Assim, 
+percebe-se que este tensor será não nulo apenas quando \(i = k\) e \(j = l\). Portanto, a forma de Voigt do tensor identidade é dada por:
+\begin{equation}
+    \renewcommand{\arraycolsep}{12pt} % increase the space between columns
+    \mathbb{I}_{\text{Voigt}} = \left[
+    \begin{matrix}
+        1 & 1 & 1 & 0 & 0 & 0\\[1.0pt]
+        1 & 1 & 1 & 0 & 0 & 0\\[1.0pt]
+        1 & 1 & 1 & 0 & 0 & 0\\[1.0pt]
+        0 & 0 & 0 & 2 & 0 & 0\\[1.0pt]
+        0 & 0 & 0 & 0 & 2 & 0\\[1.0pt]
+        0 & 0 & 0 & 0 & 0 & 2
+    \end{matrix}\right]
+\end{equation}
+
+De forma a simplificar a escrita, consideremos os índices indo de \(1\) a \(2\). 
+Portanto, a forma de Voigt do tensor \(\mathbb{I}^{vol}\) é dada da seguinte forma:
+\begin{equation}
+    \renewcommand{\arraycolsep}{12pt} % increase the space between columns
+    \mathbb{I}^{vol} = 
+    \frac{1}{3}
+    \left[
+    \begin{matrix}
+        1 & 1 & 0 & 0\\[1.0pt]
+        1 & 1 & 0 & 0\\[1.0pt]
+        0 & 0 & 0 & 0\\[1.0pt]
+        0 & 0 & 0 & 0
+    \end{matrix}\right]
+\end{equation}
+
+Já o tensor \(\mathbb{I}^{sym}\) é dado por:
+\begin{equation}
+    \renewcommand{\arraycolsep}{12pt} % increase the space between columns
+    \mathbb{I}^{sym} = \frac{1}{2}\left[\mathbb{I} + \mathbb{I}^T \right]
+    \left[
+    \begin{matrix}
+        1 & 0 & 0 & 0\\[1.0pt]
+        0 & 1 & 0 & 0\\[1.0pt]
+        0 & 0 & 1 & 0\\[1.0pt]
+        0 & 0 & 0 & 1
+    \end{matrix}\right]
+\end{equation}
+e, portanto, \(\mathbb{I}^{symdev}\) pode ser escrito como:
+\begin{equation}
+    \renewcommand{\arraycolsep}{12pt} % increase the space between columns
+    \mathbb{I}^{symdev} = 
+    \left[
+    \begin{matrix}
+        1 & 0 & 0 & 0\\[1.0pt]
+        0 & 1 & 0 & 0\\[1.0pt]
+        0 & 0 & 1 & 0\\[1.0pt]
+        0 & 0 & 0 & 1
+    \end{matrix}\right]
+    - \frac{1}{3}
+    \left[
+    \begin{matrix}
+        1 & 1 & 0 & 0\\[1.0pt]
+        1 & 1 & 0 & 0\\[1.0pt]
+        0 & 0 & 0 & 0\\[1.0pt]
+        0 & 0 & 0 & 0
+    \end{matrix}\right]
+\end{equation}
+
+Assim, finalmente, a forma de Voigt do tensor \(\mathbb{I}^{symdev}\) é dada por:
+\begin{equation}
+    \renewcommand{\arraycolsep}{12pt} % increase the space between columns
+    \mathbb{I}^{symdev} = 
+    \left[
+    \begin{matrix}
+        \frac{2}{3} & -\frac{1}{3} & 0 & 0\\[1.0pt]
+        -\frac{1}{3} & \frac{2}{3} & 0 & 0\\[1.0pt]
+        0 & 0 & 1 & 0\\[1.0pt]
+        0 & 0 & 0 & 1
+    \end{matrix}\right]
+\end{equation}
+
+Portanto, o tensor constitutivo \(\mathbb{C}\) pode ser escrito por, já considerando a simetria do tensor de deformações:
+\begin{equation}
+    2\,\mu\,
+    \renewcommand{\arraycolsep}{12pt}
+    \left[
+    \begin{matrix}
+        \frac{2}{3} & -\frac{1}{3} & 0 \\[1.0pt]
+        -\frac{1}{3} & \frac{2}{3} & 0 \\[1.0pt]
+        0 & 0 & 1
+    \end{matrix}\right]
+    + \,\kappa\,
+    \renewcommand{\arraycolsep}{12pt}
+    \left[
+    \begin{matrix}
+        1 & 1 & 0 \\[1.0pt]
+        1 & 1 & 0 \\[1.0pt]
+        0 & 0 & 0 
+    \end{matrix}\right]
+    \label{eq:constitutivo_vol_dev}
+\end{equation}
+
+Cabe aqui também ressaltar que, caso o tensor de deformação \(\bm{\epsilon}\) seja escrito em sua forma de Voigt de forma
+compatível tensorialmente, ou seja:
+\begin{equation}
+    \bm{\epsilon} = \left[
+    \begin{matrix}
+        \epsilon_{11} \\[1.0pt]
+        \epsilon_{22} \\[1.0pt]
+        \epsilon_{12} 
+    \end{matrix}\right]
+\end{equation}
+então a equação \eqref{eq:constitutivo_vol_dev} é válida. Já caso o tensor de deformação \(\bm{\epsilon}\) 
+seja escrito da forma:
+\begin{equation}
+    \bm{\epsilon} = \left[
+    \begin{matrix}
+        \epsilon_{11} \\[1.0pt]
+        \epsilon_{22} \\[1.0pt]
+        \gamma_{12} 
+    \end{matrix}\right]\quad ,
+\end{equation}
+então a equação \eqref{eq:constitutivo_vol_dev} deve ser escrita como:
+
+\begin{equation}
+    2\,\mu\,
+    \renewcommand{\arraycolsep}{12pt}
+    \left[
+    \begin{matrix}
+        \frac{2}{3} & -\frac{1}{3} & 0 \\[1.0pt]
+        -\frac{1}{3} & \frac{2}{3} & 0 \\[1.0pt]
+        0 & 0 & \frac{1}{2}
+    \end{matrix}\right]
+    + \,\kappa\,
+    \renewcommand{\arraycolsep}{12pt}
+    \left[
+    \begin{matrix}
+        1 & 1 & 0 \\[1.0pt]
+        1 & 1 & 0 \\[1.0pt]
+        0 & 0 & 0 
+    \end{matrix}\right]
+\end{equation}
+
+
+
+
+
+% ---
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+% ---
+\phantompart
+
+
+
+
+
+% ---
+% Conclusão (opcional)
+% ---
+%\chapter*[Considerações finais]{Considerações finais}
+%\addcontentsline{toc}{chapter}{Considerações finais}
+
+
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+
+
+
+
+% ----------------------------------------------------------
+% Referências bibliográficas (OBRIGATÓRIO)
+% ----------------------------------------------------------
+% \bibliography{projeto}
+\newpage
+\printbibliography
+
+
+
+
+
+% ----------------------------------------------------------
+% Glossário (opicional)
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+
+
+
+% ----------------------------------------------------------
+% Apêndices (opicional)
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+%\begin{apendicesenv}
+
+% Imprime uma página indicando o início dos apêndices
+%\partapendices
+
+% ----------------------------------------------------------
+%\chapter{Apêndice 1}
+% ----------------------------------------------------------
+
+%\end{apendicesenv}
+% ---
+
+
+
+% ----------------------------------------------------------
+% Anexos (opcional)
+% ----------------------------------------------------------
+
+% ---
+% Inicia os anexos
+% ---
+%\begin{anexosenv}
+
+% Imprime uma página indicando o início dos anexos
+%\partanexos
+
+% ---
+%\chapter{Anexo 1}
+% ---
+
+%\end{anexosenv}
+
+
+
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO (opcional)
+%---------------------------------------------------------------------
+
+%\phantompart
+
+%\printindex
+
+\end{document}
