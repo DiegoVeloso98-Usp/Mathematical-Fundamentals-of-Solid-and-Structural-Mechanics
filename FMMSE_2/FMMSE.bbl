@@ -1,0 +1,115 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{anand_continuum_2020}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=0ade93efffef811d00676da93f97567b}{%
+           family={Anand},
+           familyi={A\bibinitperiod},
+           given={Lallit},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=77206d7127686c8358dd9f75d7b1f9db}{%
+           family={Govindjee},
+           familyi={G\bibinitperiod},
+           given={Sanjay},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University PressOxford}%
+      }
+      \strng{namehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{fullhash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{bibnamehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{authorbibnamehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{authornamehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{authorfullhash}{16d1b275b8cee1c4f15bb638e6005186}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Abstract Continuum mechanics of Solids presents a unified treatment of the major concepts in Solid Mechanics for beginning graduate students in the many branches of engineering. The fundamental topics of kinematics in finite and infinitesimal deformation, mechanical and thermodynamic balances plus entropy imbalance in the small strain setting are covered as they apply to all solids. The major material models of Elasticity, Viscoelasticity, and Plasticity are detailed and models for Fracture and Fatigue are discussed. In addition to these topics in Solid Mechanics, because of the growing need for engineering students to have a knowledge of the coupled multi-physics response of materials in modern technologies related to the environment and energy, the book also includes chapters on Thermoelasticity, Chemoelasticity, Poroelasticity, and Piezoelectricity. A preview to the theory of finite elasticity and elastomeric materials is also given. Throughout, example computations are presented to highlight how the developed theories may be applied.}
+      \field{edition}{1}
+      \field{isbn}{978-0-19-886472-1 978-0-19-189676-7}
+      \field{month}{7}
+      \field{title}{Continuum {Mechanics} of {Solids}}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2024}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1093/oso/9780198864721.001.0001
+      \endverb
+      \verb{file}
+      \verb PDF:C\:\\Users\\diegoveloso\\Zotero\\storage\\KDG6VN84\\Anand e Govindjee - 2020 - Continuum Mechanics of Solids.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://academic.oup.com/book/43650
+      \endverb
+      \verb{url}
+      \verb https://academic.oup.com/book/43650
+      \endverb
+    \endentry
+    \entry{proenca_2020}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b102693719b4107318bd5786ed84fa73}{%
+           family={Proença},
+           familyi={P\bibinitperiod},
+           given={Sergio\bibnamedelimb Persival\bibnamedelima Baroncini},
+           giveni={S\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {pt}%
+      }
+      \list{publisher}{1}{%
+        {USP}%
+      }
+      \strng{namehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{fullhash}{b102693719b4107318bd5786ed84fa73}
+      \strng{bibnamehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{authorbibnamehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{authornamehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{authorfullhash}{b102693719b4107318bd5786ed84fa73}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1}
+      \field{month}{3}
+      \field{title}{Fundamentos Matemáticos das Mecânicas dos Sólidos e Estruturas}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

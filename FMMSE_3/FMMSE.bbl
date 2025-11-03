@@ -1,0 +1,189 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{anand_continuum_2020}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=0ade93efffef811d00676da93f97567b}{%
+           family={Anand},
+           familyi={A\bibinitperiod},
+           given={Lallit},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=77206d7127686c8358dd9f75d7b1f9db}{%
+           family={Govindjee},
+           familyi={G\bibinitperiod},
+           given={Sanjay},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University PressOxford}%
+      }
+      \strng{namehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{fullhash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{bibnamehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{authorbibnamehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{authornamehash}{16d1b275b8cee1c4f15bb638e6005186}
+      \strng{authorfullhash}{16d1b275b8cee1c4f15bb638e6005186}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Abstract Continuum mechanics of Solids presents a unified treatment of the major concepts in Solid Mechanics for beginning graduate students in the many branches of engineering. The fundamental topics of kinematics in finite and infinitesimal deformation, mechanical and thermodynamic balances plus entropy imbalance in the small strain setting are covered as they apply to all solids. The major material models of Elasticity, Viscoelasticity, and Plasticity are detailed and models for Fracture and Fatigue are discussed. In addition to these topics in Solid Mechanics, because of the growing need for engineering students to have a knowledge of the coupled multi-physics response of materials in modern technologies related to the environment and energy, the book also includes chapters on Thermoelasticity, Chemoelasticity, Poroelasticity, and Piezoelectricity. A preview to the theory of finite elasticity and elastomeric materials is also given. Throughout, example computations are presented to highlight how the developed theories may be applied.}
+      \field{edition}{1}
+      \field{isbn}{978-0-19-886472-1 978-0-19-189676-7}
+      \field{month}{7}
+      \field{title}{Continuum {Mechanics} of {Solids}}
+      \field{urlday}{30}
+      \field{urlmonth}{9}
+      \field{urlyear}{2024}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1093/oso/9780198864721.001.0001
+      \endverb
+      \verb{file}
+      \verb PDF:C\:\\Users\\diegoveloso\\Zotero\\storage\\KDG6VN84\\Anand e Govindjee - 2020 - Continuum Mechanics of Solids.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://academic.oup.com/book/43650
+      \endverb
+      \verb{url}
+      \verb https://academic.oup.com/book/43650
+      \endverb
+    \endentry
+    \entry{lanczos_variational_2012}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=566cbec89d411ac615d67809e3083f19}{%
+           family={Lanczos},
+           familyi={L\bibinitperiod},
+           given={Cornelius},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{publisher}{1}{%
+        {Dover Publications}%
+      }
+      \strng{namehash}{566cbec89d411ac615d67809e3083f19}
+      \strng{fullhash}{566cbec89d411ac615d67809e3083f19}
+      \strng{bibnamehash}{566cbec89d411ac615d67809e3083f19}
+      \strng{authorbibnamehash}{566cbec89d411ac615d67809e3083f19}
+      \strng{authornamehash}{566cbec89d411ac615d67809e3083f19}
+      \strng{authorfullhash}{566cbec89d411ac615d67809e3083f19}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Analytical mechanics is, of course, a topic of perennial interest and usefulness in physics and engineering, a discipline that boasts not only many practical applications, but much inherent mathematical beauty. Unlike many standard textbooks on advanced mechanics, however, this present text eschews a primarily technical and formalistic treatment in favor of a fundamental, historical, philosophical approach. As the author remarks, there is a tremendous treasure of philosophical meaning" behind the great theories of Euler and Lagrange, Hamilton, Jacobi, and other mathematical thinkers. Well-written, authoritative, and scholarly, this classic treatise begins with an introduction to the variational principles of mechanics including the procedures of Euler, Lagrange, and Hamilton. Ideal for a two-semester graduate course, the book includes a variety of problems, carefully chosen to familiarize the student with new concepts and to illuminate the general principles involved. Moreover, it offers excellent grounding for the student of mathematics, engineering, or physics who does not intend to specialize in mechanics, but wants a thorough grasp of the underlying principles. The late Professor Lanczos (Dublin Institute of Advanced Studies) was a well-known physicist and educator who brought a superb pedagogical sense and profound grasp of the principles of mechanics to this work, now available for the first time in an inexpensive Dover paperback edition. His book will be welcomed by students, physicists, engineers, mathematicians, and anyone interested in a clear masterly exposition of this all-important discipline}
+      \field{isbn}{978-0-486-13470-3}
+      \field{note}{OCLC: 969061058}
+      \field{title}{The {Variational} {Principles} of {Mechanics}}
+      \field{year}{2012}
+      \verb{file}
+      \verb PDF:/home/diego/Zotero/storage/PE4NYKA6/Lanczos - 2012 - The Variational Principles of Mechanics.pdf:application/pdf
+      \endverb
+    \endentry
+    \entry{proenca_2020}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b102693719b4107318bd5786ed84fa73}{%
+           family={Proença},
+           familyi={P\bibinitperiod},
+           given={Sergio\bibnamedelimb Persival\bibnamedelima Baroncini},
+           giveni={S\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {pt}%
+      }
+      \list{publisher}{1}{%
+        {USP}%
+      }
+      \strng{namehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{fullhash}{b102693719b4107318bd5786ed84fa73}
+      \strng{bibnamehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{authorbibnamehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{authornamehash}{b102693719b4107318bd5786ed84fa73}
+      \strng{authorfullhash}{b102693719b4107318bd5786ed84fa73}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1}
+      \field{month}{3}
+      \field{title}{Fundamentos Matemáticos das Mecânicas dos Sólidos e Estruturas}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+    \endentry
+    \entry{spencer_continuum_2004}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=29ae7efac7f62e5795ec15cce9993d65}{%
+           family={Spencer},
+           familyi={S\bibinitperiod},
+           given={A.\bibnamedelimi J.\bibnamedelimi M.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{location}{1}{%
+        {Mineola, N.Y}%
+      }
+      \list{publisher}{1}{%
+        {Dover Publ}%
+      }
+      \strng{namehash}{29ae7efac7f62e5795ec15cce9993d65}
+      \strng{fullhash}{29ae7efac7f62e5795ec15cce9993d65}
+      \strng{bibnamehash}{29ae7efac7f62e5795ec15cce9993d65}
+      \strng{authorbibnamehash}{29ae7efac7f62e5795ec15cce9993d65}
+      \strng{authornamehash}{29ae7efac7f62e5795ec15cce9993d65}
+      \strng{authorfullhash}{29ae7efac7f62e5795ec15cce9993d65}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Dover ed}
+      \field{isbn}{978-0-486-43594-7}
+      \field{title}{Continuum mechanics}
+      \field{year}{2004}
+      \verb{file}
+      \verb PDF:/home/diego/Zotero/storage/CQDEX7XH/Spencer and Spencer - 2004 - Continuum mechanics.pdf:application/pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

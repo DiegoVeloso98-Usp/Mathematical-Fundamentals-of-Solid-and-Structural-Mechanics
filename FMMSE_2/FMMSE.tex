@@ -1,0 +1,1068 @@
+\documentclass[
+	% -- opções da classe memoir --
+  article,
+	12pt,				% tamanho da fonte
+	%openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,			% para impressão em um só lado. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	brazil,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+%   english,			% o último idioma é o principal do documento
+	portuguese				% o último idioma é o principal do documento
+	]{abntex2}
+
+
+
+
+% ---
+% PACOTES
+% ---
+
+
+
+% ---
+% Pacotes fundamentais para o abnTeX (não mexer)
+% ---
+\usepackage{lmodern}			                      % Usa a fonte Latin Modern
+% \usepackage{mathptmx}                                 % Fonte times new romam no texto
+\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries} % Fonte times new romam em negrito nos itens
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage{csquotes}
+\usepackage{bm}
+
+% ---
+
+% ---
+% Pacotes do usuário (pode mexer)
+% ---
+\usepackage{setspace}
+\usepackage{grffile}            % para não mostrar o endereço local da figura na legenda
+
+% Pacotes de equações e símbolos matemáticos
+\usepackage{bm}
+\usepackage{isomath}
+\usepackage{amsmath}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Div}{Div}
+\numberwithin{equation}{section}
+\usepackage{bbm}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{enumitem}
+\usepackage{mathtools}
+% Add after your other packages in the preamble section
+\usepackage{fancyhdr}
+
+
+% Configure headers and footers with section name and page number
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\renewcommand{\headrulewidth}{0.5pt} % Line at the top
+\fancyhead[L]{\thepage} % Page number in left header
+\fancyhead[R]{\small\itshape\rightmark} % Section name in right header
+% Remove footer page number: \fancyfoot[C]{\thepage}
+
+% Make plain pages consistent
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{\thepage}% Page number in left header
+  \fancyhead[R]{\small\itshape\rightmark}%
+  % Remove footer page number: \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0.5pt}%
+}
+
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+
+
+
+% ---
+% Pacotes de citações (se for trabalho para o Brasil, não mexer)
+% ---
+%\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+%\usepackage[alf]{abntex2cite}			         % Citações padrão ABNT
+
+\usepackage[style=abnt, language=portuguese]{biblatex}
+% Define document metadata
+\autor{Diego Dias Veloso}
+\titulo{Fundamentos Matemáticos da Mecânica dos Sólidos e Estruturas}
+\data{\today}  % or specify a date like {2023}
+
+% Optional but commonly used in ABNTeX2 documents
+\orientador{PhD. Sérgio Persional Baronchinni Proença}
+\instituicao{Universidade de São Paulo}
+\local{São Carlos}
+
+%\bibliography{projeto}
+\addbibresource{FMMSE.bib}
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% Para iniciar capítulos na mesma página, pulando apenas uma linha
+\setlength\afterchapskip{\lineskip}
+
+%% ---
+%% Configurações do pacote backref
+%% Usado sem a opção hyperpageref de backref
+%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+%% Texto padrão antes do número das páginas
+%\renewcommand{\backref}{}
+%% Define os textos da citação
+%\renewcommand*{\backrefalt}[4]{
+%	\ifcase #1 %
+%		Nenhuma citação no texto.%
+%	\or
+%		Citado na página #2.%
+%	\else
+%		Citado #1 vezes nas páginas #2.%
+%	\fi}%
+%% ---
+
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+    pdfsubject={\imprimirpreambulo},
+	pdfcreator={LaTeX with abnTeX2},
+		%pdfkeywords={abnt}{latex}{abntex}{abntex2}{projeto de pesquisa}, 
+		colorlinks=true,       		    % false: boxed links; true: colored links
+    	linkcolor=blue,          		% color of internal links
+    	citecolor=blue,        			% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+% ---
+
+% ---
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+%
+\newcommand{\quadroname}{Table}
+\newcommand{\listofquadrosname}{Lista de quadros}
+
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space} 
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+
+\setfloatlocations{quadro}{hbtp} % Ver https://github.com/abntex/abntex2/issues/176
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.30cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+
+
+
+%% ---
+%% Símbolos matemáticos (pode mexer)
+%% ---
+%\newcommand{\matr}[1]{\bm{#1}}
+%\newcommand{\sig}{\matr{\sigma}}
+%\newcommand{\pd}[2]{\dfrac{\partial{#1}}{\partial{#2}}}
+%\newcommand{\EE}{\matr{\dot{E}}}
+%\newcommand{\EEp}{\matr{\dot{E}}^{\prime}}
+%\newcommand{\EEm}{\dot{E}_m}
+%\newcommand{\EEq}{\dot{E}_{eq}}
+%\newcommand{\epsG}{\matr{\dot{\epsilon}}_G}
+%\newcommand{\eps}[1]{\matr{\dot{\epsilon}}^{#1}}
+%\newcommand{\Sig}{\matr{\Sigma}}
+
+
+
+
+
+% ----
+% INÍCIO DO DOCUMENTO
+% ----
+\begin{document}
+% Generate simple title
+\imprimircapa
+\imprimirfolhaderosto
+\clearpage
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+% \selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+\DoubleSpacing
+
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+\pretextual % este comando pode ser comentado caso haja algum erro no compilador
+
+% ---
+% Sumário (OBRIGATÓRIO)
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+
+
+% ----------------------------------------------------------
+% Caso não queira numerar a Introdução
+% ----------------------------------------------------------
+%\chapter*[Introdução]{Introdução}
+%\addcontentsline{toc}{chapter}{Introdução}
+
+\section{Introdução}
+A Mecânica dos Sólidos é um ramo da física a qual estuda o comportamento de sólidos deformáveis
+sob a ação diversa de forças externas. No contexto da Engenharia de Estruturas e da Mecânica Computacional,
+a Mecânica dos Sólidos é o campo que fornece todo o ferramental teórico necessário para o entendimento do comportamento das estruturas e
+dos materiais. Além disso, essa base permite ao pesquisador propor novos modelos e teorias que discrevam diferentes problemas.
+
+No campo da Mecânica dos Sólidos, em sua grande parte seus fundamentos teóricos são descritos a partir de conceitos da algebra linear,
+como por exemplo, espaços vetoriais e operações entre tensores. Nesse sentido, o primeiro trabalho entregue almejou fornecer ao pesquisador
+tal ferramental. Agora, o presente trabalho tem como objetivo apresentar os conceitos fundamentais da análise tensorial, ou seja, tópicos como 
+o gradiente e divergente de tensores. Ambas operações são fundamentais para o entendimento do comportamento de sólidos deformáveis.
+
+Desse modo, dando continuidade ao primeiro trabalho, o presente trabalho tem como objetivo aprofundar os conceitos de análise tensorial do pesquisador.
+Com esses conhecimentos, facilita-se a compreensão das teorias da Mecânica dos sólidos com seu rigor matemático, além de também fornecer ao pesquisador
+ferramentais para o desenvolvimento de novos modelos e teorias.
+\subsection{Aspectos teóricos}
+No presente tópico, serão apresentados conceitos fundamentais que serão utilizados ao longo do texto. Objetivando uma apresentação 
+mais clara e objetiva ao longo do texto, provas e demonstrações de teoremas e propriedades não serão apresentadas. Portando, tais demonstrações
+mais relevantes serão aqui apresentadas. Maiores detalhes, no contexto da mecânica dos sólidos, podem ser encontrados em \cite{proenca_2020} 
+e \cite{anand_continuum_2020}.
+
+\subsubsection{Derivada direcional}
+Dada uma função \(g\left(x\right)\) definida em um intervalo \(I \subset \mathbb{R}\), sua derivada é definida como:
+\begin{equation}
+    g^{\prime}\left(x\right) = \lim_{\Delta x \to 0} \frac{g\left(x + \Delta x\right) - g\left(x\right)}{\Delta x}.
+\end{equation}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/derivadadirecional.png}
+    \caption{Derivada direcional de uma função \(g\left(x\right)\) em um ponto \(x\).}
+    \label{fig:derivada_direcional}
+\end{figure}
+
+Com a definição acima, pode-se escrever \(g\left(x + \Delta x\right)\) como:
+\begin{equation}
+    g\left(x + \Delta x\right) = g\left(x\right) + g^{\prime}\left(x\right)\,\Delta x + \mathcal{O}\left(\Delta x^2\right).
+\end{equation}
+
+A definição acima pode ser estendida para funções vetoriais \(f\left(\bm{x}\right)\) definidas em um espaço vetorial \(\mathbb{R}^n\). 
+Dessa forma, a derivada direcional de uma função vetorial \(f\left(\bm{x}\right)\) em um ponto \(\bm{x}\) na direção do vetor unitário \(\bm{e}_i\) é dada por:
+\begin{equation}
+    \nabla f\left(\bm{x}\right) = \lim_{\Delta x \to 0} \frac{f\left(\bm{x} + \Delta x\,\bm{e}_i\right) - f\left(\bm{x}\right)}{\Delta x}.
+\end{equation}
+
+Além disso, busca-se agora definir o termo \(\mathcal{O}\left(\Delta x^2\right)\) que aparece na equação acima. Para isso, considere a função \(f\left(\bm{x}\right)\) definida em um espaço vetorial \(\mathbb{R}^n\).
+Seja \(\bm{x} = \left(x_1, x_2, \ldots, x_n\right)\) e \(\bm{e}_i = \left(0, 0, \ldots, 1, \ldots, 0\right)\) o vetor unitário na direção \(i\). Assim, a função \(f\left(\bm{x}\right)\) pode ser escrita como:
+\begin{equation}
+    f\left(\bm{x}\right) = f\left(x_1, x_2, \ldots, x_n\right).
+\end{equation}
+
+A partir disso, o termo \(\mathcal{O}\left(\Delta x^2\right)\) é definido como um termo de ordem superior{\footnote{O termo \(\mathcal{O}\left(\Delta x^2\right)\) é um termo de ordem superior, ou seja, é um termo que tende a zero mais rapidamente do que \(\Delta x\) quando \(\Delta x\) tende a zero.}} em relação a \(\Delta x\). 
+Defini-se um termo de ordem superior se este:
+\begin{equation}
+    \lim_{\left\lVert \vec{\Delta x }\to 0 \right\rVert} \frac{\left\rVert\mathcal{O}\left(\vec{\Delta x}^2\right)\right\rVert}{\left\rVert\vec{\Delta x}\right\rVert} = 0. 
+\end{equation}
+
+Portando, para um pequeno incremento \(\alpha\), se tem:
+\begin{equation}
+    f\left(\bm{x} + \alpha\,\bm{e}_i\right) = f\left(\bm{x}\right) + \frac{d\left[f\left(\bm{x}+\alpha \bm{e}_i\right)\right]}{d\alpha}\bigg|_{\alpha=0} .
+\end{equation}
+
+Ou seja, o valor da função \(f\left(\bm{x} + \alpha\,\bm{e}_i\right)\) é dado pela soma do valor da função \(f\left(\bm{x}\right)\) e o incremento na direção do vetor unitário \(\bm{e}_i\).
+Tal incremento é entendido como a parte linear do incremento total, visto que a parcela \(\mathcal{O}\left(\Delta x^2\right)\) é desprezada.
+
+\subsubsection{Gradiente}
+Serão aqui apresentadas as formas do gradiente para campos escalares, vetoriais e tensoriais. 
+\paragraph{Campo escalar}
+Um campo escalar \(f\left(\bm{x}+\alpha\bm{e}_i\right)\) é dado por:
+\begin{equation}
+    \phi\left(\bm{x}+\alpha\bm{e}_i\right) = \phi\left(\bm{x}\right) + \alpha\underbrace{D \phi\left(\bm{x}\right)}_{\nabla \phi(\bm{x})}\cdot \bm{e}_i ,
+\end{equation}
+no qual a operação  \(\cdot\)  é justificada para a consistência dimensional. Além disso, o termo \(D\phi\left(\bm{x}\right)\cdot \bm{e}_i\) 
+representa a derivada direcional do campo escalar \(f\left(\bm{x}\right)\) na direção do vetor unitário \(\bm{e}_i\), ou seja :
+\begin{equation}
+    D\phi\left(\bm{x}\right)\cdot \bm{e}_i = \frac{\partial \phi}{\partial x_i}.
+\end{equation}
+
+\paragraph{Campo vetorial}
+Um campo vetorial \(\bm{f}\left(\bm{x}+\alpha\bm{e}_j\right)\) é dado por:
+\begin{equation}
+    \bm{f}\left(\bm{x}+\alpha\bm{e}_j\right) = \bm{f}\left(\bm{x}\right) + \alpha \underbrace{D \bm{f}\left(\bm{x}\right)}_{\nabla \bm{f}(\bm{x})} \bm{e}_j .
+\end{equation}
+O termo \(D\bm{f}\left(\bm{x}\right) \bm{e}_j\) representa a derivada direcional do campo vetorial \(\bm{f}\left(\bm{x}\right)\) na direção do versor \(\bm{e}_j\), ou seja :
+\begin{equation}
+    D\bm{f}\left(\bm{x}\right) \bm{e}_j = \frac{\partial \bm{f}}{\partial x_j} 
+    = \left(\frac{\partial f_1}{\partial x_j}, \frac{\partial f_2}{\partial x_j}, \ldots, \frac{\partial f_n}{\partial x_j}\right) 
+    = \frac{\partial f_i}{\partial x_j} \bm{e}_i
+\end{equation}
+
+\paragraph{Campo tensorial}
+Um campo tensorial \(\bm{T}\left(\bm{x}+\alpha\bm{e}_k\right)\) é dado por:
+\begin{equation}
+    \bm{T}\left(\bm{x}+\alpha\bm{e}_k\right) = \bm{T}\left(\bm{x}\right) + \alpha \underbrace{D \bm{T}\left(\bm{x}\right)}_{\nabla \bm{T}(\bm{x})} \bm{e}_k ,
+\end{equation}
+onde o termo \(D\bm{T}\left(\bm{x}\right) \bm{e}_k\) representa a derivada direcional do campo tensorial \(\bm{T}\left(\bm{x}\right)\) na direção do versor \(\bm{e}_k\), ou seja :
+\begin{equation}
+    D\bm{T}\left(\bm{x}\right) \bm{e}_k = \frac{\partial \bm{T}}{\partial x_k} 
+    = \left(\frac{\partial T_{11}}{\partial x_k}, \frac{\partial T_{12}}{\partial x_k}, \ldots, \frac{\partial T_{nn}}{\partial x_k}\right) 
+    = \frac{\partial T_{ij}}{\partial x_k} \bm{e}_i\otimes\bm{e}_j
+\end{equation}
+
+\subsubsection{Divergente}
+\paragraph{Campo vetorial}
+O divergente de um campo vetorial \(\bm{f}\left(\bm{x}\right)\) é dado por:
+\begin{equation}
+    \Div\left(\bm{f}\right) = \Tr\left(\nabla\bm{v}\right) .
+\end{equation}
+
+Escrevendo \(\bm{v}\) em função de seus componentes e utilizando a definição do operador traço, 
+\(\Tr\left(\bm{u}\otimes\bm{v}\right) = \bm{u}\cdot \bm{v}\), tem-se:
+\begin{equation}
+    \Div\left(\bm{f}\right) = \Tr \left(\frac{\partial{v_i}}{\partial x_j}\left(\bm{e}_i\, \otimes\, \bm{e}_j\right)\right) 
+    = \frac{\partial v_i}{\partial x_j} \bm{e}_i\cdot\bm{e}_j = \frac{\partial v_i}{\partial x_j} \delta_{ij} = \frac{\partial v_i}{\partial x_i}
+\end{equation}
+\paragraph{Campo tensorial}
+O divergente de um campo tensorial \(\bm{T}\left(\bm{x}\right)\) é dado por:
+\begin{equation}
+    \Div\left(\bm{T}\right) = \nabla\bm{T}\bm{I}.
+\end{equation}
+Escrevendo \(\bm{T}\) em função de seus componentes, tem-se:
+\begin{equation}
+    \Div\left(\bm{T}\right) = \nabla\left(T_{ij}\,\bm{e}_i\otimes\bm{e}_j\right)\left(\delta_{mn}\left(\bm{e}_m\otimes\bm{e}_n\right)\right) 
+    = \frac{\partial T_{ij}}{\partial x_k}\,\left(\bm{e}_i\otimes\bm{e}_j\otimes\bm{e}_k\right)\,\delta_{mn}\left(\bm{e}_m\otimes\bm{e}_n\right)   
+\end{equation}
+a  qual pode ser trabalhada como:
+\begin{equation}
+    \Div\left(\bm{T}\right) = \frac{\partial T_{ij}}{\partial x_k}\,\bm{e}_i
+\end{equation}
+
+\subsubsection{Generalização do operador gradiente}
+
+\cite{anand_continuum_2020} define o operador \(\nabla\left(\cdot\right)\) como:
+\begin{equation}
+    \nabla\left(\cdot\right) = \partial_k\,\bm{e}_k
+\end{equation}
+
+Tal definição é bastante conveniente e válida para campos escalares, vetoriais e tensoriais. 
+Assim, se tem:
+
+\begin{equation}
+    \nabla\left(\phi\right) = \partial_k\,\bm{e}_k\left(\phi\right) = \frac{\partial \phi}{\partial x_k}\,\bm{e}_k
+\end{equation}
+\begin{equation}
+    \nabla\left(\bm{v}\right) = \partial_k\,\bm{e}_k\left(\bm{v}\right) = \frac{\partial v_i}{\partial x_k}\,\bm{e}_i\otimes\bm{e}_k
+\end{equation}
+\begin{equation}
+    \nabla\left(\bm{S}\right) = \partial_k\,\bm{e}_k\left(\bm{S}\right) = \frac{\partial S_{ij}}{\partial x_k}\,\bm{e}_i\otimes\bm{e}_j\otimes\bm{e}_k
+\end{equation}
+
+As expressões acima serão utilizadas ao longo do texto.
+
+
+
+\subsubsection{Contração dupla} \label{contração_dupla}
+A contração dupla é uma operação que contrai dois indices ao se operar sobre dois tensores.
+Porém, esta não diz qual diz quais dois indices devem ser contraídos. Desse modo, deve-se definir qual é a operação de contração dupla.
+Usualmente, no contexto da mecânica dos sólidos, a contração dupla é definida como:
+\begin{equation}
+    \left(\bm{e}_i\otimes \bm{e}_j\otimes\bm{e}_k\right)\,\left(\bm{e}_l\otimes\bm{e}_m\right)
+    = \bm{e}_i\,\left(\bm{e}_j \cdot \bm{e}_l\right)\left(\bm{e}_k\cdot \bm{e}_m\right)
+    = \bm{e}_i\,\delta_{jl}\,\delta_{km} .
+\end{equation}
+Portanto, a contração dupla é dada por:
+\begin{equation}
+    \left(\bm{e}_i\otimes \bm{e}_j\otimes\bm{e}_k\right)\,:\,\left(\bm{e}_l\otimes\bm{e}_m\right)
+    := \bm{e}_i\,\delta_{jl}\,\delta_{km} .
+\end{equation}
+Cabe-se destacar a necessidade de se definir qual é a operação de contração dupla, ao, por exemplo, alguns livros definirem a seguinte operação:
+\begin{equation}
+    \left(\bm{e}_i\otimes \bm{e}_j\otimes\bm{e}_k\right)\,\cdot\cdot\,\left(\bm{e}_l\otimes\bm{e}_m\right)
+    := \bm{e}_i\,\delta_{jm}\,\delta_{kl} .
+\end{equation}
+Ou seja, a contração dupla acima resulta no transposto do resultado da contração dupla definida anteriormente. No caso de tensores 
+simétricos, como o tensor de deformação, a operação de contração dupla não altera o resultado. Porém, no caso de tensores assimétricos 
+a operação de contração dupla altera o resultado.
+
+\section{Resoluções}
+A seguir são apresentadas as resoluções dos problemas propostos na segunda lista de exercícios da 
+disciplina de Fundamentos da Mecânica dos Sólidos e Estruturas.
+
+\subsection{Exercício 1}
+Considere a relação geral para o desenvolvimento emm primeira ordem de um campo \(f\)  na vizinhando de um ponto segundo a direção 
+do versor \(\bm{e}_i\):
+\[
+    f(\bm{x} + \alpha \bm{e}_i) 
+    = f(\bm{x}) + \alpha \nabla f(\bm{x}) \cdot \bm{e}_i, \quad \text{com} \quad \nabla f(\bm{x}) = \frac{\partial f}{\partial x_i}
+\]
+e suas particularizações para os campos escalar, vetorial e tensorial de tensor ordem, respectivamente, 
+\(\phi , \bm{v} , \bm{S}\).
+Escreva as expressões indiciais para as componentes de \(\nabla \phi, \nabla \bm{v}\) e \(\nabla \bm{S}\)
+
+\begin{itemize}
+    \item \textbf{\underline{Resolução}} :
+\end{itemize}
+
+A relação geral para o desenvolvimento em primeira ordem de um campo \(\phi\) na vizinhança de um ponto segundo a direção do versor 
+\(\bm{e}_i\) é dada por:
+\begin{equation}
+    \phi(\bm{x} + \alpha \bm{e}_i) = \phi(\bm{x}) + \alpha \overbrace{\underbrace{\nabla \phi(\bm{x})}_{\text{Ordem 1}} \cdot \,\bm{e}_i}^{\text{Ordem 0}} 
+\end{equation}
+
+Da definição de \(\nabla \phi(\bm{x}) = \frac{\partial \phi}{\partial x_k}\), tem-se que a expressão \(\nabla \phi \cdot \bm{e}_i\) é 
+entendida como a derivada direcional do campo escalar \(\phi\) na direção do vetor unitário \(\bm{e}_i\), ou seja:
+\begin{equation}
+    \nabla \phi \cdot \bm{e}_i = \frac{\partial \phi}{\partial x_k} \bm{e}_k \cdot \bm{e}_i = \frac{\partial \phi}{\partial x_i} .
+\end{equation}
+
+Ou seja, a expressão \(\nabla \phi\) tem suas componentes e é escrita em função destas como:
+\begin{equation}
+    \nabla \phi = \frac{\partial \phi}{\partial x_i} \bm{e}_i 
+    \quad \text{e} \quad
+    \left(\nabla \phi \right)_i = \frac{\partial \phi}{\partial x_i} .
+\end{equation}
+
+Para o campo vetorial \(\bm{v}\), a relação geral para o desenvolvimento em primeira ordem de um campo \(\bm{v}\) na vizinhança de 
+um ponto segundo a direção do versor \(\bm{e}_i\) é dada por:
+\begin{equation}
+    \bm{v}(\bm{x} + \alpha \bm{e}_i) = \bm{v}(\bm{x}) + \alpha \overbrace{\underbrace{\nabla \bm{v}(\bm{x})}_{\text{Ordem 2}} \cdot \,\bm{e}_i}^{\text{Ordem 1}}
+\end{equation}
+
+A análise dimensional da expressão acima indica que a expressão \(\nabla \bm{v}(\bm{x})\) é um tensor de segunda ordem. Dessa forma,
+\(\nabla \bm{v}(\bm{x})\) pode ter suas componentes determinadas como:
+\begin{equation}
+    (\nabla \bm{v})_{ij}
+    = \bm{e}_i \cdot
+        \underbrace{\nabla \bm{v}\,\bm{e}_j}_{\substack{\text{Derivada}\\\text{direcional}}}
+    = \bm{e}_i \cdot \frac{\partial \bm{v}}{\partial x_j}
+\end{equation}
+
+Escrevendo \(\bm{v}\) em função de seus componentes, tem-se:
+\begin{equation}
+    (\nabla \bm{v})_{ij} = \frac{\partial v_k}{\partial x_j} \bm{e}_i \cdot \bm{e}_k 
+    = \frac{\partial v_k}{\partial x_j} \delta_{ik} 
+    = \frac{\partial v_i}{\partial x_j} .
+\end{equation}
+
+Ou seja, a expressão \(\nabla \bm{v}\) tem suas componentes e é escrita em função destas como:
+\begin{equation}
+    \nabla \bm{v} = \frac{\partial v_i}{\partial x_j} \bm{e}_i\otimes\bm{e}_j
+    \quad \text{e} \quad
+    \left(\nabla \bm{v}\right)_{ij} = \frac{\partial v_i}{\partial x_j} .
+\end{equation}
+
+Para o campo tensorial \(\bm{S}\), a relação geral para o desenvolvimento em primeira ordem de um campo \(\bm{S}\) na vizinhança de
+um ponto segundo a direção do versor \(\bm{e}_i\) é dada por:
+\begin{equation}
+    \bm{S}(\bm{x} + \alpha \bm{e}_i) = \bm{S}(\bm{x}) + \alpha \overbrace{\underbrace{\nabla \bm{S}(\bm{x})}_{\text{Ordem 3}} \cdot \,\bm{e}_i}^{\text{Ordem 2}}
+\end{equation}
+
+A análise dimensional da expressão acima indica que a expressão \(\nabla \bm{S}(\bm{x})\) é um tensor de terceira ordem. Dessa forma,
+\(\nabla \bm{S}(\bm{x})\) pode ter suas componentes determinadas como:
+\begin{equation}
+    (\nabla \bm{S})_{ijk}
+    = \bm{e}_i \cdot
+        \underbrace{\nabla \bm{S}\,\bm{e}_j}_{\substack{\text{Derivada}\\\text{direcional}}}
+    = \bm{e}_i \cdot \frac{\partial \bm{S}}{\partial x_j} .
+\end{equation}
+
+Escrevendo \(\bm{S}\) em função de seus componentes, tem-se:
+\begin{equation}
+    (\nabla \bm{S})_{ijk} = \frac{\partial S_{lm}}{\partial x_j} \bm{e}_i \cdot \bm{e}_l\otimes\bm{e}_m 
+    = \frac{\partial S_{lm}}{\partial x_j} \delta_{il}\otimes\bm{e}_m 
+    = \frac{\partial S_{ik}}{\partial x_j}  
+    = \frac{\partial S_{ij}}{\partial x_k} .
+\end{equation}
+
+Ou seja, a expressão \(\nabla \bm{S}\) tem suas componentes e é escrita em função destas como:
+\begin{equation}
+    \nabla \bm{S} = \frac{\partial S_{ij}}{\partial x_k} \bm{e}_i\otimes\bm{e}_j\otimes\bm{e}_k
+    \quad \text{e} \quad
+    \left(\nabla \bm{S}\right)_{ijk} = \frac{\partial S_{ij}}{\partial x_k} .
+\end{equation}
+
+
+
+\subsection{Exercício 2}
+Com as definições:
+\[
+    \mathrm{div}(\bm{v}) = \nabla \bm{v} \cdot \bm{I}, \quad \mathrm{div}(\bm{S}) = \nabla \bm{S} \, \bm{I}
+\]
+
+Obtenha as expressões indiciais para o cálculo de $\mathrm{div}(\bm{v})$ e das componentes de $\mathrm{div}(\bm{S})$.
+
+
+\begin{itemize}
+    \item \textbf{\underline{Resolução}} :
+\end{itemize}
+
+Escrevendo \(\bm{v}\) e \(\bm{I}\) em função de seus componentes, tem-se:
+\begin{equation}
+    \mathrm{div}(\bm{v}) = \nabla \bm{v} \cdot \bm{I} = \nabla \left(v_i \bm{e}_i\right) \cdot \left(\delta_{kl} \bm{e}_k\otimes\bm{e}_l\right)
+\end{equation}
+
+Lembrando que a operação \(\nabla \left(\cdot\right) = \partial_k \bm{e}_k \) se tem:
+\begin{equation}
+    \mathrm{div}(\bm{v}) 
+    = \partial_j \left(v_i \bm{e}_i\right)\otimes \bm{e}_j \cdot \left(\delta_{kl} \bm{e}_k\otimes\bm{e}_l\right)
+\end{equation}
+
+e
+\begin{equation}
+    \mathrm{div}(\bm{v}) 
+    = \frac{\partial v_i}{\partial x_j} \delta_{kl}  \left( \bm{e}_i\, \otimes \bm{e}_j\right) \cdot \left(\bm{e}_k\otimes\bm{e}_l\right) .
+\end{equation}
+
+Lembrando da relação \(\bm{A}\cdot\bm{B} = \Tr \left(\bm{A}^T\bm{B}\right)\), se tem:
+\begin{equation}
+    \mathrm{div}(\bm{v}) 
+    = \frac{\partial v_i}{\partial x_j} \delta_{kl} \Tr \left[\left( \bm{e}_i\, \otimes \bm{e}_j\right)  \left(\bm{e}_k\otimes\bm{e}_l\right)\right]
+\end{equation}
+
+Novamente, recordando da relação 
+\(\left( \bm{e}_i\, \otimes \bm{e}_j\right)  \left(\bm{e}_k\otimes\bm{e}_l\right) = \bm{e}_j \cdot \bm{e}_k \left(\bm{e}_i\otimes\bm{e}_l\right)\), 
+se tem:
+
+\begin{equation}
+    \mathrm{div}(\bm{v}) 
+    = \frac{\partial v_i}{\partial x_j} \delta_{kl} \Tr \left[\left( \bm{e}_j \cdot \bm{e}_k\right)  \left(\bm{e}_i\otimes\bm{e}_l\right)\right]
+    = \frac{\partial v_i}{\partial x_j} \delta_{kl} \delta_{jk} \delta_{il}
+    = \frac{\partial v_i}{\partial x_j} \delta_{ij} 
+\end{equation}
+
+Assim, se tem:
+\begin{equation}
+    \mathrm{div}(\bm{v}) = \frac{\partial v_i}{\partial x_i} .
+\end{equation}
+
+Para o campo tensorial \(\bm{S}\), o seu divergente é dado por:
+\begin{equation}
+    \mathrm{div}(\bm{S}) = \nabla \bm{S} \cdot \bm{I} 
+\end{equation}
+
+Escrevendo \(\bm{S}\) e \(\bm{I}\) em função de suas componentes, tem-se:
+\begin{equation}
+    \mathrm{div}(\bm{S}) = \nabla \left(S_{ij} \bm{e}_i\otimes\bm{e}_j\right) \cdot \left(\delta_{kl} \bm{e}_k\otimes\bm{e}_l\right)
+\end{equation}
+
+Lembrando que a operação \(\nabla \left(\cdot\right) = \partial_k \bm{e}_k \) se tem:
+\begin{equation}
+    \mathrm{div}(\bm{S}) 
+    = \partial_m \left(S_{ij} \bm{e}_i\otimes\bm{e}_j\right)\otimes \bm{e}_m \cdot \left(\delta_{kl} \bm{e}_k\otimes\bm{e}_l\right) .
+\end{equation}
+
+Desenvolvendo a expressão acima, tem-se:
+\begin{equation}
+    \mathrm{div}(\bm{S}) 
+    = \frac{\partial S_{ij}}{\partial x_m} \delta_{kl} \underbrace{\left( \bm{e}_i\, \otimes \bm{e}_j \, \otimes \bm{e}_m\right) \left(\bm{e}_k\otimes\bm{e}_l\right)}_{\text{Contração Dupla}}  .
+\end{equation}
+
+Dada a operação de contração dupla na equação acima e de sua definição apresentada em \ref{contração_dupla}, se tem:
+\begin{equation}
+    \mathrm{div}(\bm{S}) 
+    = \frac{\partial S_{ij}}{\partial x_m} \delta_{kl} \delta_{jk} \delta_{ml} \bm{e}_i
+\end{equation}
+assim, se tem:
+\begin{equation}
+    \mathrm{div}(\bm{S}) 
+    = \frac{\partial S_{ij}}{\partial x_j} \bm{e}_i
+\end{equation}
+
+Ou seja, a expressão \(\mathrm{div}(\bm{S})\) tem suas componentes e é escrita em função destas como:
+\begin{equation}
+    \mathrm{div}(\bm{S}) = \frac{\partial S_{ij}}{\partial x_j} \bm{e}_i
+    \quad \text{e} \quad
+    \left(\mathrm{div}(\bm{S})\right)_{i} = \frac{\partial S_{ij}}{\partial x_j} .
+\end{equation}
+
+\subsection{Exercício 3}
+Sendo $f = \phi \bm{S}$, obtenha expressões indiciais para $\nabla(\phi \bm{S})$ e $\mathrm{div}(\phi \bm{S})$.
+
+\begin{itemize}
+    \item \textbf{\underline{Resolução}} :
+\end{itemize}
+
+Realizando o desenvolvimento para \(\nabla f = \nabla\left(\phi \bm{S}\right)\), inicia-se aplicando a regra do produto:
+\begin{equation}
+    \nabla\left(\phi \bm{S}\right) = \nabla\left(\phi\right) \bm{S} + \phi \nabla\left(\bm{S}\right)
+\end{equation}
+
+Assim, escrevendo \(\phi\) e \(\bm{S}\) em função de suas componentes, tem-se:
+\begin{equation}
+    \nabla\left(\phi \bm{S}\right) 
+    = \nabla\left(\phi\right) S_{ij} \left(\bm{e}_i\otimes\bm{e}_j\right) + \phi \nabla\left( S_{ij} \bm{e}_i\otimes\bm{e}_j\right)
+\end{equation}
+
+Lembrando que a operação \(\nabla \left(\cdot\right) = \partial_k \bm{e}_k \) se tem:
+\begin{equation}
+    \nabla\left(\phi \bm{S}\right) 
+    = \partial_k\left(\phi S_{ij} \bm{e}_i\otimes\bm{e}_j\right)\otimes \bm{e}_k + \phi \partial_k \left( S_{ij} \bm{e}_i\otimes\bm{e}_j\right)\otimes \bm{e}_k
+\end{equation}
+
+Desenvolvendo a expressão acima, tem-se:
+\begin{equation}
+    \nabla\left(\phi \bm{S}\right) 
+    = \left[\frac{\partial \phi}{\partial x_k} S_{ij} 
+    + \phi \frac{\partial S_{ij}}{\partial x_k} \right] \left(\bm{e}_i\otimes\bm{e}_j \otimes \bm{e}_k\right)
+\end{equation}
+
+Agora, realizando o desenvolvimento para \(\operatorname{div}\left(\phi\, \bm{S}\right) \), inicialmente observa-se que \(\phi\,\bm{S}\) trata-se 
+de um campo tensorial de segunda ordem. Assim, o divergente de \(\phi\,\bm{S}\) é dado por:
+\begin{equation}
+    \operatorname{div}\left(\phi\, \bm{S}\right) = \nabla\left(\phi\, \bm{S}\right)  \bm{I} ,
+\end{equation}
+que, aplicando a regra do produto, resulta em:
+\begin{equation}
+    \operatorname{div}\left(\phi\, \bm{S}\right) 
+    = \left[\nabla\left(\phi\right) \bm{S} + \phi \nabla\left(\bm{S}\right)\right]  \bm{I} .
+\end{equation}
+
+Escrevendo \(\phi\) e \(\bm{S}\) em função de suas componentes, tem-se:
+\begin{equation}
+    \operatorname{div}\left(\phi\, \bm{S}\right) 
+    = \left[\nabla\left(\phi\right) S_{ij} \left(\bm{e}_i\otimes\bm{e}_j\right) + \phi \nabla\left( S_{ij} \bm{e}_i\otimes\bm{e}_j\right)\right]  \left(\delta_{kl} \bm{e}_k\otimes\bm{e}_l\right)
+\end{equation}
+
+Lembrando que a operação \(\nabla \left(\cdot\right) = \partial_k \bm{e}_k \) se tem:
+\begin{equation}
+    \operatorname{div}\left(\phi\, \bm{S}\right) 
+    = \left[\partial_m\left(\phi\right)\bm{e}_m S_{ij} \left(\bm{e}_i\otimes\bm{e}_j\right) 
+    + \phi \partial_m\left( S_{ij} \bm{e}_i\otimes\bm{e}_j\right)\otimes \bm{e}_m\right]  \left(\delta_{kl} \bm{e}_k\otimes\bm{e}_l\right) 
+\end{equation}
+
+Rearranjando os termos, tem-se:
+\begin{equation}
+    \operatorname{div}\left(\phi\, \bm{S}\right) 
+    =\delta_{kl} \left[\frac{\partial \phi}{\partial x_m} S_{ij}  
+    + \phi \frac{\partial  S_{ij}}{\partial x_m} \right]
+    \, \underbrace{\left(\bm{e}_i \, \otimes \bm{e}_j \, \otimes \bm{e}_m \right) \left(\bm{e}_k \, \otimes \bm{e}_l \right)}_{\text{Contração Dupla}} .
+\end{equation}
+
+Dada a operação de contração dupla na equação acima e de sua definição apresentada em \ref{contração_dupla}, se tem:
+\begin{equation}
+    \operatorname{div}\left(\phi\, \bm{S}\right) 
+    = \delta_{kl} \left[\frac{\partial \phi}{\partial x_m} S_{ij}  
+    + \phi \frac{\partial  S_{ij}}{\partial x_m} \right] \delta_{jk} \delta_{ml} \bm{e}_i
+\end{equation}
+
+Realizando as permutações necessárias, tem-se:
+\begin{equation}
+    \operatorname{div}\left(\phi\, \bm{S}\right) 
+    = \left[\frac{\partial \phi}{\partial x_j} S_{ij}  
+    + \phi \frac{\partial  S_{ij}}{\partial x_j} \right] \bm{e}_i
+\end{equation}
+
+Cabe apontar a consistência dimensional da expressão acima, uma vez que a operação de divergente diminui a ordem do tensor em uma unidade. 
+Desse modo, a operação de divergente aplicada a um tensor de segunda ordem resulta em um tensor de primeira ordem e, de fato, 
+o resultado obtido é um vetor
+
+\subsection{Exercício 4}
+Sejam $\phi$ e $\bm{v}$, respectivamente, campos escalar e vetorial. Verifique a consistência dimensional da seguinte relação e determine a sua forma em componentes:
+\[
+    \nabla(\phi \bm{v}) = \phi \nabla \bm{v} + \bm{v} \otimes \nabla \phi
+\]
+
+\begin{itemize}
+    \item \textbf{\underline{Resolução}} :
+\end{itemize}
+
+Almejando verificar a consistência dimensional da relação proposta, inicia-se analisando as dimensões de cada um dos termos da relação.
+O termo da esquerda da relação, \(\nabla(\phi \bm{v})\), deve resultar em um tensor de segunda ordem, uma vez que o operador \(\nabla\) aumenta 
+a ordem do tensor em uma unidade. Já do lado direito, o primeiro termo \(\phi \nabla \bm{v}\) resulta em um tensor de segunda ordem, uma vez que o operador \(\nabla\) 
+está aplicado a um vetor, resultando em um tensor de segunda ordem. O segundo termo \(\bm{v} \otimes \nabla \phi\) também resulta em um tensor de segunda ordem, 
+uma vez que o operador \(\nabla\) está aplicado a um escalar, resultando em um vetor e este é realizado o produto tensorial com um vetor, resultando em um tensor de segunda ordem.
+Assim, a relação proposta é dimensionalmente consistente.
+
+Agora, para determinar a forma em componentes da relação proposta, inicia-se escrevendo \(\phi\) e \(\bm{v}\) em função de suas componentes:
+\begin{equation}
+    \nabla(\phi \bm{v}) = \nabla\left(\phi v_i \bm{e}_i\right) 
+    = \phi \, \partial_j\left( v_i \bm{e}_i\right)\otimes \bm{e}_j 
+    + v_i \bm{e}_i \otimes \partial_j\left(\phi\right) \bm{e}_j
+\end{equation}
+Lembrando que a operação \(\nabla \left(\cdot\right) = \partial_k \bm{e}_k \) se tem:
+\begin{equation}
+    \nabla(\phi \bm{v}) 
+    = \left[\phi \, \frac{\partial v_i}{\partial x_j} + v_i \frac{\partial \phi}{\partial x_j}\right] \left(\bm{e}_i\otimes\bm{e}_j\right)
+\end{equation}
+
+\subsection{Exercício 5}
+Comente sobre o seu significado na Mecânica dos Sólidos e escreva as seguintes relações em forma indicial:
+\begin{enumerate}[label=\alph*)]
+    \item $\mathrm{div}(\mathbb{D} \nabla^s \bm{u}) + \bm{b} = 0$
+    \item $\bm{\varepsilon} = \nabla^s \bm{u}$
+    \item $\bm{T} = \mathbb{D} \nabla^s \bm{u}$
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{\underline{Resolução}} :
+\end{itemize}
+
+\begin{itemize}[label={}]
+    \item a) $\mathrm{div}(\mathbb{D} \nabla^s \bm{u}) + \bm{b} = 0$ :
+\end{itemize}
+
+Considerando que o tensor \(\mathbb{D}\) seja o tensor constitutivo, \(\bm{u}\) o vetor deslocamento, \(\bm{b}\) as forças de corpo, e \(\nabla^s\) seja o operador gradiente simétrico,
+se tem:
+\begin{equation}
+    \mathbb{D} \nabla^s \bm{u}
+    = \mathbb{D} \, \underbrace{\frac{1}{2}\left(\nabla \bm{u} + \nabla^T \bm{u}\right)}_{\varepsilon}  , 
+\end{equation}
+onde \(\varepsilon\) é o tensor de deformação infinitesimal. Portando, a relação acima pode ser escrita como:
+\begin{equation}
+    \bm{\sigma} = \mathbb{D} : \bm{\varepsilon} , 
+\end{equation}
+onde \(\bm{\sigma}\) é o tensor de tensões. 
+
+Através do tetraedro de Cauchy, ilustrado na \ref{fig:Tetraedro de Cauchy} é possível se obter a lei de Cauchy, a saber:
+\begin{equation}
+    \bm{t}\left(\bm{x},\bm{n}\right) = \bm{\sigma}\left(\bm{x}\right) \bm{n} ,
+\end{equation}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/tetraegon.png}
+    \caption{Tetraedro de Cauchy.}
+    \label{fig:Tetraedro de Cauchy}
+\end{figure}
+
+Com a lei de Cauchy, é possível se escrever a equação de equilíbrio de um corpo da seguinte forma:
+\begin{equation}
+    \int_{\partial V} \bm{\sigma}\bm{n} \, dS + \int_{V} \bm{b} \, dV = 0 , 
+\end{equation}
+que, com o uso do teorema de Gauss (ou divergência), pode ser escrita como:
+\begin{equation}
+    \int_{V} \left[\mathrm{div}\left(\bm{\sigma}\right) + \bm{b} \right]\, dV = 0.
+\end{equation}
+
+Assim, como o equilíbrio deve ser válido para qualquer volume \(V\), se tem a equação do 
+equilíbrio em sua forma local, também denominada de forma forte do equilíbrio:
+\begin{equation}
+    \mathrm{div}\left(\bm{\sigma}\right) + \bm{b} = 0.
+\end{equation}
+
+Assim, conclui-se que a relação proposta é a equação de equilíbrio em sua forma local.
+
+Agora, almejando escrever a relação proposta em forma indicial, inicia-se escrevendo \(\bm{u}\) e \(\mathbb{D}\) em função de suas componentes:
+\begin{equation}
+    \mathrm{div}\underbrace{\left[D_{ijkl} \varepsilon_{mn} 
+    \left(\bm{e}_i\,\otimes\bm{e}_j\,\otimes\bm{e}_k\,\otimes\bm{e}_l\right)\,\left(\bm{e}_m\,\otimes\bm{e}_n\right)\right]}_{\text{Contração Dupla}}
+    + b_i \bm{e}_i
+\end{equation}
+
+Lembrando da definição da operação de contração dupla apresentada em \ref{contração_dupla}, se tem:
+\begin{equation}
+    \mathrm{div}\left(\bm{\sigma}\right) + \bm{b} 
+    = \mathrm{div} \left[D_{ijkl} \varepsilon_{mn} \delta_{km} \delta_{ln} \left(\bm{e}_i\,\otimes\bm{e}_j\right)\right] + b_i \bm{e}_i
+\end{equation}
+
+Realizando as permutações necessárias , se tem:
+\begin{equation}
+    \mathrm{div} \left[D_{ijmn} \varepsilon_{mn} \left(\bm{e}_i\,\otimes\bm{e}_j\right)\right] + b_i \bm{e}_i.
+\end{equation}
+
+Recordando a relação \(\mathrm{div}\bm{A} = \nabla \bm{A}\, \bm{I} \), reecreve-se a expressão acima como:
+\begin{equation}
+    \left[\frac{\partial D_{ijmn}}{\partial x_k} \varepsilon_{mn} 
+    + D_{ijmn} \,\frac{\partial \varepsilon_{mn} }{\partial x_k} \right] 
+    \left(\bm{e}_i\,\otimes\bm{e}_j\,\otimes\bm{e}_k\right)\,\delta_{op} \,\left(\bm{e}_o\,\otimes\bm{e}_p\right)
+    + b_i \bm{e}_i.
+\end{equation}
+
+Observando-se a ocorrência de uma contração dupla em 
+\(\left(\bm{e}_i\,\otimes\bm{e}_j\,\otimes\bm{e}_k\right)\,\left(\bm{e}_o\,\otimes\bm{e}_p\right)\), se tem:
+
+\begin{equation}
+    \left[\frac{\partial D_{ijmn}}{\partial x_k} \varepsilon_{mn} 
+    + D_{ijmn} \,\frac{\partial \varepsilon_{mn} }{\partial x_k} \right] 
+    \delta_{op} \delta_{jo} \delta_{kp} \bm{e}_i
+    + b_i \bm{e}_i.
+\end{equation}
+
+Assim, realizando as permutações necessárias, obtem-se a expressão geral do equilíbrio pontual em forma indicial:
+
+\begin{equation}
+    \left[\frac{\partial D_{ijmn}}{\partial x_k} \varepsilon_{mn} 
+    + D_{ijmn} \,\frac{\partial \varepsilon_{mn} }{\partial x_k} \right] \bm{e}_i
+    + b_i \bm{e}_i.
+\end{equation}
+
+Na relação acima, pode-se realizar uma simplificação assumindo que o tensor constitutivo \(\mathbb{D}\) seja constante, ou seja, não dependa da posição \(x\). 
+Assim, a relação acima pode ser simplificada para:
+\begin{equation}
+    \left[D_{ijmn} \,\frac{\partial \varepsilon_{mn} }{\partial x_k} \right] \bm{e}_i
+    + b_i \bm{e}_i.
+\end{equation}
+
+Agora, almejando-se escrever a relação proposta em função do vetor deslocamento \(\bm{u}\), inicia-se pela definição do tensor de deformação infinitesimal:
+\begin{equation}
+    \varepsilon_{ij} = \frac{1}{2}\left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) .
+\end{equation}
+Assim, a relação proposta pode ser escrita como:
+\begin{equation}
+    D_{ijmn} \,\frac{\partial }{\partial x_k}\left[\frac{1}{2}\left(\frac{\partial u_m}{\partial x_n} + \frac{\partial u_n}{\partial x_m}\right)\right]  \bm{e}_i
+    + b_i \bm{e}_i.
+\end{equation}
+
+\begin{itemize}[label={}]
+    \item b) $\bm{\varepsilon} = \nabla^s \bm{u}$ :
+\end{itemize}
+
+Inicialmente, deve-se interpretar a expressão indicada. Para tanto, considera-se o exemplo de uma barra unidimensional submetida a um 
+carregamento.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/3ddeformation.png}
+    \caption{Deformação de um corpo no espaço.}
+    \label{fig:3ddeformation}
+\end{figure}
+
+Considerando-se dois pontos \(A\) e \(B\) da barra, com deslocamentos \(\bm{u}_A\) e \(\bm{u}_B\), respectivamente. Fazendo ambos os pontos 
+serem infinitesimalmente próximos, tem-se que, caso \(\bm{u}_A = \bm{u}_B\), tal parcela da barra sofreu um deslocamento de 
+corpo rígido, ou seja, não houve deformação. Caso contrário, a barra sofreu deformação. Assim, a deformação infinitesimal
+\(\varepsilon\) é dada por:
+\begin{equation}
+    \varepsilon = \frac{\Delta L}{L} = \frac{u_B - u_A}{L} = \frac{u_B - u_A}{x_B - x_A} .
+\end{equation}
+
+Realizando a passagem do limite, tem-se:
+\begin{equation}
+    \varepsilon = \lim_{\Delta x \to 0} \frac{\Delta L}{L} = \lim_{\Delta x \to 0} \frac{u_B - u_A}{x_B - x_A} = \frac{d u}{d x} .
+\end{equation}
+
+Generalizando-se a expressão acima para um corpo tridimensional, tem-se:
+\begin{equation}
+    \varepsilon = \nabla^S \bm{u} = \frac{1}{2}\left(\nabla \bm{u} + \nabla \bm{u}^T\right) .
+\end{equation}
+
+Na qual, \(\nabla^S\) é o operador gradiente simétrico, que tem o intuito de representar a deformação 
+infinitesimal como um tensor simétrico, visto que apenas \(\nabla \bm{u}\) não é simétrico.
+
+Assim, escrevendo \(\bm{u}\) em função de suas componentes, tem-se:
+\begin{equation}
+    \bm{\varepsilon} = \nabla^s \bm{u} 
+    = \frac{1}{2} \left[\nabla \left(u_i\,\bm{e}_i\right) + \nabla \left(u_i\,\bm{e}_i\right)^T \right]
+\end{equation}
+    Lembrando que a operação \(\nabla \left(\cdot\right) = \partial_k \bm{e}_k \) se tem:
+\begin{equation}
+    \bm{\varepsilon}
+    = \frac{1}{2} \left[\left(\partial_j u_i\,\right) + \left(\partial_j u_i\right)^T \right]\left(\bm{e}_i\,\otimes\bm{e}_j\right)
+\end{equation}
+que, desenvolvendo:
+\begin{equation}
+    \bm{\varepsilon}
+    = \frac{1}{2} \left[\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} 
+    \right]\left(\bm{e}_i\,\otimes\bm{e}_j\right)
+\end{equation}
+
+\begin{itemize}[label={}]
+    \item c) $\bm{T} = \mathbb{D} \nabla^s \bm{u}$ :
+\end{itemize}
+
+Considerando que o tensor \(\mathbb{D}\) seja o tensor constitutivo, \(\bm{u}\) o vetor deslocamento, se tem:
+\begin{equation}
+    \bm{T} = \bm{\sigma} = \mathbb{D} \nabla^s \bm{u} .
+\end{equation}
+
+A equação acima é a relação constitutiva, que relaciona o tensor de tensões \(\bm{\sigma}\) com o tensor de deformação infinitesimal \(\bm{\varepsilon}\) através 
+do tensor constitutivo \(\mathbb{D}\).
+
+Assim, escrevendo \(\bm{u}\) e \(\mathbb{D}\) em função de suas componentes, tem-se:
+\begin{equation}
+    \bm{\sigma} = \mathbb{D} \nabla^s \bm{u} 
+    = D_{ijkl} \varepsilon_{mn} 
+    \underbrace{\left(\bm{e}_i\,\otimes\bm{e}_j\,\otimes\bm{e}_k\,\otimes\bm{e}_l\right)\,\left(\bm{e}_m\,\otimes\bm{e}_n\right)}_{\text{Contração Dupla}}
+\end{equation}
+
+Lembrando da definição da operação de contração dupla apresentada em \ref{contração_dupla}, se tem:
+\begin{equation}
+    \bm{\sigma} = D_{ijkl} \varepsilon_{mn} \delta_{km} \delta_{ln} \left(\bm{e}_i\,\otimes\bm{e}_j\right)
+\end{equation}
+
+Realizando as permutações necessárias , se tem:
+\begin{equation}
+    \bm{\sigma} = D_{ijmn} \varepsilon_{mn} \left(\bm{e}_i\,\otimes\bm{e}_j\right)
+\end{equation}
+
+
+\section{Conclusão}
+O presente trabalho teve como objetivo apresentar o formalismo matemático da da análise tensorial, no contexto da Mecânica dos Sólidos.
+Através do formalismo tensorial, é possível se representar as relações constitutivas de um material, bem como as equações de equilíbrio e compatibilidade.
+
+Por meio da resolução dos exercícios propostos, foi possível se observar a importância do formalismo tensorial 
+na representação de tensões e deformações em um corpo deformável. Diante disso, a familiarização com o formalismo matemático permite 
+ao pesquisador melhor compreender as teorias e modelos que envolvem a Mecânica dos Sólidos ao longo de sua formação como pesquisador.
+
+\newpage
+
+
+
+% ---
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+% ---
+\phantompart
+
+
+
+
+
+% ---
+% Conclusão (opcional)
+% ---
+%\chapter*[Considerações finais]{Considerações finais}
+%\addcontentsline{toc}{chapter}{Considerações finais}
+
+
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+
+
+
+
+% ----------------------------------------------------------
+% Referências bibliográficas (OBRIGATÓRIO)
+% ----------------------------------------------------------
+% \bibliography{projeto}
+\newpage
+\printbibliography
+
+
+
+
+
+% ----------------------------------------------------------
+% Glossário (opicional)
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+
+
+
+% ----------------------------------------------------------
+% Apêndices (opicional)
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+%\begin{apendicesenv}
+
+% Imprime uma página indicando o início dos apêndices
+%\partapendices
+
+% ----------------------------------------------------------
+%\chapter{Apêndice 1}
+% ----------------------------------------------------------
+
+%\end{apendicesenv}
+% ---
+
+
+
+% ----------------------------------------------------------
+% Anexos (opcional)
+% ----------------------------------------------------------
+
+% ---
+% Inicia os anexos
+% ---
+%\begin{anexosenv}
+
+% Imprime uma página indicando o início dos anexos
+%\partanexos
+
+% ---
+%\chapter{Anexo 1}
+% ---
+
+%\end{anexosenv}
+
+
+
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO (opcional)
+%---------------------------------------------------------------------
+
+%\phantompart
+
+%\printindex
+
+\end{document}

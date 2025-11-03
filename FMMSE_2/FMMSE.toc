@@ -1,0 +1,27 @@
+\changetocdepth {4}
+\babel@toc {portuguese}{}\relax 
+\babel@toc {brazil}{}\relax 
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {section}{\numberline {1}Introdução}{3}{section.0.1}%
+\contentsline {subsection}{\numberline {1.1}Aspectos teóricos}{3}{subsection.0.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Derivada direcional}{4}{subsubsection.0.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Gradiente}{5}{subsubsection.0.1.1.2}%
+\contentsline {paragraph}{\numberline {1.1.2.1}Campo escalar}{5}{paragraph.0.1.1.2.1}%
+\contentsline {paragraph}{\numberline {1.1.2.2}Campo vetorial}{5}{paragraph.0.1.1.2.2}%
+\contentsline {paragraph}{\numberline {1.1.2.3}Campo tensorial}{6}{paragraph.0.1.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.1.3}Divergente}{6}{subsubsection.0.1.1.3}%
+\contentsline {paragraph}{\numberline {1.1.3.1}Campo vetorial}{6}{paragraph.0.1.1.3.1}%
+\contentsline {paragraph}{\numberline {1.1.3.2}Campo tensorial}{6}{paragraph.0.1.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.1.4}Generalização do operador gradiente}{7}{subsubsection.0.1.1.4}%
+\contentsline {subsubsection}{\numberline {1.1.5}Contração dupla}{7}{subsubsection.0.1.1.5}%
+\contentsline {section}{\numberline {2}Resoluções}{8}{section.0.2}%
+\contentsline {subsection}{\numberline {2.1}Exercício 1}{8}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {2.2}Exercício 2}{9}{subsection.0.2.2}%
+\contentsline {subsection}{\numberline {2.3}Exercício 3}{11}{subsection.0.2.3}%
+\contentsline {subsection}{\numberline {2.4}Exercício 4}{13}{subsection.0.2.4}%
+\contentsline {subsection}{\numberline {2.5}Exercício 5}{13}{subsection.0.2.5}%
+\contentsline {section}{\numberline {3}Conclusão}{18}{section.0.3}%
+\vspace {\cftbeforechapterskip }
+\vspace {\cftbeforechapterskip }
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {chapter}{Refer\^encias}{19}{section*.6}%

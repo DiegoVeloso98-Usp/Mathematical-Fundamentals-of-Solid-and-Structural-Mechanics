@@ -1,0 +1,1604 @@
+\documentclass[
+	% -- opções da classe memoir --
+  article,
+	12pt,				% tamanho da fonte
+	%openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,			% para impressão em um só lado. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	brazil,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+%   english,			% o último idioma é o principal do documento
+	portuguese				% o último idioma é o principal do documento
+	]{abntex2}
+
+
+
+
+% ---
+% PACOTES
+% ---
+
+
+
+% ---
+% Pacotes fundamentais para o abnTeX (não mexer)
+% ---
+\usepackage{lmodern}			                      % Usa a fonte Latin Modern
+% \usepackage{mathptmx}                                 % Fonte times new romam no texto
+\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries} % Fonte times new romam em negrito nos itens
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage{csquotes}
+\usepackage{bm}
+
+% ---
+
+% ---
+% Pacotes do usuário (pode mexer)
+% ---
+\usepackage{setspace}
+\usepackage{grffile}            % para não mostrar o endereço local da figura na legenda
+
+% Pacotes de equações e símbolos matemáticos
+\usepackage{bm}
+\usepackage{isomath}
+\usepackage{amsmath}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Div}{Div}
+\numberwithin{equation}{section}
+\usepackage{bbm}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{subcaption}
+% Add after your other packages in the preamble section
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configure listings for Python code
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    numbersep=5pt,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    breaklines=true,
+    breakatwhitespace=true,
+    showspaces=false,
+    showstringspaces=false,
+    captionpos=b
+}
+
+
+% Configure headers and footers with section name and page number
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\renewcommand{\headrulewidth}{0.5pt} % Line at the top
+\fancyhead[L]{\thepage} % Page number in left header
+\fancyhead[R]{\small\itshape\rightmark} % Section name in right header
+% Remove footer page number: \fancyfoot[C]{\thepage}
+
+% Make plain pages consistent
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{\thepage}% Page number in left header
+  \fancyhead[R]{\small\itshape\rightmark}%
+  % Remove footer page number: \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0.5pt}%
+}
+
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+
+
+
+% ---
+% Pacotes de citações (se for trabalho para o Brasil, não mexer)
+% ---
+%\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+%\usepackage[alf]{abntex2cite}			         % Citações padrão ABNT
+
+\usepackage[style=abnt, language=portuguese]{biblatex}
+% Define document metadata
+\autor{Diego Dias Veloso}
+\titulo{Fundamentos Matemáticos da Mecânica dos Sólidos e Estruturas}
+\data{\today}  % or specify a date like {2023}
+
+% Optional but commonly used in ABNTeX2 documents
+\orientador{PhD. Sérgio Persional Baronchinni Proença}
+\instituicao{Universidade de São Paulo}
+\local{São Carlos}
+
+%\bibliography{projeto}
+\addbibresource{FMMSE.bib}
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% Para iniciar capítulos na mesma página, pulando apenas uma linha
+\setlength\afterchapskip{\lineskip}
+
+%% ---
+%% Configurações do pacote backref
+%% Usado sem a opção hyperpageref de backref
+%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+%% Texto padrão antes do número das páginas
+%\renewcommand{\backref}{}
+%% Define os textos da citação
+%\renewcommand*{\backrefalt}[4]{
+%	\ifcase #1 %
+%		Nenhuma citação no texto.%
+%	\or
+%		Citado na página #2.%
+%	\else
+%		Citado #1 vezes nas páginas #2.%
+%	\fi}%
+%% ---
+
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+    pdfsubject={\imprimirpreambulo},
+	pdfcreator={LaTeX with abnTeX2},
+		%pdfkeywords={abnt}{latex}{abntex}{abntex2}{projeto de pesquisa}, 
+		colorlinks=true,       		    % false: boxed links; true: colored links
+    	linkcolor=blue,          		% color of internal links
+    	citecolor=blue,        			% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+% ---
+
+% ---
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+%
+\newcommand{\quadroname}{Table}
+\newcommand{\listofquadrosname}{Lista de quadros}
+
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space} 
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+
+\setfloatlocations{quadro}{hbtp} % Ver https://github.com/abntex/abntex2/issues/176
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.30cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+
+
+
+%% ---
+%% Símbolos matemáticos (pode mexer)
+%% ---
+%\newcommand{\matr}[1]{\bm{#1}}
+%\newcommand{\sig}{\matr{\sigma}}
+%\newcommand{\pd}[2]{\dfrac{\partial{#1}}{\partial{#2}}}
+%\newcommand{\EE}{\matr{\dot{E}}}
+%\newcommand{\EEp}{\matr{\dot{E}}^{\prime}}
+%\newcommand{\EEm}{\dot{E}_m}
+%\newcommand{\EEq}{\dot{E}_{eq}}
+%\newcommand{\epsG}{\matr{\dot{\epsilon}}_G}
+%\newcommand{\eps}[1]{\matr{\dot{\epsilon}}^{#1}}
+%\newcommand{\Sig}{\matr{\Sigma}}
+
+
+
+
+
+% ----
+% INÍCIO DO DOCUMENTO
+% ----
+\begin{document}
+% Generate simple title
+\imprimircapa
+\imprimirfolhaderosto
+\clearpage
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+% \selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+\DoubleSpacing
+
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+\pretextual % este comando pode ser comentado caso haja algum erro no compilador
+
+% ---
+% Sumário (OBRIGATÓRIO)
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+
+
+% ----------------------------------------------------------
+% Caso não queira numerar a Introdução
+% ----------------------------------------------------------
+%\chapter*[Introdução]{Introdução}
+%\addcontentsline{toc}{chapter}{Introdução}
+
+\section{Introdução}
+A Mecânica dos Sólidos é um ramo da física a qual estuda o comportamento de sólidos deformáveis
+sob a ação diversa de forças externas. No contexto da Engenharia de Estruturas e da Mecânica Computacional,
+a Mecânica dos Sólidos é o campo que fornece todo o ferramental teórico necessário para o entendimento do comportamento das estruturas e
+dos materiais. Além disso, essa base permite ao pesquisador propor novos modelos e teorias que discrevam diferentes problemas.
+
+No campo da Mecânica dos Sólidos, o Princípio dos Trabalhos Virtuais (PTV) representa o ponto de partida de grande parte 
+das teorias. O PTV, devido a seu caráter de princípio, não possui uma prova a sí associada.
+
+Assim como os primeiros dois trabalhos, este visa aprofundar os conceitos de Mecânica dos Sólidos do pesquisador.
+Com esses conhecimentos, facilita-se a compreensão das teorias da Mecânica dos sólidos com seu rigor matemático, além de também fornecer 
+ao pesquisador ferramentais para o desenvolvimento de novos modelos e teorias.
+
+\subsection{Aspectos teóricos}
+\label{sec:teoria}
+No presente tópico, serão apresentados conceitos fundamentais utilizados ao longo do texto. Almejando uma apresentação 
+mais clara e objetiva ao longo do texto, provas e demonstrações de teoremas e propriedades não serão apresentadas. Portando, tais demonstrações
+mais relevantes serão aqui apresentadas. Maiores detalhes, no contexto da mecânica dos sólidos, podem ser encontrados em \textcite{proenca_2020} 
+, \textcite{anand_continuum_2020}, \textcite{spencer_continuum_2004} e \textcite{lanczos_variational_2012}.
+
+O PTV apesar de não ser uma lei conservativa \cite{spencer_continuum_2004}, como as de conservação de massa, momento e energia, forma a base 
+de diversas teorias variacionais no campo da mecânica do contínuo. O PTV define o trabalho realizado sobre o sistema deve ser 
+equivalente ao trabalho interno do sistema, ou seja,
+\begin{equation}
+    W_{int} = W_{ext}
+\end{equation}
+para um campo de deslocamentos que seja compatível com as restrições do sistema. Aqui, é interessante apresentar 
+a interpretação geométrica dada por \textcite{lanczos_variational_2012} ao princípio. 
+Considerando-se um corpo rígido submetido a um \(n\) número forças, \(\bm{F_n}\), para cada uma das quais os 
+deslocamentos virtuais são \(\delta u_n\), de forma que o PTV afirma que o corpo esteja em equilíbrio caso
+\begin{equation}
+    W_{ext} = \sum_{i=1}^{n} \bm{F}_i \bm{\delta u}_i = 0
+\end{equation}
+o que é equivalente a dizer que \(\bm{F}\cdot\bm{\delta u}\) = 0. Desse modo, se tem que o corpo está em equilíbrio 
+caso o vetor generalizado de forças \(\bm{F}\) seja perpendicular a qualquer deslocamento compatível ao sistema. Para isso, 
+consideremos três distintas situações, um corpo sem nenhuma restrição, um restrito apenas em \(y\) e outro isostático,
+restrito em ambas direções \(x\) e \(y\). Para a primeira situação, como o corpo pode sofrer um deslocamento qualquer, não há nenhum 
+vetor de forças \(\bm{F}\) que seja perpendicular a, simultanêamente, todas as direções espaciais que o corpo pode se deslocar, de modo que 
+\(\bm{F}\) deva ser nulo para o corpo estar em equilíbrio. Agora, para um corpo restrito em \(y\), percebe-se que o corpo apenas pode 
+se deslocar em \(x\), de modo que, para que \(\bm{F}\) seja perpendicular a \(\bm{\delta u}\), as forças resultantes devem 
+ser verticais para que o corpo esteja em equilíbrio. Agora, para o último caso, como o corpo não pode se deslocar em nenhuma direção, 
+o vetor \(\bm{F}\) pode ser qualquer que o corpo estará em equilíbrio. Cabe pontuar que aqui não se almejou apresentar 
+a formulação formal apresentada em \textcite{lanczos_variational_2012}, dado que, como os vetores \(\bm{F}\) e \(\bm{\delta u}\) são 
+vetores generalizados, estes pertencem a um espaço vetorial de dimensão \(n\), o que torna a demonstração da perpendicularidade de \(\bm{F}\) 
+e \(\bm{\delta u}\) no equilíbrio mais sutil.
+
+\textcite{lanczos_variational_2012} também demonstra que o PTV é equivalente ao Princípio da Estacionaridade 
+da Energia Potencial para forças monogênicas, o qual afirma que o corpo está em equilíbrio quando a energia 
+potencial do sistema é estacionária, ou seja,
+\begin{equation}
+    \delta\left(W_{int} - W_{ext}\right) = 0 
+\end{equation}
+que, definindo a energia potencial \(\varPi\) como a diferença entre o trabalho interno e o trabalho externo, 
+se tem
+\begin{equation}
+    \delta \varPi =  0 \quad .
+\end{equation}
+Agora, busca-se desenvolver o PTV no contexto da Mecânica dos Sólidos, mais especificamente,
+no contexto da Hipótese de viga de Euler-Bernoulli. Para tal, inicialmente, deve-se definir o trabalho interno
+e o trabalho externo. O trabalho interno é dado pela integração no domínio da densidade de energia \(\psi\)
+\begin{equation}
+    W_{int} = \int_\Omega \psi d\Omega
+\end{equation}
+na qual a densidade de energia elástica em um sólido é dada por 
+\begin{equation}
+    \psi = \dfrac{1}{2} \bm{\sigma}(u) \cdot \bm{\delta\varepsilon}(\delta u)
+    \quad .
+\end{equation}
+de modo que 
+\begin{equation}
+    W_{int} = \int_\Omega \dfrac{1}{2} \bm{\sigma}(u) \cdot \bm{\delta\varepsilon}(\delta u) d\Omega
+\end{equation}
+Assumindo que a hipótese de compatibilidade seja válida, ou seja, o campo de deslocamentos \(\bm{u}\) seja 
+contínuo, ou seja, o corpo permanece íntegro após o processo de deformação a equação e que a relação constitutiva 
+do material seja linear, se tem
+\begin{subequations}
+    \begin{equation}
+        \bm{\delta \varepsilon} = \nabla^s\delta u \quad \text{Compatibilidade}
+    \end{equation}
+    \begin{equation}
+        \bm{\sigma} = \mathbb{D}\cdot\bm{\varepsilon} \quad \text{Constitutiva}
+        \quad .
+    \end{equation} 
+\end{subequations}
+de modo que \(W_{int}\) se escreve
+\begin{equation}
+    W_{int} = \int_\Omega \dfrac{1}{2} \bm{\sigma}(u) \cdot \left(\bm{\nabla\delta\varepsilon + \nabla\delta\varepsilon^T}\right) d\Omega
+\end{equation}
+que, devido à simetria de \(\bm{\sigma}\), pode-se escrever como 
+\begin{equation}
+    W_{int} = \int_\Omega  \bm{\sigma}(u) \cdot \nabla\delta\varepsilon d\Omega
+\end{equation}
+\cite{spencer_continuum_2004}.
+
+Agora, restringe-se a análise do PTV para no contexto das hipóteses de vigas. Adotando-se a hipótese 
+de Euler-Bernoulli, assume-se que as seções transversais da viga permanecem planas e perpendiculares 
+ao eixo da viga após a deformação (Figura \ref{fig:viga}).
+\begin{figure}
+    \centering
+    \includegraphics[width=1.\textwidth]{figs/eulerbernoulli.png}
+    \caption{Hipótese de viga de Euler-Bernoulli \cite{proenca_2020}.}
+    \label{fig:viga}
+\end{figure}
+Desse modo, o campo de deslocamentos da viga pode ser escrito como
+\begin{equation}
+    \bm{u}(x) = -y\left(\dfrac{d}{dx}v(x)\right) \bm{e}_1 + v(x)\bm{e}_2
+\end{equation}
+e o campo virtual de deslocamentos se escreve 
+\begin{equation}
+    \delta\bm{u}(x) = -y\left(\dfrac{d}{dx}\delta v(x)\right) \bm{e}_1 + \delta v(x)\bm{e}_2
+\end{equation}
+assim, o campo de deformação virtual \(\bm{\delta\varepsilon}\) é dado por
+\begin{equation}
+    \bm{\delta\varepsilon} = 
+    \begin{bmatrix}
+            \delta\varepsilon_{11} & \delta\varepsilon_{12} & \delta\varepsilon_{13} \\
+            \delta\varepsilon_{21} & \delta\varepsilon_{22} & \delta\varepsilon_{23} \\
+            \delta\varepsilon_{31} & \delta\varepsilon_{32} & \delta\varepsilon_{33}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+            \dfrac{\partial}{\partial x}\left[-y\left(\dfrac{d}{dx}\delta v(x)\right)\right] & 0 & 0 \\
+            0 & 0 & 0 \\
+            0 & 0 & 0
+    \end{bmatrix}
+\end{equation}
+de modo que a densidade de energia elástica do corpo mediante o campo virtual de 
+deformações pode ser escrita como 
+\begin{equation}
+    \psi = \bm{T}\cdot \delta\varepsilon
+    = 
+    \begin{bmatrix}
+            \sigma_{11} & \sigma_{12} & \sigma_{13} \\
+            \sigma_{21} & \sigma_{22} & \sigma_{23} \\
+            \sigma_{31} & \sigma_{32} & \sigma_{33}
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+            -y\left(\dfrac{d^2}{dx^2}\delta v(x)\right) & 0 & 0 \\
+            0 & 0 & 0 \\
+            0 & 0 & 0
+    \end{bmatrix}
+    = \sigma_x \left[-y\left(\dfrac{d^2}{dx^2}\delta v(x)\right)\right]
+\end{equation}
+e o trabalho interno virtual do corpo assume
+\begin{equation}
+    \int_\Omega \sigma_x \left[-y\left(\dfrac{d^2}{dx^2}\delta v(x)\right)\right] d\Omega 
+    \label{eq:trab_interno_sig}
+\end{equation}
+considerando-se que a viga é homogênea, ou seja, o módulo de elasticidade \(E\) é 
+constante ao longo da viga, e que a relação constitutiva é linear, se tem que
+\begin{equation}
+    \bm{\sigma} = \mathbb{D}\cdot\bm{\varepsilon} 
+    \quad \rightarrow 
+    \quad \sigma_x = E\varepsilon_x
+    \quad \rightarrow \quad
+    \sigma_x = -Ey\dfrac{d^2}{dx^2}v(x)
+\end{equation}
+assim, se tem 
+\begin{equation}
+    \int_\Omega -Ey\dfrac{d^2}{dx^2}v(x) \left[-y\left(\dfrac{d^2}{dx^2}\delta v(x)\right)\right] d\Omega 
+    \quad .
+\end{equation}
+A equação acima pode, ainda, ser trabalhada com base em duas hipóteses: Primeiro, na hipótese de Euler-Bernoulli de que as 
+seções transversais não se deformam no plano transversal, ou seja, 
+\(\dfrac{d}{dy}v(x)=\dfrac{d}{dz}v(x) = 0\) (hipótese já assumida ao se escrever v como função apenas de x). Além disso, 
+considera-se que o material não varia na seção transversal. Portanto: 
+\begin{equation}
+    W_{int} =
+    \int_x \left[E\dfrac{d^2}{dx^2}v(x) \dfrac{d^2}{dx^2}\delta v(x) \int_A\left(y^2 dA\right) \right]d x
+    =
+    \int_x E v''(x) \delta v''(x) I d x
+    \quad .
+    \label{eq::trab_interno}
+\end{equation}
+Embora o trabalho interno tenha sido completamente definido, ainda resta definir o trabalho externo com os 
+esforços compatíveis. Para tal, identifica-se na \ref{eq:trab_interno_sig} que 
+\begin{equation}
+    \int_A \sigma_xy dA = M_x
+\end{equation}
+assim 
+\begin{equation}
+    \int_x -M_x\left[\left(\dfrac{d^2}{dx^2}\delta v(x)\right)\right] dx
+\end{equation}
+a qual, após ser integrada por partes duas vezes, obtém-se
+\begin{equation}
+    -\int_x M''_x\delta v(x) dx + M'_x(L)\delta v(L) - M'_x(0)\delta v(0) -M_x(0)\delta v'(0) + M_x(L)\delta v'(L)
+    \quad .
+\end{equation}
+A equação acima indica que os esforços compatíveis com as hipóteses de Euler-Bernoulli são uma força distribuída 
+\(q(x)\) (visto que \(q(x) = M''_x (x)\)), forças concentradas \(P\) (pois \(P = M'_x \)) e momentos concentrados 
+\(M\). Desse modo, o trabalho externo é dado por 
+\begin{equation}
+    W_{ext} = \int_x q(x)\delta v(x) dx + P(L)\delta v(L) + P(0)\delta v(0) + M_0\delta v'(0) + M_L\delta v'(L)
+\end{equation}
+de modo que a igualdade \(W_{int} = W_{ext}\) é escrita como 
+\begin{equation}
+    \int_x E v''(x) \delta v''(x) I d x
+    = 
+    \int_x q(x)\delta v(x) dx + P(L)\delta v(L) + P(0)\delta v(0) + M_0\delta v'(0) + M_L\delta v'(L)
+    \quad .
+    \label{eq:PTV_eq}
+\end{equation}
+Percebe-se que a equação acima leva a uma busca aproximada por solução, através do uso de funções 
+aproximativas. Considere-se, por exemplo, funções aproximativas polinomiais da forma
+\begin{subequations}
+    \begin{equation}
+        v(x) = \alpha_i\phi_i(x)
+    \end{equation}
+    \begin{equation}
+        \delta v(x) = \delta \alpha_j\phi_j(x)
+    \end{equation}
+\end{subequations}
+de modo que a Equação \ref{eq:PTV_eq} se escreve 
+\begin{equation}
+    \delta\alpha_j \left[\int_x E \phi''_i  \phi''_j I d x\right] \alpha_i
+    = \left[
+    \int_x q(x)\phi_j dx 
+    + P_L\phi_j(L) + P_0\phi_j(0) 
+    + M_0\phi'_j(0) + M_L\phi'_j(L)
+    \right]\delta \alpha_j
+    \label{eq:PTV_eq_discretizada}
+\end{equation}
+que, removendo \(\delta\alpha_j\) da equação e observando que se tem um sistema linear de equações, 
+se tem
+\begin{subequations}
+    \begin{equation}
+        \left[\int_x E \phi''_i  \phi''_j I d x\right] \alpha_i
+        = 
+        \int_x q(x)\phi_j dx 
+        + P_L\phi_j(L) + P_0\phi_j(0) 
+        + M_0\phi'_j(0) + M_L\phi'_j(L)
+    \end{equation}
+    \begin{equation}
+        \bm{K}_{ij} \bm{\alpha}_i = \bm{F}_j
+        \label{eq:linear_sys}
+    \end{equation}
+\end{subequations}
+
+
+
+\section{Resoluções dos exercícios propostos}
+Neste tópico, serão apresentadas as resoluções dos exercícios propostos no terceiro trabalho, as quais seguirão 
+a ordenação aqui descrita. Inicialmente, a equação do PTV será explicitada para o problema em questão, escrevendo a forma correspondente 
+para \(W_{int}\) e \(W_{ext}\). Cada parcela inclusa no trabalho das forças externas e internas será propriamente justificada, sempre 
+se referindo às equações apresentadas anteriormente na Seção \ref{sec:teoria}. A partir desta serão adotadas funções aproximativas para o campo real \(v(x)\) 
+e virtual \(\delta v(x)\), a partir da abordagem de Galerkin, a qual se resume em utilizar funções iguais 
+para \(v(x)\) e \(\delta v(x)\). As soluções funções aproximadoras serão consideradas na forma de polinômios, 
+inicialmente de 3.\textsuperscript{a} e então de 4.\textsuperscript{a} ou 5.\textsuperscript{a} ordem, para ser recuperada a 
+solução analítica do problema para a aproximação de elevada ordem. Por fim, serão adotados valores numéricos para ambas ordens de 
+aproximação de modo a se visualizar os resultados, os quais serão propriamente discutidos individualmente para cada caso.
+
+\subsection{Exercício 1}
+\begin{itemize}
+    \item \textbf{Obtenha duas soluções aproximadas para o deslocamento transversal da viga
+indicada na Figura \ref{fig:ex1}. Para cada solução, apresente a relação para o
+cálculo do momento fletor e analise sua representatividade comparando com a
+solução exata.}
+\end{itemize}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figs/ex1.png}
+    \caption{Viga Bi-Apoiada sujeita a carregamento distribuído.}
+    \label{fig:ex1}
+\end{figure}
+Inicia-se a análise do problema escrevendo-se as equações para os trabalhos virtuais internos e externos, \(W_{int}\) 
+e \(W_{ext}\). Em função da inexistência de molas no sistema, a única parcela que realizará trabalho interno na estrutura é 
+a referênte à flexão da barra. Com relação ao trabalho externo, o único esforço externo atuante na estrutura é o carregamento 
+distribuído. Assim, as parcelas \(W_{int}\) e \(W_{ext}\) são dadas por
+\begin{equation}
+    W_{int} = \int\limits_{0}^{L} \left(E I \frac{d^{2}}{d x^{2}} \delta v{\left(x \right)} \frac{d^{2}}{d x^{2}} v{\left(x \right)}\right)\, dx
+\end{equation}
+e
+\begin{equation}
+    W_{ext} =  \int\limits_{0}^{L} q \delta v{\left(x \right)}\, dx
+\end{equation}
+Portando, a equação do PTV toma a seguinte forma
+\begin{equation}
+    \int\limits_{0}^{L} \left(E I \frac{d^{2}}{d x^{2}} \delta v{\left(x \right)} \frac{d^{2}}{d x^{2}} v{\left(x \right)}\right)\, dx
+    =
+    \int \limits_{0}^{L} q \delta v{\left(x \right)}\, dx 
+    \quad .
+\end{equation}
+Construída a equação do PTV, pode-se prosseguir para a adoção das funções aproximativas para se buscar a solução 
+aproximada da forma fraca. Os valores numéricos indicados na Tabela \ref{tab:ex1} 
+serão ao final adotados para se realizar a plotagem dos gráficos da função aproximativa \(v(x)\), assim como do momento fletor \(M(x)\) 
+para ambas ordens de aproximação.
+\begin{table}[!h]
+    \centering
+    \caption{Dados do exercício 1.}
+    \label{tab:ex1}
+    \begin{tabular}{c|c|c|c}
+        \hline
+        \(L\) (m) & \(E\) (Pa) & \(I\) (m\(^4\)) & \(q\) (N/m) \\
+        \hline
+        1.0 & \(210.0 \times 10^{9}\) & \(1.0 \times 10^{-6}\) & 1000 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Função aproximativa de 3.\textsuperscript{a} ordem}
+Inicialmente, almejando-se encontrar a solução aproximada para a forma fraca do PTV indicada anteriormente, 
+adota-se um polinômio de 3.\textsuperscript{a} ordem como função aproximativa, de modo que o campo 
+real e virtual se tornam, respectivamente,
+\begin{equation}
+    v(x) =  \alpha_{0} + \alpha_{1} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}
+\end{equation}
+e
+\begin{equation}
+    \delta v(x) = \delta \alpha_{0} + \delta \alpha_{1} x + \delta \alpha_{2} x^{2} + \delta \alpha_{3} x^{3}
+    \quad .
+\end{equation}
+A seguir, deve-se impor as condições de contorno a \(v(x)\), onde, visto que o campo virtual deve ser homogêneo em 
+\(\Gamma_u\), \(\delta v(x)\) também deverá respeitar as mesmas restrições. Para a barra bi-apoiada, são impostas duas 
+condições de contorno esseciais nos apoios. Inicialmente, os apoios restringem o movimento vertical dos apoios, de modo 
+que \(v(0) = 0\) e \(v(L) = 0\). Assim
+\begin{subequations}
+    \begin{equation}
+        v(0)= 0 \quad \rightarrow \quad
+        \alpha_{0} = 0 
+    \end{equation}
+    \begin{equation}
+        v(L)= 0 
+        \quad \rightarrow \quad
+        \alpha_{1} = -\left(L^{2} \alpha_{3} + L \alpha_{2} \right)
+    \end{equation}
+\end{subequations}
+de modo que, o polinômio \(v(x)\) com as condições essênciais de contorno se escreve como 
+\begin{equation}
+    v(x) = - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}
+\end{equation}
+E o PTV se escreve com as funções aproximativas como 
+\begin{equation}
+    W_{int} = \int\limits_{0}^{L} \left(- E I \left(\frac{\partial^{2}}{\partial x^{2}} \left(- L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}\right)\right)^{2}\right)\, dx 
+\end{equation}
+\begin{equation}
+    W_{ext} = \int\limits_{0}^{L} q \left(- L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}\right)\, dx
+\end{equation}
+Escrevendo a função aproximativa como uma combinação \(\alpha_i \phi_i\), se tem 
+\begin{subequations}
+    \begin{equation}
+        \phi_0(x) = 0        
+    \end{equation}
+    \begin{equation}
+        \phi_1(x) = 0
+    \end{equation}
+    \begin{equation}
+        \phi_2(x) = x \left(- L + x\right)
+    \end{equation}
+    \begin{equation}
+        \phi_3(x) = x \left(- L^{2} + x^{2}\right)
+    \end{equation}
+\end{subequations}
+Assim, fazendo-se o uso da Equação \ref{eq:linear_sys}, obtém-se a seguinte matriz dos coeficientes 
+e o vetor de forças do problema
+\begin{equation}
+    \bm{K} =
+    \left[
+        \begin{matrix}
+            1 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 4 E I L & 6 E I L^{2}\\
+            0 & 0 & 6 E I L^{2} & 12 E I L^{3}
+        \end{matrix}
+    \right]
+    \quad \text{e} \quad
+    \bm{F} = 
+    \left[
+        \begin{matrix}
+            0\\0\\- \frac{L^{3} q}{6}\\- \frac{L^{4} q}{4}
+        \end{matrix}
+    \right]
+    \quad .
+\end{equation}
+A partir da matriz \(\bm{K}\) dos coeficientes \(\alpha_i\) e do vetor de forças \(\bm{F}\), resolve-se 
+o sistema linear de equações dado pela Equação \ref{eq:linear_sys}, na qual se obtem a solução
+\begin{equation}
+    \bm{\alpha} = 
+    \left[
+        \begin{matrix}
+            0\\0\\- \frac{L^{2} q}{24 E I}\\0
+        \end{matrix}
+    \right]
+\end{equation}
+a qual permite reescrever a função apŕoximativa \(v(x)\) como
+\begin{equation}
+    v(x) = - \frac{L^{2} q x \left(- L + x\right)}{24 E I} \quad .
+\end{equation}
+Adotando valores numéricos indicados na Tabela \ref{tab:ex1}
+obtém-se a solução do problema, indicada na Figura \ref{fig:ex1_res_cub}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/grafico_1_cubica.pdf}
+    \caption{Solução do exercício 1 - Função aproximativa de 3.\textsuperscript{a} ordem.}
+    \label{fig:ex1_res_cub}
+\end{figure}
+Agora, analiza-se a representatividade da resposta obtida. Para tal, nota-se que as equações diferenciais 
+que governam o problema são
+\begin{equation}
+    \dfrac{d^2 M(x)}{dx^2} = q(x) \quad \rightarrow \quad -EI\dfrac{d^4 v(x)}{dx^4} = q(x)
+\end{equation}
+as quais, para \(q(x)\) constante, indicam que, primeiramente, que a solução para o campo de deslocamentos 
+\(v(x)\) recupera a solução exata para um polinômio com quarta derivada constante e, segundo, que a função que descreve 
+\(M(x)\) deve ser de grau 2. Analisando a Figura \ref{fig:ex1_res_cub} imediatamente se conclui que a solução não é 
+satisfatória, visto que esta não respeita as condições naturais de momentos nulos nos apoios. A equação para o momento fletor
+é dada por
+\begin{equation}
+    M(x) = -EI\dfrac{d^2 v(x)}{dx^2} = \dfrac{q L^{2} }{12}  \quad .
+\end{equation}
+Sabe-se que a solução exata para o problema é \(M(x) = \dfrac{qx}{2}\left(L-x\right)\), de modo que \(M(0) = 0 kNm\), \(M(L) = 0 kNm\) e 
+\(M(0.5) = 125 kN m\) e a solução constante obtida de 83\(kNm\) representa a média da solução exata ao longo da barra.
+
+
+\subsubsection{Função aproximativa de 5\textsuperscript{a} ordem}
+Na questão anterior foi apresentada a equação diferencial governante do problema, a saber, 
+\(-EI\dfrac{d^4 v(x)}{dx^4} = q(x)\), de modo que a escolha de um polinômio aproximador de quarto grau 
+consegue recuperar a solução exatada do problema. Porém, por um motivo que será observado ao final do problema, 
+decidiu-se por utilizar um polinômio de grau superior, ou seja, de grau 5. Assim, as funções aproximativas
+são
+\begin{equation}
+    \alpha_{0} + \alpha_{1} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4} + \alpha_{5} x^{5}
+\end{equation}
+\begin{equation}
+    \delta \alpha_{0} + \delta \alpha_{1} x + \delta \alpha_{2} x^{2} + \delta \alpha_{3} x^{3} + \delta \alpha_{4} x^{4} + \delta \alpha_{5} x^{5}
+\end{equation}
+que, aplicando as condições de contorno essênciais indicadas na seção anterior, a saber, 
+\(v(0) = 0\) e \(v(L) = 0\) se tem
+\begin{subequations}
+    \begin{equation}
+        v(0)= 0 
+        \quad \rightarrow \quad
+        \alpha_{0} = 0 
+    \end{equation}
+    \begin{equation}
+        v(L) = 0 
+        \quad \rightarrow \quad
+        \alpha_{1} = -\left(L^{4} \alpha_{5} + L^{3} \alpha_{4} + L^{2} \alpha_{3} + L \alpha_{2}  \right)
+    \end{equation}
+\end{subequations}
+de modo que, a função aproximativa \(v(x)\) toma a seguinte forma: 
+\begin{equation}
+    v(x) =
+    - L^{4} \alpha_{5} x - L^{3} \alpha_{4} x - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} 
+    + \alpha_{3} x^{3} + \alpha_{4} x^{4} + \alpha_{5} x^{5}
+\end{equation}
+Assim, o PTV com as soluções aproximadas é dado por:
+\begin{equation}
+    \scalebox{0.95}{$
+    W_{int} = 
+    \int\limits_{0}^{L} \left(E I \left(\frac{\partial^{2}}{\partial x^{2}} \left(- L^{4} \alpha_{5} x - L^{3} \alpha_{4} x - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4} + \alpha_{5} x^{5}\right)\right)^{2}\right)\, dx 
+    $}
+\end{equation}
+e
+\begin{equation}
+    W_{ext} = \int\limits_{0}^{L} q \left(- L^{4} \alpha_{5} x - L^{3} \alpha_{4} x - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4} + \alpha_{5} x^{5}\right)\, dx
+\end{equation}
+Extraindo das funções aproximativas as funções na forma \(\alpha_i\phi_i\), se tem
+\begin{subequations}
+\begin{equation}
+    \phi_0(x) = 0
+\end{equation}
+\begin{equation}
+    \phi_1(x) = 0
+\end{equation}
+\begin{equation}
+    \phi_2(x) = x \left(- L + x\right)
+\end{equation}
+\begin{equation}
+    \phi_3(x) = x \left(- L^{2} + x^{2}\right)
+\end{equation}
+\begin{equation}
+    \phi_4(x) = x \left(- L^{3} + x^{3}\right)
+\end{equation}
+\begin{equation}
+    \phi_5(x) = x \left(- L^{4} + x^{4}\right)
+\end{equation}
+\end{subequations}
+e, recorrendo à Equação \ref{eq:linear_sys}, obtém-se a matriz \(\bm{K}\) dos coeficientes e 
+o vetor de forças \(\bm{F}\) :
+\begin{equation}
+    \bm{K} = 
+    \left[
+        \begin{matrix}
+            1 & 0 & 0 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0 & 0 & 0\\
+            0 & 0 & 4 E I L & 6 E I L^{2} & 8 E I L^{3} & 10 E I L^{4}\\
+            0 & 0 & 6 E I L^{2} & 12 E I L^{3} & 18 E I L^{4} & 24 E I L^{5}\\
+            0 & 0 & 8 E I L^{3} & 18 E I L^{4} & \frac{144 E I L^{5}}{5} & 40 E I L^{6}\\
+            0 & 0 & 10 E I L^{4} & 24 E I L^{5} & 40 E I L^{6} & \frac{400 E I L^{7}}{7}
+        \end{matrix}
+    \right]
+    \quad \text{and} \quad
+    \bm{F} = 
+    \left[
+        \begin{matrix}
+            0\\0\\- \frac{L^{3} q}{6}\\- \frac{L^{4} q}{4}\\- \frac{3 L^{5} q}{10}\\- \frac{L^{6} q}{3}
+        \end{matrix}
+    \right]
+\end{equation}
+de modo que se obtém a solução para os coeficientes \(\alpha\) da solução aproximativa 
+\begin{equation}
+    \bm{\alpha} =
+    \left[
+        \begin{matrix}
+            0\\0\\0\\- \frac{L q}{12 E I}\\\frac{q}{24 E I}\\0
+        \end{matrix}
+    \right]
+\end{equation}
+de modo que, pode-se reconstruir o polinômio adotado para a aproximação da seguinte forma
+\begin{equation}
+    v(x) =
+    - \frac{L q x \left(- L^{2} + x^{2}\right)}{12 E I} + \frac{q x \left(- L^{3} + x^{3}\right)}{24 E I}
+    \quad .
+\end{equation}
+Agora, assim como realizado para a aproximação de ordem cúbica, adotam-se os valores numéricos indicados na 
+Tabela \ref{tab:ex1}, obtendo-se a solução indicada na Figura \ref{fig:ex1_res_quint}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/grafico_1.pdf}
+    \caption{Solução do exercício 1.}
+    \label{fig:ex1_res_quint}
+\end{figure}
+Aqui, assim como na última resolução, beneficia-se em avaliar a representatividade da solução para com a 
+exata. A equação do momento fletor é dada por
+\begin{equation}
+    M(x) = -EI\dfrac{d^2 v(x)}{dx^2} 
+    = \dfrac{q}{2}\left(x L - x^{2} \right)
+\end{equation}
+Percebe-se que, para o polinômio aproximativo de ordem cúbica a solução aproximada recupera a solução exata 
+de \(M(x)\), a saber, \(M(0) = 0 kNm\), \(M(L) = 0 kNm\) e \(M(0.5) = 125 kNm\). 
+
+Finalmente, como comentado ao início da resolução do problema, a escolha de um polinômio aproximativo de 
+ordem 4 bastaria para resgatar a solução exata. Porém, nota-se que, embora o polinômio escolhido 
+tenha sido de grau 5, a última parcela do polinômio, \(\alpha_5\phi_5\), se torna desnecessária, e a própria 
+solução do sistema leva a tal conclusão, onde se encontra \(\alpha_5 = 0\).
+
+
+\subsection{Exercício 2}
+
+\begin{itemize}
+    \item \textbf{Obtenha duas soluções aproximadas para o deslocamento transversal e para a
+    distribuição de momento fletor da viga indicada na Figura \ref{fig:ex2}. O vínculo à esquerda
+    é um engaste fixo. Faça uma análise do efeito da mola, em particular
+    recuperando os casos extremos de vinculação.}
+\end{itemize}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figs/ex2.png}
+    \caption{Viga Engastada-Apoiada sob mola, sujeita a carregamento distribuído.}
+    \label{fig:ex2}
+\end{figure}
+
+Inicia-se o problema em questão definindo-se as expressões para o trabalho interno e para o externo. Diferentemente 
+do problema anterior, onde a única parte da estrutura que contribui ao trabalho interno é a própria barra, no exemplo agora 
+em questão há uma mola. Considerando-se a mola como parte constituinte da estrutura, tal parcela deve ser considerada 
+na definição do trabalho virtual interno \(W_{int}\). Assim, se tem 
+\begin{equation}
+    W_{int} = 
+    \int\limits_{0}^{L} 
+    \left(
+        E I \frac{d^{2}}{d x^{2}} \delta v{\left(x \right)} \frac{d^{2}}{d x^{2}} v{\left(x \right)}
+    \right)\, dx
+        + k v(L) \delta v(L)
+\end{equation}
+e
+\begin{equation}
+    W_{ext} = 
+    \int\limits_{0}^{L} q \delta v{\left(x \right)}\, dx
+\end{equation}
+Embora a contribuição da mola seja considerada na parcela \(W_{int}\), 
+esta poderia ser considerada parte externa à estrutura, de modo que seria tratada como uma força aplicada, portanto, contribuíndo 
+na parcela \(W_{ext}\), porém com o sinal trocado em função de, neste caso, a força ser externa, e não interna, de modo que seu sentido é oposto. 
+Assim, a igualdade do PTV se escreve como
+\begin{equation}
+    \int\limits_{0}^{L} \left(E I \frac{d^{2}}{d x^{2}} \delta v{\left(x \right)} \frac{d^{2}}{d x^{2}} v{\left(x \right)}\right)\, dx
+    + k v(L) \delta v(L)
+    = \int \limits_{0}^{L} q \delta v{\left(x \right)}\, dx 
+\end{equation}
+Finalmente, assim como no exemplo anterior, são adotados valores numéricos ao final da resolução do problema 
+de modo a serem plotados gráficos das respostas aproximadas para \(v(x)\) e \(M(x)\),  para ambas ordens aproximativas. 
+Os valores numéricos indicados na Tabela \ref{tab:ex2} são os mesmos indicados na Tabela \ref{tab:ex1}, apenas com 
+a adição do valor da constante de mola \(k\). 
+
+\begin{table}[!h]
+    \centering
+    \caption{Dados do exercício 2.}
+    \label{tab:ex2}
+    \begin{tabular}{c|c|c|c|c}
+        \hline
+        \(L\) (m) & \(E\) (Pa) & \(I\) (m\(^4\)) & \(q\) (N/m) & \(k\) (N/m) \\
+        \hline
+        1.0 & \(210.0 \times 10^{9}\) & \(1.0 \times 10^{-6}\) & 1000 & \(5.0 \times 10^{7}\) \\
+        \hline
+    \end{tabular}
+\end{table}
+Aqui, diferentemente da questão anterior, serão adotadas as aproximações de 3\textsuperscript{a} 
+e 4\textsuperscript{a} ordens, de modo a se simplificar a resolução, visto que esta se mostrou demasiadamente 
+complexa para o caso de aproximação de 5\textsuperscript{a} ordem.
+
+\subsubsection{Função aproximativa de 3\textsuperscript{a} ordem}
+Inicia-se a resolução do problema adotando-se funções polinômiais para a aproximação dos campos reais e virtuais, 
+\(v(x)\) e \(\delta v(x)\), respectivamente.
+\begin{subequations}
+    \begin{equation}
+        v(x) = \alpha_{0} + \alpha_{1} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}
+    \end{equation}
+    \begin{equation}
+        \delta v(x) = \delta \alpha_{0} + \delta \alpha_{1} x + \delta \alpha_{2} x^{2} + \delta \alpha_{3} x^{3}
+    \end{equation}
+\end{subequations}
+Para o problema em questão, as condições de contorno essênciais a serem respeitadas são 
+a condição de deslocamento vertical no engaste juntamente à imposição de que o giro seja zero, ou seja, 
+\(v(0) = 0\) e \(v'(0) = 0\). Como já indicado anteriormente no texto, a abordagem adotada é a de Galerkin, de modo que o 
+campo virtual tem a mesma forma que o campo real (homogênea), de modo que:
+\begin{subequations}
+    \begin{equation}
+        v(0) = 0 \quad \rightarrow \quad
+        \alpha_{0} = 0 
+    \end{equation}
+    \begin{equation}
+        v'(x) =  \alpha_{1} + 2 \alpha_{2} x + 3 \alpha_{3} x^{2} 
+    \end{equation}
+    \begin{equation}
+        v'(0)= 0 \quad \rightarrow \quad
+        \alpha_{1} = 0
+    \end{equation}
+\end{subequations}
+de modo que \(v(x)\) toma a seguinte forma: 
+\begin{equation}
+    v(x) = \alpha_{2} x^{2} + \alpha_{3} x^{3}
+\end{equation}
+Assim, a equação do PTV após inserção das funções aproximativas toma a seguinte forma
+\begin{equation}
+    W_{int} = \int\limits_{0}^{L} \left(- E I \left(\frac{\partial^{2}}{\partial x^{2}} \left(\alpha_{2} x^{2} + \alpha_{3} x^{3}\right)\right)^{2}\right)\, dx
+    + k \delta v{\left(L \right)} v{\left(L \right)} 
+\end{equation}
+\begin{equation}
+    W_{ext} =   \int\limits_{0}^{L} q \left(\alpha_{2} x^{2} + \alpha_{3} x^{3}\right)\, dx
+\end{equation}
+Escrevendo \(v(x)\) como uma combinação linear de forma \(\alpha_i\phi_i\), se tem 
+\begin{subequations}
+    \begin{equation}
+        \phi_0(x) = 0
+    \end{equation}
+    \begin{equation}
+        \phi_1(x) = 0
+    \end{equation}
+    \begin{equation}
+        \phi_2(x) = x^2
+    \end{equation}
+    \begin{equation}
+        \phi_3(x) = x^3
+    \end{equation}
+\end{subequations}
+Assim, a partir Equação \ref{eq:linear_sys}, obtém-se a matriz dos coeficientes \(\bm{K}\) e o vetor de
+forças como \(\bm{F}\):
+\begin{equation}
+    \bm{K} = 
+    \left[
+        \begin{matrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 4 E I L + L^{4} k & 6 E I L^{2} + L^{5} k\\
+        0 & 0 & 6 E I L^{2} + L^{5} k & 12 E I L^{3} + L^{6} k
+        \end{matrix}
+    \right]
+    \quad \text{e} \quad
+    \bm{F} = \left[\begin{matrix}0\\0\\\frac{L^{3} q}{3}\\\frac{L^{4} q}{4}\end{matrix}\right]
+\end{equation}
+que, resolvendo o sistema de equações lineares, se obtém 
+\begin{equation}
+    \bm{\alpha} = 
+    \left[
+        \begin{matrix}
+        0\\0\\\frac{L^{2} q \left(30 E I + L^{3} k\right)}{48 E I \left(3 E I + L^{3} k\right)}\\\frac{L q \left(- 12 E I - L^{3} k\right)}{48 E I \left(3 E I + L^{3} k\right)}
+        \end{matrix}
+    \right]
+\end{equation}
+E a função aproximativa \(v(x)\) fica dada por 
+\begin{equation}
+    v(x) = \frac{L q x^{2} \left(L \left(30 E I + L^{3} k\right) - x \left(12 E I + L^{3} k\right)\right)}{48 E I \left(3 E I + L^{3} k\right)}
+\end{equation}
+Adotando os valores indicados na Tabela \ref{tab:ex2}, são obtidos os gráficos de \(v(x)\)
+e \(M(x)\), indicados na Figura \ref{fig:resultado_ex2_cub}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/grafico_2_cubica.pdf}
+    \caption{Solução do exercício 2.}
+    \label{fig:resultado_ex2_cub}
+\end{figure}
+
+Finalmente, é de interesse avaliar a solução para casos limites da rigidez da mola, ou seja, 
+uma rigidez nula ou muito elevada, casos ilustrados nas Figuras 
+\ref{fig:resultado_ex2_a_cub} e \ref{fig:resultado_ex2_b_cub}. Para a mola com \(k\rightarrow 0\), o problema 
+converge para o caso de uma viga engastada e livre, enquanto para a mola com \(k\rightarrow\infty\), 
+o problema converge para a situação de uma viga engastada e apoiada. Ambas situações são corretamente capturadas 
+pelos gráficos da solução \(v(x)\), enquanto os gráficos de \(M(x)\), pelo fato da solução exata exigir um polinômio 
+de grau 4, capturarem apenas a média do momento fletor ao longo da viga.
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez nula.}
+        \includegraphics[width=\textwidth]{figs/grafico_2_cubica_rigideznula.pdf}
+        \label{fig:resultado_ex2_a_cub}
+    \end{subfigure}
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez elevada.}
+        \includegraphics[width=\textwidth]{figs/grafico_2_cubica_rigida.pdf}
+        \label{fig:resultado_ex2_b_cub}
+    \end{subfigure}
+    \caption{Comparação entre diferentes valores de rigidez}
+\end{figure}
+Aqui, compara-se a solução obtida à solução analítica do problema, dada por
+\begin{equation}
+    w(x)
+    = +\frac{q_0 x^4}{24EI}
+    - \frac{q_0 L x^3}{6EI}
+    + \frac{q_0 L^2 x^2}{4EI}
+    + \left(x^3 - 3Lx^2\right)\frac{q_0L^4}{48EI}\left(\frac{EI}{k} + \frac{L^3}{3}\right)^{-1}
+    \quad.
+    \label{eq:analytical_sol_2}
+\end{equation}
+na qual, para o valor de \(k\) apresentado na Tabela \ref{tab:ex2} com os valores limites de 
+\(k = 0\) e \(k \rightarrow \infty\) são obtidos os valores representados na Tabela \ref{tab:analytical_sol_2_vals}.
+\begin{table}[!h]
+    \centering
+    \caption{Comparação dos valores de deslocamento para diferentes rigidezes de mola.}
+    \label{tab:analytical_sol_2_vals}
+    \begin{tabular}{c|c|c|c}
+        \hline
+        \textbf{Posição (m)} & \textbf{k = 5.0$\times$10$^7$ N/m} & \textbf{k $\rightarrow\infty$} & \textbf{k = 0} \\
+        \hline
+        \(x = 0.0\) & \(0.0\) & \(0.0\) & \(0.0\) \\
+        \(x = 0.5\) & \(2.711 \times 10^{-5}\) & \(2.480 \times 10^{-5}\) & \(2.108 \times 10^{-4}\) \\
+        \(x = 1.0\) & \(7.407 \times 10^{-6}\) & \(0.0\) & \(5.953 \times 10^{-4}\) \\
+        \hline
+    \end{tabular}
+\end{table} 
+Percebe-se, avaliando os resultados que, para o caso no qual a mola tem rigidez nula, ou seja, é inexistente, os resultados 
+obtidos com a solução aproximada são iguais aos da solução analítica. Os resultados divergem, porém, ao considerar 
+a mola no sistema, seja esta com rigidez finita ou infinita. Tal observação leva a uma melhor avaliação da 
+Equação \ref{eq:analytical_sol_2}, que, sob consideração de \(k = 0\), pode ser desenvolvida como
+\begin{equation}
+    w(x) = \frac{q_0x^2}{24EI}\left(6L^2 - 4Lx + x^2\right)
+\end{equation}
+ou seja, na ausência da mola, a solução analítica é quadrática, motivo este o qual a solução aproximada de 
+ordem cúbica consegue recuperar os resultados analíticos apenas para esse caso.
+
+\subsubsection{Função aproximativa de 4\textsuperscript{a} ordem}
+
+Agora, assim como no problema anterior, adotando um polinômio de ordem superior, se tem
+\begin{equation}
+    \alpha_{0} + \alpha_{1} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4} + \alpha_{5} x^{5}
+\end{equation}
+\begin{equation}
+    \delta \alpha_{0} + \delta \alpha_{1} x + \delta \alpha_{2} x^{2} + \delta \alpha_{3} x^{3} + \delta \alpha_{4} x^{4} + \delta \alpha_{5} x^{5}
+\end{equation}
+Como indicado no item anterior, as condições de contorno essênciais a serem impostas às soluções aproximadas 
+são
+\begin{subequations}
+    \begin{equation}
+        v(0)= 0 \quad \rightarrow \quad \alpha_{0} = 0 
+    \end{equation}
+    \begin{equation}
+        v' =  \alpha_{1} + 2 \alpha_{2} x + 3 \alpha_{3} x^{2} + 4 \alpha_{4} x^{3} + 5 \alpha_{5} x^{4}
+    \end{equation}
+    \begin{equation}
+        v'(0)= 0 \quad \rightarrow \quad \alpha_{1} = 0
+    \end{equation}
+\end{subequations}
+de modo que, a solução aproximativa já com as condições de contorno toma a forma 
+\begin{equation}
+    v(x) = 
+    \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4}
+    \quad .
+\end{equation}
+Assim, o PTV com as soluções aproximadas é dado por:
+\begin{align}
+    W_{int} &= \int\limits_{0}^{L} \left(E I \left(\frac{\partial^{2}}{\partial x^{2}} \left(\alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4}\right)\right)^{2}\right)\, dx
+    k \delta v{\left(L \right)} v{\left(L \right)} 
+\end{align}
+e
+\begin{equation}
+    W_{ext} = \int\limits_{0}^{L} q \left(\alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4}\right)\, dx
+\end{equation}
+Agora, extraindo as bases do polinômio aproximativo a partir na forma \(\alpha_i\phi_i\),
+se tem
+\begin{subequations}
+\begin{equation}
+    \phi_0(x) = 0
+\end{equation}
+\begin{equation}
+    \phi_1(x) = 0
+\end{equation}
+\begin{equation}
+    \phi_2(x) = x^2
+\end{equation}
+\begin{equation}
+    \phi_3(x) = x^3
+\end{equation}
+\begin{equation}
+    \phi_4(x) = x^4
+\end{equation}
+\end{subequations}
+Basta então calcular \(\phi_i''(x)\) e avaliar as integrais e o termo de mola em \(x=L\)
+\begin{equation}
+K_{ij}
+=\int_{0}^{L} E I\,\phi_i''(x)\,\phi_j''(x)\,\mathrm{d}x
+ + 
+k\,\phi_i(L)\,\phi_j(L)
+\quad
+(i,j=2,3,4).
+\end{equation}
+Que, fazendo o uso da Equação \ref{eq:linear_sys}, obtém-se a matriz dos coeficientes 
+e o vetor de forças como: 
+\begin{equation}
+    \bm{K} = 
+    \left[
+    \begin{matrix}
+        1 & 0 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0 & 0\\
+        0 & 0 & 4 E I L + L^{4} k & 6 E I L^{2} + L^{5} k & 8 E I L^{3} + L^{6} k\\
+        0 & 0 & 6 E I L^{2} + L^{5} k & 12 E I L^{3} + L^{6} k & 18 E I L^{4} + L^{7} k\\
+        0 & 0 & 8 E I L^{3} + L^{6} k & 18 E I L^{4} + L^{7} k & \frac{144 E I L^{5}}{5} + L^{8} k
+    \end{matrix}
+    \right]
+    \text{,} \quad
+    \bm{F} =
+    \left[\begin{matrix}0\\0\\\frac{L^{3} q}{3}\\\frac{L^{4} q}{4}\\\frac{L^{5} q}{5}\end{matrix}\right]
+\end{equation}
+A solução do sistema linear apresentado na Equação \ref{eq:linear_sys} com a matriz \(\bm{K}\) e o vetor 
+\(\bm{F}\) é dada por:
+\begin{equation}
+    \bm{\alpha} =
+    \left[\begin{matrix}0\\0\\\frac{L^{2} q \left(12 E I + L^{3} k\right)}{16 E I \left(3 E I + L^{3} k\right)}\\\frac{L q \left(- 24 E I - 5 L^{3} k\right)}{48 E I \left(3 E I + L^{3} k\right)}\\\frac{q}{24 E I}\end{matrix}\right]
+\end{equation}
+de modo que, finalmente, se obtém a solução do problema como 
+\begin{equation}
+    v(x) =
+    \frac{q x^{2} \left(L \left(3 L \left(12 E I + L^{3} k\right) - x \left(24 E I + 5 L^{3} k\right)\right) + 2 x^{2} \left(3 E I + L^{3} k\right)\right)}{48 E I \left(3 E I + L^{3} k\right)}
+\end{equation}
+Agora, assim como nos exemplos anteriores, faz-se o uso de valores numéricos de forma a representar graficamente 
+a solução obtida. Substituindo os valores numéricos indicados na Tabela \ref{tab:ex2}, obtém-se a solução 
+do problema, indicada na Figura \ref{fig:resultado_ex2}.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/grafico_2.pdf}
+    \caption{Solução do exercício 1.}
+    \label{fig:resultado_ex2}
+\end{figure}
+Aqui, novamente se benefia em se comparar a solução obtida com a solução analítica do problema. A solução 
+analítica do problema é dada por 
+
+Considerando-se, assim como na solução anterior, valores limites de rigidez, ou seja, nula ou muito elevada, 
+são obtidas as soluções ilustradas nas Figuras 
+\ref{fig:resultado_ex2_a} e \ref{fig:resultado_ex2_b}
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez nula.}
+        \includegraphics[width=\textwidth]{figs/grafico_2_rigideznula.pdf}
+        \label{fig:resultado_ex2_a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez elevada.}
+        \includegraphics[width=\textwidth]{figs/grafico_2_rigida.pdf}
+        \label{fig:resultado_ex2_b}
+    \end{subfigure}
+    \caption{Comparação entre diferentes valores de rigidez}
+\end{figure}
+Aqui, uma vez construída a solução aproximada de 4 \textsuperscript{a} ordem, vale comparar os resultados 
+obtidos com esta com os resultados obtidos a partir da solução analítica, apresentados na Tabela 
+\ref{tab:analytical_sol_2_vals}. Pode-se observar que, como na presença da mola a solução do problema é de 
+quarta ordem, como esperado, a solução aproximativa também de quarta ordem consegue recuperar a solução exata.
+
+\subsection{Exercício 3}
+\begin{itemize}
+    \item \textbf{Obtenha duas soluções aproximadas para o deslocamento transversal da viga
+sob base elástica indicada na Figura \ref{fig:ex3}. Mostre que o caso 1) está contido na
+solução para k = 0.
+Obs: a mola é distribuída por unidade de comprimento.}
+\end{itemize}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figs/ex3.png}
+    \caption{Viga Bi-Apoiada sob mola distribuída, sujeita a carregamento distribuído.}
+    \label{fig:ex3}
+\end{figure}
+
+Novamente, inicia-se a análise do problema definindo as parcelas referêntes ao trabalho interno e externos. Similarmente 
+ao problema anterior, o trabalho interno terá uma parcela em decorrência da mola, porém em decorrência de 
+uma mola distribuída. Assim, realizando a integral do trabalho interno da barra juntamente com o da mola distribuída, ao longo 
+do comprimento da barra, se tem o trabalho interno dado por
+\begin{equation}
+    W_{int} = \int\limits_{0}^{L} \left(E I \frac{d^{2}}{d x^{2}} \delta v{\left(x \right)} \frac{d^{2}}{d x^{2}} v{\left(x \right)}\right)\, dx
+    + \int\limits_{0}^{L} \left( k_{d} \delta v{\left(x \right)} v{\left(x \right)}\right)\, dx
+    \quad .
+\end{equation}
+O trabalho externo será dado apenas pela integral da força distribuída ao longo do comprimento da barra, dado por
+\begin{equation}
+    W_{ext} =  \int\limits_{0}^{L} q \delta v{\left(x \right)}\, dx 
+\end{equation}
+Aqui novamente se repete os valores numéricos da Tabela\ref{tab:ex1} na Tabela \ref{tab:ex3}, apenas
+com a adição do valor da constante de mola distribuída \(k_d\). Estes serão ao final adotados para se
+realizar a plotagem do gráfico da função aproximativa v(x), assim como do momento fletor
+M (x) para ambas ordens aproximativas.
+
+
+\begin{table}[!h]
+    \centering
+    \caption{Dados do exercício 3.}
+    \label{tab:ex3}
+    \begin{tabular}{c|c|c|c|c}
+        \hline
+        \(L\) (m) & \(E\) (Pa) & \(I\) (m\(^4\)) & \(q\) (N/m) & \(k_d\) (N/m\(^2\)) \\
+        \hline
+        1.0 & \(210.0 \times 10^{9}\) & \(1.0 \times 10^{-6}\) & 1000 & \(5.0 \times 10^{7}\) \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Função aproximativa de 3.\textsuperscript{a} ordem.}
+Inicia-se a resolução do problema adotando-se funções polinômiais cúbicas para a aproxi-
+mação dos campos reais e virtuais, \(v(x)\) e \(\delta v(x)\), respectivamente.
+\begin{subequations}
+    \begin{equation}
+        \alpha_{0} + \alpha_{1} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}
+    \end{equation}
+    \begin{equation}
+        \delta \alpha_{0} + \delta \alpha_{1} x + \delta \alpha_{2} x^{2} + \delta \alpha_{3} x^{3}
+    \end{equation}
+\end{subequations}
+Para o problema em questão, as condições de contorno essênciais a serem respeitadas são
+as mesmas do problema 1, v(0) = 0 e v(L) = 0. Como já indicado anteriormente no texto, a 
+abordagem adotada é a de Galerkin, de modo que o campo virtual tem a mesma forma que o campo 
+real (homogênea), de modo que:
+\begin{subequations}
+    \begin{equation}
+        v(0) = 0 \quad \rightarrow \quad
+        \alpha_{0} = 0
+    \end{equation}
+    \begin{equation}
+        v(L)= 0 \quad \rightarrow \quad 
+        \alpha_{1} = - L^{2} \alpha_{3} x - L \alpha_{2} x 
+    \end{equation}
+\end{subequations}
+Assim, a função aproximativa \(v(x)\) se escreve 
+\begin{equation}
+    v(x) = - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}
+\end{equation}
+e o PTV, com as funções aproximativas toma a seguinte forma
+\begin{align}
+    W_{int} &= \int\limits_{0}^{L} \left(- E I \left(\frac{\partial^{2}}{\partial x^{2}} \left(- L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}\right)\right)^{2}\right)\, dx \nonumber\\
+    &\quad + \int\limits_{0}^{L} \left(k_{d} \left(- L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}\right)^{2}\right)\, dx 
+\end{align}
+e
+\begin{equation}
+    W_{ext} = \int\limits_{0}^{L} q \left(- L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3}\right)\, dx
+\end{equation}
+Extraindo dos polinômios aproximadores as funções base \(\phi_i\), se tem 
+\begin{subequations}
+    \begin{equation}
+        \phi_0(x) = 0
+    \end{equation}
+    \begin{equation}
+        \phi_1(x) = 0
+    \end{equation}
+    \begin{equation}
+        \phi_2(x) = x \left(- L + x\right)
+    \end{equation}
+    \begin{equation}
+        \phi_3(x) = x \left(- L^{2} + x^{2}\right)
+    \end{equation}
+\end{subequations}
+de forma que, a partir da Equação \ref{eq:linear_sys}, se obtém a matriz \(\bm{K}\) e o vetor de forças \(\bm{F}\)
+como
+\begin{equation}
+    \bm{K} = 
+    \left[
+        \begin{matrix}
+            1 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 4 E I L + \frac{L^{5} k_{d}}{30} & 6 E I L^{2} + \frac{L^{6} k_{d}}{20}\\
+            0 & 0 & 6 E I L^{2} + \frac{L^{6} k_{d}}{20} & 12 E I L^{3} + \frac{8 L^{7} k_{d}}{105}
+        \end{matrix}
+    \right]
+    \quad \text{e} \quad
+    \bm{F} = 
+    \left[
+        \begin{matrix}
+            0\\0\\- \frac{L^{3} q}{6}\\- \frac{L^{4} q}{4}
+        \end{matrix}
+    \right]
+\end{equation}
+A qual resulta em um sistema linear de equações para os coeficientes \(\alpha_i\) do polinômio aproximador.
+Resolvendo o sistema de equações lineares, obtém-se o vetor solução
+\begin{equation}
+    \bm{\alpha} = 
+    \left[\begin{matrix}0\\0\\- \frac{5 L^{2} q}{120 E I + L^{4} k_{d}}\\0\end{matrix}\right]
+\end{equation}
+de modo que a função aproximativa pode ser escrita como 
+\begin{equation}
+    v(x) = - \frac{5 L^{2} q x \left(- L + x\right)}{120 E I + L^{4} k_{d}}
+\end{equation}
+Finalmente, assim como nos exemplos anteriores, são adotados os valores numéricos 
+indicados Tabela \ref{tab:ex3}, para os quais a solução do problema é indicada na Figura \ref{fig:resultado_ex3_cub}. 
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/grafico_3_cubica.pdf}
+    \caption{Solução do exercício 3.}
+    \label{fig:resultado_ex3_cub}
+\end{figure}
+Aqui, não se busca comparar a solução obtida com a solução analítica do problema, visto que esta possui um 
+alto grau de dificuldade e não é correntemente apresentada na literatura. Porém, ainda pode-se avançar na exploração do 
+problema ao considerar os casos limites, ou seja, uma rigidez nula ou muito elevada. Intuitivamente, espera-se que, para 
+uma \(k_d = 0\), o caso de uma viga bi-apoiada seja recuperado e, para \(k_d \rightarrow\infty\) a viga não possua esforços 
+internos, visto que estes serão imediatamente transmitidos à base rígida. Ambo
+casos ilustrados nas Figuras \ref{fig:resultado_ex3_a} e \ref{fig:resultado_ex3_b}
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez nula.}
+        \includegraphics[width=\textwidth]{figs/grafico_3_cubica_rigideznula.pdf}
+        \label{fig:resultado_ex3_a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez elevada.}
+        \includegraphics[width=\textwidth]{figs/grafico_3_cubica_rigida.pdf}
+        \label{fig:resultado_ex3_b}
+    \end{subfigure}
+    \caption{Comparação entre diferentes valores de rigidez.}
+\end{figure}
+
+
+
+
+
+\subsubsection{Função aproximativa de 4.\textsuperscript{a} ordem.}
+
+Agora, são adotadas funções polinômiais de quarta ordem para a aproximação dos campos reais e virtuais, 
+\(v(x)\) e \(\delta v(x)\), respectivamente
+\begin{subequations}
+    \begin{equation}
+        \alpha_{0} + \alpha_{1} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4} 
+    \end{equation}
+    \begin{equation}
+        \delta \alpha_{0} + \delta \alpha_{1} x + \delta \alpha_{2} x^{2} + \delta \alpha_{3} x^{3} + \delta \alpha_{4} x^{4} 
+    \end{equation}
+\end{subequations}
+Como comentado na solução anterior, as condições de contorno essênciais consideradas 
+são v(0) = 0 e v(L) = 0. Como também já indicado anteriormente no texto,
+a abordagem adotada é a de Galerkin, de modo que o campo virtual tem a mesma forma
+que o campo real (homogênea), de modo que:
+\begin{subequations}
+    \begin{equation}
+        v(0)= 0 \quad \rightarrow \quad
+        \alpha_{0} = 0
+    \end{equation}
+    \begin{equation}
+        v(L)= 0 \quad \rightarrow \quad
+        \alpha_{1} = - L^{3} \alpha_{4}  - L^{2} \alpha_{3}  - L \alpha_{2}
+    \end{equation}
+\end{subequations}
+De modo que, o polinômio aproximativo \(v(x)\) já com as condições de contorno 
+de Dirichlet se escreve como 
+\begin{equation}
+    v(x) = 
+    - L^{3} \alpha_{4} x - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4}
+    \quad ,
+\end{equation}
+assim, a relação  do PTV se escreve, após a substituição como
+\begin{align}
+    W_{int} &= \int\limits_{0}^{L} \left(- E I \left(\frac{\partial^{2}}{\partial x^{2}} \left(- L^{3} \alpha_{4} x - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4}\right)\right)^{2}\right)\, dx \nonumber\\
+    &\quad + \int\limits_{0}^{L} \left(k_{d} \left(- L^{3} \alpha_{4} x - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4}\right)^{2}\right)\, dx 
+\end{align}
+e
+\begin{equation}
+    W_{ext} = \int\limits_{0}^{L} q \left(- L^{3} \alpha_{4} x - L^{2} \alpha_{3} x - L \alpha_{2} x + \alpha_{2} x^{2} + \alpha_{3} x^{3} + \alpha_{4} x^{4}\right)\, dx
+\end{equation}
+Dado que a função aproximativa \(v(x)\) é escrita como uma combinação \(\alpha_i \phi_i(x)\), 
+se tem que 
+\begin{subequations}
+\begin{equation}
+    \phi_0(x) = 0
+\end{equation}
+\begin{equation}
+    \phi_1(x) = 0
+\end{equation}
+\begin{equation}
+    \phi_2(x) = x \left(- L + x\right)
+\end{equation}
+\begin{equation}
+    \phi_3(x) = x \left(- L^{2} + x^{2}\right)
+\end{equation}
+\begin{equation}
+    \phi_4(x) =  x \left(- L^{3} + x^{3}\right)
+\end{equation}
+\end{subequations}
+Montando a matriz \(\bm{K}\) dos coeficientes \(\alpha_i\) e o vetor de forças \(\bm{F}\), 
+como apresentado na Equação \ref{eq:linear_sys}, se tem 
+\begin{equation}
+    \bm{K} = 
+    \left[
+        \begin{matrix}
+            1 & 0 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0 & 0\\
+            0 & 0 & 4 E I L + \frac{L^{5} k_{d}}{30} & 6 E I L^{2} + \frac{L^{6} k_{d}}{20} & 8 E I L^{3} + \frac{5 L^{7} k_{d}}{84}\\
+            0 & 0 & 6 E I L^{2} + \frac{L^{6} k_{d}}{20} & 12 E I L^{3} + \frac{8 L^{7} k_{d}}{105} & 18 E I L^{4} + \frac{11 L^{8} k_{d}}{120}\\
+            0 & 0 & 8 E I L^{3} + \frac{5 L^{7} k_{d}}{84} & 18 E I L^{4} + \frac{11 L^{8} k_{d}}{120} & \frac{144 E I L^{5}}{5} + \frac{L^{9} k_{d}}{9}
+        \end{matrix}
+    \right]
+    \quad \text{e} \quad 
+    \bm{F} = 
+    \left[
+        \begin{matrix}
+            0\\0\\- \frac{L^{3} q}{6}\\- \frac{L^{4} q}{4}\\- \frac{3 L^{5} q}{10}
+        \end{matrix}
+    \right]
+\end{equation}
+Resolvendo o sistema linear indicado pela Equação \ref{eq:linear_sys}, obtém-se a solução dada por 
+\begin{equation}
+    \bm{\alpha} = 
+    \left[\begin{matrix}0\\0\\- \frac{56 L^{6} k_{d} q}{1693440 E^{2} I^{2} + 17472 E I L^{4} k_{d} + L^{8} k_{d}^{2}}\\\frac{84 L q \left(- 1680 E I + L^{4} k_{d}\right)}{1693440 E^{2} I^{2} + 17472 E I L^{4} k_{d} + L^{8} k_{d}^{2}}\\\frac{42 q \left(1680 E I - L^{4} k_{d}\right)}{1693440 E^{2} I^{2} + 17472 E I L^{4} k_{d} + L^{8} k_{d}^{2}}\end{matrix}\right]
+\end{equation}
+Finalmente, o polinômio aproximativo pode ser reconstruído, e \(v(x)\) é dada por 
+\begin{equation}
+    v(x) = 
+    \scalebox{1.3}{$
+    \frac{14 q x \left(4 L^{6} k_{d} \left(L - x\right) + 6 L \left(L^{2} - x^{2}\right) \left(1680 E I - L^{4} k_{d}\right) - 3 \left(L^{3} - x^{3}\right) \left(1680 E I - L^{4} k_{d}\right)\right)}{1693440 E^{2} I^{2} + 17472 E I L^{4} k_{d} + L^{8} k_{d}^{2}}
+    $}
+\end{equation}
+Dada a solução aproximativa de quarta ordem, é interessante comparar esta com a solução da barra simplesmente bi-apoiada, 
+ou seja, a barra para \(k_d = 0\). A equação anteriormente obtida, realizando a substituição de \(k_d = 0\) 
+toma a forma
+\begin{equation}
+    v(x) =
+    \frac{q x \left(L^{3} - 2 L x^{2} + x^{3}\right)}{24 E I}
+\end{equation}
+ou seja, percebe-se que, para \(k_d = 0\), a solução da barra bi-apoiada é, de fato, recuperada.
+
+
+Agora, adotando os valores indicados na Tabela \ref{tab:ex3}, obtém-se o resultado
+ilustrado na Figura \ref{fig:resultado_ex3}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/grafico_3.pdf}
+    \caption{Solução do exercício 3 para aproximação de quarta ordem.}
+    \label{fig:resultado_ex3}
+\end{figure}
+
+Por fim, pode-se considerar casos limites, ou seja, uma rigidez nula ou muito elevada. Percebe-se que, para uma rigidez nula, 
+a situação da Figura \ref{fig:ex1} deve ser recuperada, enquanto, para \(k_d \rightarrow \infty\), os esforços internos 
+da viga devem ser nulos, visto que os carregamentos externos serão imediatamente transferidos à base rígida. Tais situações 
+limites são ilustradas nas Figuras \ref{fig:ex3a_comp} e \ref{fig:ex3b_comp}, respectivamente.
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez nula.}
+        \includegraphics[width=\textwidth]{figs/grafico_3_rigideznula.pdf}
+        \label{fig:ex3a_comp}
+    \end{subfigure}
+    \begin{subfigure}{1.0\textwidth}
+        \centering
+        \caption{Solução com rigidez elevada}
+        \includegraphics[width=\textwidth]{figs/grafico_3_rigida.pdf}
+        \label{fig:ex3b_comp}
+    \end{subfigure}
+    \caption{Comparação entre diferentes valores de rigidez.}
+    \label{fig:ex3_comp}
+\end{figure}
+Percebe-se através dos gráficos que o polinômio de quarta ordem consegue recuperar a resposta analítica da estrutura.
+
+
+\section{Conclusão}
+O presente trabalho teve como objetivo apresentar o formalismo matemático do Princípio dos Trabalhos Virtuais que define que um corpo está equilibrado se a igualdade 
+entre trabalhos externos e internos for verificada. Através do princípio, foi possível obter o problema diferencial em sua forma integral (ou forma fraca) e, a partir desta, 
+naturalmente buscar soluções aproximadas para o problema.
+
+Através da resolução dos exercícios propostos, foi possível observar a importância do formalismo matemático na representação de problemas de Mecânica dos Sólidos,
+bem como a importância do formalismo tensorial na representação de tensões e deformações em um corpo deformável. A familiarização com o formalismo matemático permite ao pesquisador melhor compreender as 
+teorias e modelos que envolvem a Mecânica dos Sólidos ao longo de sua formação como pesquisador.
+
+
+
+\newpage
+
+
+
+% ---
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+% ---
+\phantompart
+
+
+
+
+
+% ---
+% Conclusão (opcional)
+% ---
+%\chapter*[Considerações finais]{Considerações finais}
+%\addcontentsline{toc}{chapter}{Considerações finais}
+
+
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+
+
+
+
+% ----------------------------------------------------------
+% Referências bibliográficas (OBRIGATÓRIO)
+% ----------------------------------------------------------
+% \bibliography{projeto}
+\newpage
+\printbibliography
+
+
+
+
+
+% ----------------------------------------------------------
+% Glossário (opicional)
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+
+
+
+% ----------------------------------------------------------
+% Apêndices (opicional)
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+%\begin{apendicesenv}
+
+% Imprime uma página indicando o início dos apêndices
+%\partapendices
+
+% ----------------------------------------------------------
+%\chapter{Apêndice 1}
+% ----------------------------------------------------------
+
+%\end{apendicesenv}
+% ---
+
+
+
+% ----------------------------------------------------------
+% Anexos (opcional)
+% ----------------------------------------------------------
+
+% ---
+% Inicia os anexos
+% ---
+%\begin{anexosenv}
+
+% Imprime uma página indicando o início dos anexos
+%\partanexos
+
+% ---
+%\chapter{Anexo 1}
+% ---
+
+%\end{anexosenv}
+
+
+
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO (opcional)
+%---------------------------------------------------------------------
+
+%\phantompart
+
+%\printindex
+
+\end{document}
